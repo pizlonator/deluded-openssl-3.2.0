@@ -120,7 +120,7 @@ void ossl_ctx_global_properties_free(void *vglobp)
 
 void *ossl_ctx_global_properties_new(OSSL_LIB_CTX *ctx)
 {
-    return OPENSSL_zalloc(sizeof(OSSL_GLOBAL_PROPERTIES));
+    return zalloc_zero(OSSL_GLOBAL_PROPERTIES, 1);
 }
 
 OSSL_PROPERTY_LIST **ossl_ctx_global_properties(OSSL_LIB_CTX *libctx,
@@ -241,7 +241,7 @@ OSSL_METHOD_STORE *ossl_method_store_new(OSSL_LIB_CTX *ctx)
 {
     OSSL_METHOD_STORE *res;
 
-    res = OPENSSL_zalloc(sizeof(*res));
+    res = zalloc_zero(typeof(*res), 1);
     if (res != NULL) {
         res->ctx = ctx;
         if ((res->algs = ossl_sa_ALGORITHM_new()) == NULL
@@ -305,7 +305,7 @@ int ossl_method_store_add(OSSL_METHOD_STORE *store, const OSSL_PROVIDER *prov,
         return 0;
 
     /* Create new entry */
-    impl = OPENSSL_malloc(sizeof(*impl));
+    impl = zalloc(typeof(*impl), 1);
     if (impl == NULL)
         return 0;
     impl->method.method = method;
@@ -336,7 +336,7 @@ int ossl_method_store_add(OSSL_METHOD_STORE *store, const OSSL_PROVIDER *prov,
 
     alg = ossl_method_store_retrieve(store, nid);
     if (alg == NULL) {
-        if ((alg = OPENSSL_zalloc(sizeof(*alg))) == NULL
+        if ((alg = zalloc_zero(typeof(*alg), 1)) == NULL
                 || (alg->impls = sk_IMPLEMENTATION_new_null()) == NULL
                 || (alg->cache = lh_QUERY_new(&query_hash, &query_cmp)) == NULL)
             goto err;
@@ -732,7 +732,7 @@ int ossl_method_store_cache_set(OSSL_METHOD_STORE *store, OSSL_PROVIDER *prov,
         }
         goto end;
     }
-    p = OPENSSL_malloc(sizeof(*p) + (len = strlen(prop_query)));
+    p = zalloc_flex_zero(QUERY, body, (len = strlen(prop_query)) + 1);
     if (p != NULL) {
         p->query = p->body;
         p->provider = prov;

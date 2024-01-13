@@ -11,6 +11,7 @@
 # define OSSL_INTERNAL_COMMON_H
 # pragma once
 
+# include <stdfil.h>
 # include <stdlib.h>
 # include <string.h>
 # include "openssl/configuration.h"

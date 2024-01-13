@@ -35,21 +35,6 @@ static ossl_ssize_t zlib_stateful_expand_block(COMP_CTX *ctx, unsigned char *out
                                                size_t olen, unsigned char *in,
                                                size_t ilen);
 
-/* memory allocations functions for zlib initialisation */
-static void *zlib_zalloc(void *opaque, unsigned int no, unsigned int size)
-{
-    void *p;
-
-    p = OPENSSL_zalloc(no * size);
-    return p;
-}
-
-static void zlib_zfree(void *opaque, void *address)
-{
-    OPENSSL_free(address);
-}
-
-
 static COMP_METHOD zlib_stateful_method = {
     NID_zlib_compression,
     LN_zlib_compression,
@@ -118,23 +103,17 @@ struct zlib_state {
 static int zlib_stateful_init(COMP_CTX *ctx)
 {
     int err;
-    struct zlib_state *state = OPENSSL_zalloc(sizeof(*state));
+    struct zlib_state *state = zalloc_zero(struct zlib_state, 1);
 
     if (state == NULL)
         goto err;
 
-    state->istream.zalloc = zlib_zalloc;
-    state->istream.zfree = zlib_zfree;
-    state->istream.opaque = Z_NULL;
     state->istream.next_in = Z_NULL;
     state->istream.next_out = Z_NULL;
     err = inflateInit_(&state->istream, ZLIB_VERSION, sizeof(z_stream));
     if (err != Z_OK)
         goto err;
 
-    state->ostream.zalloc = zlib_zalloc;
-    state->ostream.zfree = zlib_zfree;
-    state->ostream.opaque = Z_NULL;
     state->ostream.next_in = Z_NULL;
     state->ostream.next_out = Z_NULL;
     err = deflateInit_(&state->ostream, Z_DEFAULT_COMPRESSION,
@@ -402,15 +381,11 @@ static int bio_zlib_new(BIO *bi)
         return 0;
     }
 # endif
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc(BIO_ZLIB_CTX, 1);
     if (ctx == NULL)
         return 0;
     ctx->ibufsize = ZLIB_DEFAULT_BUFSIZE;
     ctx->obufsize = ZLIB_DEFAULT_BUFSIZE;
-    ctx->zin.zalloc = Z_NULL;
-    ctx->zin.zfree = Z_NULL;
-    ctx->zout.zalloc = Z_NULL;
-    ctx->zout.zfree = Z_NULL;
     ctx->comp_level = Z_DEFAULT_COMPRESSION;
     BIO_set_init(bi, 1);
     BIO_set_data(bi, ctx);

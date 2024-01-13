@@ -29,7 +29,7 @@ typedef struct {
 
 void *ossl_prov_conf_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    PROVIDER_CONF_GLOBAL *pcgbl = OPENSSL_zalloc(sizeof(*pcgbl));
+    PROVIDER_CONF_GLOBAL *pcgbl = zalloc_zero(typeof(*pcgbl), 1);
 
     if (pcgbl == NULL)
         return NULL;
