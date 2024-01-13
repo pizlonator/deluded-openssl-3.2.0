@@ -16,6 +16,7 @@
 #include "crypto/ctype.h"
 #include "crypto/lhash.h"
 #include "lhash_local.h"
+#include <stdfil.h>
 
 /*
  * A hashing implementation that appears to be based on the linear hashing
@@ -48,9 +49,9 @@ OPENSSL_LHASH *OPENSSL_LH_new(OPENSSL_LH_HASHFUNC h, OPENSSL_LH_COMPFUNC c)
 {
     OPENSSL_LHASH *ret;
 
-    if ((ret = OPENSSL_zalloc(sizeof(*ret))) == NULL)
+    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
         return NULL;
-    if ((ret->b = OPENSSL_zalloc(sizeof(*ret->b) * MIN_NODES)) == NULL)
+    if ((ret->b = zalloc_zero(typeof(*ret->b), MIN_NODES)) == NULL)
         goto err;
     ret->comp = ((c == NULL) ? (OPENSSL_LH_COMPFUNC)strcmp : c);
     ret->hash = ((h == NULL) ? (OPENSSL_LH_HASHFUNC)OPENSSL_LH_strhash : h);
@@ -111,7 +112,7 @@ void *OPENSSL_LH_insert(OPENSSL_LHASH *lh, void *data)
     rn = getrn(lh, data, &hash);
 
     if (*rn == NULL) {
-        if ((nn = OPENSSL_malloc(sizeof(*nn))) == NULL) {
+        if ((nn = zalloc(typeof(*nn), 1)) == NULL) {
             lh->error++;
             return NULL;
         }
@@ -215,7 +216,7 @@ static int expand(OPENSSL_LHASH *lh)
     pmax = lh->pmax;
     if (p + 1 >= pmax) {
         j = nni * 2;
-        n = OPENSSL_realloc(lh->b, sizeof(OPENSSL_LH_NODE *) * j);
+        n = zrealloc(lh->b, OPENSSL_LH_NODE *, j);
         if (n == NULL) {
             lh->error++;
             return 0;
@@ -255,8 +256,7 @@ static void contract(OPENSSL_LHASH *lh)
     np = lh->b[lh->p + lh->pmax - 1];
     lh->b[lh->p + lh->pmax - 1] = NULL; /* 24/07-92 - eay - weird but :-( */
     if (lh->p == 0) {
-        n = OPENSSL_realloc(lh->b,
-                            (unsigned int)(sizeof(OPENSSL_LH_NODE *) * lh->pmax));
+        n = zrealloc(lh->b, OPENSSL_LH_NODE *, lh->pmax);
         if (n == NULL) {
             /* fputs("realloc error in lhash", stderr); */
             lh->error++;

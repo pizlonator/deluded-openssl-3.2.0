@@ -254,7 +254,7 @@ static void infopair_free(INFOPAIR *pair)
 
 static INFOPAIR *infopair_copy(const INFOPAIR *src)
 {
-    INFOPAIR *dest = OPENSSL_zalloc(sizeof(*dest));
+    INFOPAIR *dest = zalloc_zero(typeof(*dest), 1);
 
     if (dest == NULL)
         return NULL;
@@ -306,7 +306,7 @@ void ossl_provider_store_free(void *vstore)
 
 void *ossl_provider_store_new(OSSL_LIB_CTX *ctx)
 {
-    struct provider_store_st *store = OPENSSL_zalloc(sizeof(*store));
+    struct provider_store_st *store = zalloc_zero(typeof(*store), 1);
 
     if (store == NULL
         || (store->providers = sk_OSSL_PROVIDER_new(ossl_provider_cmp)) == NULL
@@ -369,8 +369,7 @@ int ossl_provider_info_add_to_store(OSSL_LIB_CTX *libctx,
     if (!CRYPTO_THREAD_write_lock(store->lock))
         return 0;
     if (store->provinfosz == 0) {
-        store->provinfo = OPENSSL_zalloc(sizeof(*store->provinfo)
-                                         * BUILTINS_BLOCK_SIZE);
+        store->provinfo = zalloc_zero(typeof(*store->provinfo), BUILTINS_BLOCK_SIZE);
         if (store->provinfo == NULL)
             goto err;
         store->provinfosz = BUILTINS_BLOCK_SIZE;
@@ -378,8 +377,8 @@ int ossl_provider_info_add_to_store(OSSL_LIB_CTX *libctx,
         OSSL_PROVIDER_INFO *tmpbuiltins;
         size_t newsz = store->provinfosz + BUILTINS_BLOCK_SIZE;
 
-        tmpbuiltins = OPENSSL_realloc(store->provinfo,
-                                      sizeof(*store->provinfo) * newsz);
+        tmpbuiltins = zrealloc(store->provinfo,
+                               typeof(*store->provinfo), newsz);
         if (tmpbuiltins == NULL)
             goto err;
         store->provinfo = tmpbuiltins;
@@ -440,7 +439,7 @@ static OSSL_PROVIDER *provider_new(const char *name,
 {
     OSSL_PROVIDER *prov = NULL;
 
-    if ((prov = OPENSSL_zalloc(sizeof(*prov))) == NULL)
+    if ((prov = zalloc_zero(typeof(*prov), 1)) == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&prov->refcnt, 1)) {
         OPENSSL_free(prov);
@@ -773,7 +772,7 @@ static int infopair_add(STACK_OF(INFOPAIR) **infopairsk, const char *name,
 {
     INFOPAIR *pair = NULL;
 
-    if ((pair = OPENSSL_zalloc(sizeof(*pair))) == NULL
+    if ((pair = zalloc_zero(typeof(*pair), 1)) == NULL
         || (pair->name = OPENSSL_strdup(name)) == NULL
         || (pair->value = OPENSSL_strdup(value)) == NULL)
         goto err;
@@ -1034,7 +1033,7 @@ static int provider_init(OSSL_PROVIDER *prov)
 
         /* Allocate one extra item for the "library" name */
         prov->error_strings =
-            OPENSSL_zalloc(sizeof(ERR_STRING_DATA) * (cnt + 1));
+            zalloc_zero(typeof(ERR_STRING_DATA), (cnt + 1));
         if (prov->error_strings == NULL)
             goto end;
 
@@ -1683,8 +1682,8 @@ int ossl_provider_set_operation_bit(OSSL_PROVIDER *provider, size_t bitnum)
     if (!CRYPTO_THREAD_write_lock(provider->opbits_lock))
         return 0;
     if (provider->operation_bits_sz <= byte) {
-        unsigned char *tmp = OPENSSL_realloc(provider->operation_bits,
-                                             byte + 1);
+        unsigned char *tmp = zrealloc(provider->operation_bits, unsigned char,
+                                      byte + 1);
 
         if (tmp == NULL) {
             CRYPTO_THREAD_unlock(provider->opbits_lock);
@@ -1790,7 +1789,7 @@ static int ossl_provider_register_child_cb(const OSSL_CORE_HANDLE *handle,
     if ((store = get_provider_store(libctx)) == NULL)
         return 0;
 
-    child_cb = OPENSSL_malloc(sizeof(*child_cb));
+    child_cb = zalloc(typeof(*child_cb), 1);
     if (child_cb == NULL)
         return 0;
     child_cb->prov = thisprov;

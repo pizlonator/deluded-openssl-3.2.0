@@ -48,7 +48,7 @@ OPENSSL_STACK *OPENSSL_sk_dup(const OPENSSL_STACK *sk)
 {
     OPENSSL_STACK *ret;
 
-    if ((ret = OPENSSL_malloc(sizeof(*ret))) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         goto err;
 
     if (sk == NULL) {
@@ -68,7 +68,7 @@ OPENSSL_STACK *OPENSSL_sk_dup(const OPENSSL_STACK *sk)
     }
 
     /* duplicate |sk->data| content */
-    ret->data = OPENSSL_malloc(sizeof(*ret->data) * sk->num_alloc);
+    ret->data = zalloc(typeof(*ret->data), sk->num_alloc);
     if (ret->data == NULL)
         goto err;
     memcpy(ret->data, sk->data, sizeof(void *) * sk->num);
@@ -86,7 +86,7 @@ OPENSSL_STACK *OPENSSL_sk_deep_copy(const OPENSSL_STACK *sk,
     OPENSSL_STACK *ret;
     int i;
 
-    if ((ret = OPENSSL_malloc(sizeof(*ret))) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         goto err;
 
     if (sk == NULL) {
@@ -106,7 +106,7 @@ OPENSSL_STACK *OPENSSL_sk_deep_copy(const OPENSSL_STACK *sk,
     }
 
     ret->num_alloc = sk->num > min_nodes ? sk->num : min_nodes;
-    ret->data = OPENSSL_zalloc(sizeof(*ret->data) * ret->num_alloc);
+    ret->data = zalloc_zero(typeof(*ret->data), ret->num_alloc);
     if (ret->data == NULL)
         goto err;
 
@@ -196,7 +196,7 @@ static int sk_reserve(OPENSSL_STACK *st, int n, int exact)
          * At this point, |st->num_alloc| and |st->num| are 0;
          * so |num_alloc| value is |n| or |min_nodes| if greater than |n|.
          */
-        if ((st->data = OPENSSL_zalloc(sizeof(void *) * num_alloc)) == NULL)
+        if ((st->data = zalloc_zero(const void *, num_alloc)) == NULL)
             return 0;
         st->num_alloc = num_alloc;
         return 1;
@@ -214,7 +214,7 @@ static int sk_reserve(OPENSSL_STACK *st, int n, int exact)
         return 1;
     }
 
-    tmpdata = OPENSSL_realloc((void *)st->data, sizeof(void *) * num_alloc);
+    tmpdata = zrealloc((void *)st->data, const void *, num_alloc);
     if (tmpdata == NULL)
         return 0;
 
@@ -225,7 +225,7 @@ static int sk_reserve(OPENSSL_STACK *st, int n, int exact)
 
 OPENSSL_STACK *OPENSSL_sk_new_reserve(OPENSSL_sk_compfunc c, int n)
 {
-    OPENSSL_STACK *st = OPENSSL_zalloc(sizeof(OPENSSL_STACK));
+    OPENSSL_STACK *st = zalloc_zero(typeof(OPENSSL_STACK), 1);
 
     if (st == NULL)
         return NULL;
