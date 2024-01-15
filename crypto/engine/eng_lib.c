@@ -33,7 +33,7 @@ ENGINE *ENGINE_new(void)
         ERR_raise(ERR_LIB_ENGINE, ERR_R_CRYPTO_LIB);
         return 0;
     }
-    if ((ret = OPENSSL_zalloc(sizeof(*ret))) == NULL)
+    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&ret->struct_ref, 1)) {
         OPENSSL_free(ret);
@@ -129,7 +129,7 @@ static ENGINE_CLEANUP_ITEM *int_cleanup_item(ENGINE_CLEANUP_CB *cb)
 {
     ENGINE_CLEANUP_ITEM *item;
 
-    if ((item = OPENSSL_malloc(sizeof(*item))) == NULL)
+    if ((item = zalloc(typeof(*item), 1)) == NULL)
         return NULL;
     item->cb = cb;
     return item;
