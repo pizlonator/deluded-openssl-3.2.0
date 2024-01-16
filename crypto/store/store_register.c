@@ -14,6 +14,7 @@
 #include <openssl/err.h>
 #include <openssl/lhash.h>
 #include "store_local.h"
+#include <stdfil.h>
 
 static CRYPTO_RWLOCK *registry_lock;
 static CRYPTO_ONCE registry_init = CRYPTO_ONCE_STATIC_INIT;
@@ -43,7 +44,7 @@ OSSL_STORE_LOADER *OSSL_STORE_LOADER_new(ENGINE *e, const char *scheme)
         return NULL;
     }
 
-    if ((res = OPENSSL_zalloc(sizeof(*res))) == NULL)
+    if ((res = zalloc_zero(typeof(*res), 1)) == NULL)
         return NULL;
 
     res->engine = e;
