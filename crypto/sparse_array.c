@@ -11,6 +11,7 @@
 #include <openssl/crypto.h>
 #include <openssl/bn.h>
 #include "crypto/sparse_array.h"
+#include <stdfil.h>
 
 /*
  * How many bits are used to index each level in the tree structure?
@@ -57,7 +58,7 @@ struct sparse_array_st {
 
 OPENSSL_SA *ossl_sa_new(void)
 {
-    OPENSSL_SA *res = OPENSSL_zalloc(sizeof(*res));
+    OPENSSL_SA *res = zalloc_zero(typeof(*res), 1);
 
     return res;
 }
@@ -173,7 +174,7 @@ void *ossl_sa_get(const OPENSSL_SA *sa, ossl_uintmax_t n)
 
 static ossl_inline void **alloc_node(void)
 {
-    return OPENSSL_zalloc(SA_BLOCK_MAX * sizeof(void *));
+    return zalloc_zero(void*, SA_BLOCK_MAX);
 }
 
 int ossl_sa_set(OPENSSL_SA *sa, ossl_uintmax_t posn, void *val)
