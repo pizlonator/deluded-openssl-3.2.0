@@ -717,7 +717,7 @@ int OPENSSL_atexit(void (*handler)(void))
     }
 #endif
 
-    if ((newhand = OPENSSL_malloc(sizeof(*newhand))) == NULL)
+    if ((newhand = zalloc(typeof(*newhand), 1)) == NULL)
         return 0;
 
     newhand->handler = handler;
