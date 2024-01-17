@@ -18,6 +18,7 @@
 #endif
 #include "crypto/ecx.h"
 #include "ecx_backend.h"
+#include <stdfil.h>
 
 /*
  * The intention with the "backend" source file is to offer backend support

@@ -13,6 +13,7 @@
 #include <openssl/err.h>
 
 #include <stdio.h>
+#include <stdfil.h>
 
 /* Experimental NDEF ASN1 BIO support routines */
 

@@ -125,12 +125,12 @@ int CRYPTO_secure_malloc_initialized(void)
 
 void *CRYPTO_secure_malloc(size_t num, const char *file, int line)
 {
-    return zhard_alloc(num);
+    return zhard_alloc(char, num);
 }
 
 void *CRYPTO_secure_zalloc(size_t num, const char *file, int line)
 {
-    return zhard_alloc(num);
+    return zhard_alloc(char, num);
 }
 
 void CRYPTO_secure_free(void *ptr, const char *file, int line)

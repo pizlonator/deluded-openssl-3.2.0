@@ -22,6 +22,7 @@
 
 #include "crypto/async.h"
 #include <openssl/crypto.h>
+#include <stdfil.h>
 
 typedef struct async_ctx_st async_ctx;
 typedef struct async_pool_st async_pool;

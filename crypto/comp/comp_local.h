@@ -7,6 +7,8 @@
  * https://www.openssl.org/source/license.html
  */
 
+#include <stdfil.h>
+
 struct comp_method_st {
     int type;                   /* NID for compression library */
     const char *name;           /* A text string to identify the library */

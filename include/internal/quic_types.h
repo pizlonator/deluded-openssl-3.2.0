@@ -14,6 +14,7 @@
 # include <internal/ssl.h>
 # include <assert.h>
 # include <string.h>
+#include <stdfil.h>
 
 # ifndef OPENSSL_NO_QUIC
 

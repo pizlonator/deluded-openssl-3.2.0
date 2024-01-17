@@ -619,7 +619,7 @@ static int drbg_ctr_new(PROV_DRBG *drbg)
 {
     PROV_DRBG_CTR *ctr;
 
-    ctr = OPENSSL_secure_zalloc(sizeof(*ctr));
+    ctr = zhard_alloc(typeof(*ctr), 1);
     if (ctr == NULL)
         return 0;
 
