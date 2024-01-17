@@ -105,7 +105,7 @@ static void *dsa_newctx(void *provctx, const char *propq)
     if (!ossl_prov_is_running())
         return NULL;
 
-    pdsactx = OPENSSL_zalloc(sizeof(PROV_DSA_CTX));
+    pdsactx = zalloc_zero(PROV_DSA_CTX, 1);
     if (pdsactx == NULL)
         return NULL;
 

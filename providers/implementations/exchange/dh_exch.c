@@ -85,7 +85,7 @@ static void *dh_newctx(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    pdhctx = OPENSSL_zalloc(sizeof(PROV_DH_CTX));
+    pdhctx = zalloc_zero(PROV_DH_CTX, 1);
     if (pdhctx == NULL)
         return NULL;
     pdhctx->libctx = PROV_LIBCTX_OF(provctx);

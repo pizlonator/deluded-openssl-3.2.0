@@ -126,7 +126,7 @@ static unsigned char conv_ascii2bin(unsigned char a, const unsigned char *table)
 
 EVP_ENCODE_CTX *EVP_ENCODE_CTX_new(void)
 {
-    return OPENSSL_zalloc(sizeof(EVP_ENCODE_CTX));
+    return zalloc_zero(EVP_ENCODE_CTX, 1);
 }
 
 void EVP_ENCODE_CTX_free(EVP_ENCODE_CTX *ctx)

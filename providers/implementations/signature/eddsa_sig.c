@@ -151,7 +151,7 @@ static void *eddsa_newctx(void *provctx, const char *propq_unused)
     if (!ossl_prov_is_running())
         return NULL;
 
-    peddsactx = OPENSSL_zalloc(sizeof(PROV_EDDSA_CTX));
+    peddsactx = zalloc_zero(PROV_EDDSA_CTX, 1);
     if (peddsactx == NULL)
         return NULL;
 

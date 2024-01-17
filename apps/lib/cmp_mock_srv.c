@@ -49,7 +49,7 @@ static void mock_srv_ctx_free(mock_srv_ctx *ctx)
 
 static mock_srv_ctx *mock_srv_ctx_new(void)
 {
-    mock_srv_ctx *ctx = OPENSSL_zalloc(sizeof(mock_srv_ctx));
+    mock_srv_ctx *ctx = zalloc_zero(mock_srv_ctx, 1);
 
     if (ctx == NULL)
         goto err;

@@ -83,7 +83,7 @@ static int rsakem_opname2id(const char *name)
 
 static void *rsakem_newctx(void *provctx)
 {
-    PROV_RSA_CTX *prsactx =  OPENSSL_zalloc(sizeof(PROV_RSA_CTX));
+    PROV_RSA_CTX *prsactx =  zalloc_zero(PROV_RSA_CTX, 1);
 
     if (prsactx == NULL)
         return NULL;

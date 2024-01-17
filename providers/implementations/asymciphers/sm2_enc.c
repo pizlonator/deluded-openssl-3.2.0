@@ -47,7 +47,7 @@ typedef struct {
 
 static void *sm2_newctx(void *provctx)
 {
-    PROV_SM2_CTX *psm2ctx =  OPENSSL_zalloc(sizeof(PROV_SM2_CTX));
+    PROV_SM2_CTX *psm2ctx =  zalloc_zero(PROV_SM2_CTX, 1);
 
     if (psm2ctx == NULL)
         return NULL;

@@ -129,7 +129,7 @@ EVP_MD_CTX *evp_md_ctx_new_ex(EVP_PKEY *pkey, const ASN1_OCTET_STRING *id,
 
 EVP_MD_CTX *EVP_MD_CTX_new(void)
 {
-    return OPENSSL_zalloc(sizeof(EVP_MD_CTX));
+    return zalloc_zero(EVP_MD_CTX, 1);
 }
 
 void EVP_MD_CTX_free(EVP_MD_CTX *ctx)

@@ -100,7 +100,7 @@ static OSSL_DEMO_H3_STREAM *h3_conn_create_stream(OSSL_DEMO_H3_CONN *conn, int t
     OSSL_DEMO_H3_STREAM *s;
     uint64_t flags = SSL_STREAM_FLAG_ADVANCE;
 
-    if ((s = OPENSSL_zalloc(sizeof(OSSL_DEMO_H3_STREAM))) == NULL)
+    if ((s = zalloc_zero(OSSL_DEMO_H3_STREAM, 1)) == NULL)
         return NULL;
 
     if (type != OSSL_DEMO_H3_STREAM_TYPE_REQ)
@@ -125,7 +125,7 @@ static OSSL_DEMO_H3_STREAM *h3_conn_accept_stream(OSSL_DEMO_H3_CONN *conn, SSL *
 {
     OSSL_DEMO_H3_STREAM *s;
 
-    if ((s = OPENSSL_zalloc(sizeof(OSSL_DEMO_H3_STREAM))) == NULL)
+    if ((s = zalloc_zero(OSSL_DEMO_H3_STREAM, 1)) == NULL)
         return NULL;
 
     s->id   = SSL_get_stream_id(qstream);
@@ -248,7 +248,7 @@ OSSL_DEMO_H3_CONN *OSSL_DEMO_H3_CONN_new_for_conn(BIO *qconn_bio,
         return NULL;
     }
 
-    if ((conn = OPENSSL_zalloc(sizeof(OSSL_DEMO_H3_CONN))) == NULL)
+    if ((conn = zalloc_zero(OSSL_DEMO_H3_CONN, 1)) == NULL)
         return NULL;
 
     conn->qconn_bio = qconn_bio;

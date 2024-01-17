@@ -14,7 +14,7 @@
 
 ASYNC_WAIT_CTX *ASYNC_WAIT_CTX_new(void)
 {
-    return OPENSSL_zalloc(sizeof(ASYNC_WAIT_CTX));
+    return zalloc_zero(ASYNC_WAIT_CTX, 1);
 }
 
 void ASYNC_WAIT_CTX_free(ASYNC_WAIT_CTX *ctx)

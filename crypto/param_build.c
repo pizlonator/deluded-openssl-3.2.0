@@ -90,7 +90,7 @@ static int param_push_num(OSSL_PARAM_BLD *bld, const char *key,
 
 OSSL_PARAM_BLD *OSSL_PARAM_BLD_new(void)
 {
-    OSSL_PARAM_BLD *r = OPENSSL_zalloc(sizeof(OSSL_PARAM_BLD));
+    OSSL_PARAM_BLD *r = zalloc_zero(OSSL_PARAM_BLD, 1);
 
     if (r != NULL) {
         r->params = sk_OSSL_PARAM_BLD_DEF_new_null();

@@ -46,7 +46,7 @@ static void *kdf_newctx(const char *kdfname, void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    kdfctx = OPENSSL_zalloc(sizeof(PROV_KDF_CTX));
+    kdfctx = zalloc_zero(PROV_KDF_CTX, 1);
     if (kdfctx == NULL)
         return NULL;
 

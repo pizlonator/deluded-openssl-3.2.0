@@ -1026,7 +1026,7 @@ OSSL_ACKM *ossl_ackm_new(OSSL_TIME (*now)(void *arg),
     OSSL_ACKM *ackm;
     int i;
 
-    ackm = OPENSSL_zalloc(sizeof(OSSL_ACKM));
+    ackm = zalloc_zero(OSSL_ACKM, 1);
     if (ackm == NULL)
         return NULL;
 

@@ -178,7 +178,7 @@ static void *rsa_newctx(void *provctx, const char *propq)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((prsactx = OPENSSL_zalloc(sizeof(PROV_RSA_CTX))) == NULL
+    if ((prsactx = zalloc_zero(PROV_RSA_CTX, 1)) == NULL
         || (propq != NULL
             && (propq_copy = OPENSSL_strdup(propq)) == NULL)) {
         OPENSSL_free(prsactx);

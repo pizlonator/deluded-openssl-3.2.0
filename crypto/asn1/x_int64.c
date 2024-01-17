@@ -28,7 +28,7 @@
 
 static int uint64_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
-    if ((*pval = (ASN1_VALUE *)OPENSSL_zalloc(sizeof(uint64_t))) == NULL)
+    if ((*pval = (ASN1_VALUE *)zalloc_zero(uint64_t, 1)) == NULL)
         return 0;
     return 1;
 }
@@ -121,7 +121,7 @@ static int uint64_print(BIO *out, const ASN1_VALUE **pval, const ASN1_ITEM *it,
 
 static int uint32_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
-    if ((*pval = (ASN1_VALUE *)OPENSSL_zalloc(sizeof(uint32_t))) == NULL)
+    if ((*pval = (ASN1_VALUE *)zalloc_zero(uint32_t, 1)) == NULL)
         return 0;
     return 1;
 }

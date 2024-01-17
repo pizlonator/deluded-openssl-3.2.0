@@ -28,7 +28,7 @@ static const time_t SCT_CLOCK_DRIFT_TOLERANCE = 300;
 CT_POLICY_EVAL_CTX *CT_POLICY_EVAL_CTX_new_ex(OSSL_LIB_CTX *libctx,
                                               const char *propq)
 {
-    CT_POLICY_EVAL_CTX *ctx = OPENSSL_zalloc(sizeof(CT_POLICY_EVAL_CTX));
+    CT_POLICY_EVAL_CTX *ctx = zalloc_zero(CT_POLICY_EVAL_CTX, 1);
     OSSL_TIME now;
 
     if (ctx == NULL)

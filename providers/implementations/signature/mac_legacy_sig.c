@@ -55,7 +55,7 @@ static void *mac_newctx(void *provctx, const char *propq, const char *macname)
     if (!ossl_prov_is_running())
         return NULL;
 
-    pmacctx = OPENSSL_zalloc(sizeof(PROV_MAC_CTX));
+    pmacctx = zalloc_zero(PROV_MAC_CTX, 1);
     if (pmacctx == NULL)
         return NULL;
 

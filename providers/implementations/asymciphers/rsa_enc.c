@@ -85,7 +85,7 @@ static void *rsa_newctx(void *provctx)
 
     if (!ossl_prov_is_running())
         return NULL;
-    prsactx = OPENSSL_zalloc(sizeof(PROV_RSA_CTX));
+    prsactx = zalloc_zero(PROV_RSA_CTX, 1);
     if (prsactx == NULL)
         return NULL;
     prsactx->libctx = PROV_LIBCTX_OF(provctx);

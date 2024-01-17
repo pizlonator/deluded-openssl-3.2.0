@@ -458,7 +458,7 @@ typedef struct {
 
 static void *xor_newkemkexctx(void *provctx)
 {
-    PROV_XORKEMKEX_CTX *pxorctx = OPENSSL_zalloc(sizeof(PROV_XORKEMKEX_CTX));
+    PROV_XORKEMKEX_CTX *pxorctx = zalloc_zero(PROV_XORKEMKEX_CTX, 1);
 
     if (pxorctx == NULL)
         return NULL;
@@ -682,7 +682,7 @@ static const OSSL_ALGORITHM tls_prov_kem[] = {
 
 static void *xor_newkey(void *provctx)
 {
-    XORKEY *ret = OPENSSL_zalloc(sizeof(XORKEY));
+    XORKEY *ret = zalloc_zero(XORKEY, 1);
 
     if (ret == NULL)
         return NULL;
@@ -2645,7 +2645,7 @@ static void *xor_sig_newctx(void *provctx, const char *propq)
 {
     PROV_XORSIG_CTX *pxor_sigctx;
 
-    pxor_sigctx = OPENSSL_zalloc(sizeof(PROV_XORSIG_CTX));
+    pxor_sigctx = zalloc_zero(PROV_XORSIG_CTX, 1);
     if (pxor_sigctx == NULL)
         return NULL;
 
