@@ -127,7 +127,7 @@ static OSSL_FUNC_decoder_set_ctx_params_fn der2key_set_ctx_params;
 static struct der2key_ctx_st *
 der2key_newctx(void *provctx, const struct keytype_desc_st *desc)
 {
-    struct der2key_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    struct der2key_ctx_st *ctx = zalloc_zero(typeof(*ctx), 1);
 
     if (ctx != NULL) {
         ctx->provctx = provctx;

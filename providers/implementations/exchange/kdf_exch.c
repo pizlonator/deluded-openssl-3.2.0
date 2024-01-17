@@ -142,7 +142,7 @@ static void *kdf_dupctx(void *vpkdfctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
+    dstctx = zalloc_zero(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

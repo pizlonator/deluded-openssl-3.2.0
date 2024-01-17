@@ -166,7 +166,7 @@ static struct kmac_data_st *kmac_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((kctx = OPENSSL_zalloc(sizeof(*kctx))) == NULL
+    if ((kctx = zalloc_zero(typeof(*kctx), 1)) == NULL
             || (kctx->ctx = EVP_MD_CTX_new()) == NULL) {
         kmac_free(kctx);
         return NULL;

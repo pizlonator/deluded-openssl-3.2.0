@@ -83,7 +83,7 @@ static void *winstore_open(void *provctx, const char *uri)
     if (!HAS_CASE_PREFIX(uri, "org.openssl.winstore:"))
         return NULL;
 
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc_zero(typeof(*ctx), 1);
     if (ctx == NULL)
         return NULL;
 

@@ -124,7 +124,7 @@ static struct file_ctx_st *new_file_ctx(int type, const char *uri,
 {
     struct file_ctx_st *ctx = NULL;
 
-    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) != NULL
+    if ((ctx = zalloc_zero(typeof(*ctx), 1)) != NULL
         && (uri == NULL || (ctx->uri = OPENSSL_strdup(uri)) != NULL)) {
         ctx->type = type;
         ctx->provctx = provctx;

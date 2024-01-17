@@ -220,7 +220,7 @@ const EVP_PKEY_ASN1_METHOD *EVP_PKEY_get0_asn1(const EVP_PKEY *pkey)
 EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_new(int id, int flags,
                                         const char *pem_str, const char *info)
 {
-    EVP_PKEY_ASN1_METHOD *ameth = OPENSSL_zalloc(sizeof(*ameth));
+    EVP_PKEY_ASN1_METHOD *ameth = zalloc_zero(typeof(*ameth), 1);
 
     if (ameth == NULL)
         return NULL;

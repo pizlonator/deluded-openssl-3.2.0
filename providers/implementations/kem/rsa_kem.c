@@ -106,7 +106,7 @@ static void *rsakem_dupctx(void *vprsactx)
     PROV_RSA_CTX *srcctx = (PROV_RSA_CTX *)vprsactx;
     PROV_RSA_CTX *dstctx;
 
-    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
+    dstctx = zalloc_zero(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

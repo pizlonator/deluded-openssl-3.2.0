@@ -14,7 +14,7 @@
 
 TS_VERIFY_CTX *TS_VERIFY_CTX_new(void)
 {
-    TS_VERIFY_CTX *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    TS_VERIFY_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
 
     return ctx;
 }

@@ -31,7 +31,7 @@ static void *ossl_aes_gcm_siv_newctx(void *provctx, size_t keybits)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc_zero(typeof(*ctx), 1);
     if (ctx != NULL) {
         ctx->key_len = keybits / 8;
         ctx->hw = ossl_prov_cipher_hw_aes_gcm_siv(keybits);

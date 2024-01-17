@@ -67,7 +67,7 @@ static int b64_new(BIO *bi)
 {
     BIO_B64_CTX *ctx;
 
-    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL)
+    if ((ctx = zalloc_zero(typeof(*ctx), 1)) == NULL)
         return 0;
 
     ctx->cont = 1;

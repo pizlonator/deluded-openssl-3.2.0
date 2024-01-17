@@ -17,7 +17,7 @@ X509_INFO *X509_INFO_new(void)
 {
     X509_INFO *ret;
 
-    ret = OPENSSL_zalloc(sizeof(*ret));
+    ret = zalloc_zero(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
 

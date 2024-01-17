@@ -75,7 +75,7 @@ struct bio_bio_st {
 
 static int bio_new(BIO *bio)
 {
-    struct bio_bio_st *b = OPENSSL_zalloc(sizeof(*b));
+    struct bio_bio_st *b = zalloc_zero(typeof(*b), 1);
 
     if (b == NULL)
         return 0;

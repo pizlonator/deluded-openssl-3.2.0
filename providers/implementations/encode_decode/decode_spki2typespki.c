@@ -37,7 +37,7 @@ struct spki2typespki_ctx_st {
 
 static void *spki2typespki_newctx(void *provctx)
 {
-    struct spki2typespki_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    struct spki2typespki_ctx_st *ctx = zalloc_zero(typeof(*ctx), 1);
 
     if (ctx != NULL)
         ctx->provctx = provctx;

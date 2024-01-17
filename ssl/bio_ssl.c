@@ -59,7 +59,7 @@ const BIO_METHOD *BIO_f_ssl(void)
 
 static int ssl_new(BIO *bi)
 {
-    BIO_SSL *bs = OPENSSL_zalloc(sizeof(*bs));
+    BIO_SSL *bs = zalloc_zero(typeof(*bs), 1);
 
     if (bs == NULL)
         return 0;

@@ -376,7 +376,7 @@ int WPACKET_start_sub_packet_len__(WPACKET *pkt, size_t lenbytes)
     if (lenbytes > 0 && pkt->endfirst)
         return 0;
 
-    if ((sub = OPENSSL_zalloc(sizeof(*sub))) == NULL)
+    if ((sub = zalloc_zero(typeof(*sub), 1)) == NULL)
         return 0;
 
     sub->parent = pkt->subs;

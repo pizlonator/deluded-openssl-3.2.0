@@ -21,7 +21,7 @@ BN_RECP_CTX *BN_RECP_CTX_new(void)
 {
     BN_RECP_CTX *ret;
 
-    if ((ret = OPENSSL_zalloc(sizeof(*ret))) == NULL)
+    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
         return NULL;
 
     bn_init(&(ret->N));

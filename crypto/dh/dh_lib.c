@@ -73,7 +73,7 @@ DH *ossl_dh_new_ex(OSSL_LIB_CTX *libctx)
 
 static DH *dh_new_intern(ENGINE *engine, OSSL_LIB_CTX *libctx)
 {
-    DH *ret = OPENSSL_zalloc(sizeof(*ret));
+    DH *ret = zalloc_zero(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

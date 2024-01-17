@@ -33,7 +33,7 @@ int DSA_sign_setup(DSA *dsa, BN_CTX *ctx_in, BIGNUM **kinvp, BIGNUM **rp)
 
 DSA_SIG *DSA_SIG_new(void)
 {
-    DSA_SIG *sig = OPENSSL_zalloc(sizeof(*sig));
+    DSA_SIG *sig = zalloc_zero(typeof(*sig), 1);
 
     return sig;
 }

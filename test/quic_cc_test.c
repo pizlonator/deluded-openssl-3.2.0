@@ -139,7 +139,7 @@ static int net_sim_process(struct net_sim *s, size_t skip_forward);
 
 static int net_sim_send(struct net_sim *s, size_t sz)
 {
-    NET_PKT *pkt = OPENSSL_zalloc(sizeof(*pkt));
+    NET_PKT *pkt = zalloc_zero(typeof(*pkt), 1);
     int success;
 
     if (!TEST_ptr(pkt))

@@ -43,7 +43,7 @@ static void *chacha20_poly1305_newctx(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc_zero(typeof(*ctx), 1);
     if (ctx != NULL) {
         ossl_cipher_generic_initkey(&ctx->base, CHACHA20_POLY1305_KEYLEN * 8,
                                     CHACHA20_POLY1305_BLKLEN * 8,

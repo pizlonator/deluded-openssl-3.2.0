@@ -36,7 +36,7 @@ ASN1_PCTX *ASN1_PCTX_new(void)
 {
     ASN1_PCTX *ret;
 
-    ret = OPENSSL_zalloc(sizeof(*ret));
+    ret = zalloc_zero(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     return ret;

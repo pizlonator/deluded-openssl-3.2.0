@@ -99,7 +99,7 @@ OSSL_HTTP_REQ_CTX *OSSL_HTTP_REQ_CTX_new(BIO *wbio, BIO *rbio, int buf_size)
         return NULL;
     }
 
-    if ((rctx = OPENSSL_zalloc(sizeof(*rctx))) == NULL)
+    if ((rctx = zalloc_zero(typeof(*rctx), 1)) == NULL)
         return NULL;
     rctx->state = OHS_ERROR;
     rctx->buf_size = buf_size > 0 ? buf_size : OSSL_HTTP_DEFAULT_MAX_LINE_LEN;

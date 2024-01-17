@@ -1002,7 +1002,7 @@ static void *ec_gen_init(void *provctx, int selection,
     if (!ossl_prov_is_running() || (selection & (EC_POSSIBLE_SELECTIONS)) == 0)
         return NULL;
 
-    if ((gctx = OPENSSL_zalloc(sizeof(*gctx))) != NULL) {
+    if ((gctx = zalloc_zero(typeof(*gctx), 1)) != NULL) {
         gctx->libctx = libctx;
         gctx->selection = selection;
         gctx->ecdh_mode = 0;

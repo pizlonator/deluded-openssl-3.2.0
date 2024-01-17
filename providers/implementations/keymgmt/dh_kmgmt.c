@@ -454,7 +454,7 @@ static void *dh_gen_init_base(void *provctx, int selection,
                       | OSSL_KEYMGMT_SELECT_DOMAIN_PARAMETERS)) == 0)
         return NULL;
 
-    if ((gctx = OPENSSL_zalloc(sizeof(*gctx))) != NULL) {
+    if ((gctx = zalloc_zero(typeof(*gctx), 1)) != NULL) {
         gctx->selection = selection;
         gctx->libctx = libctx;
         gctx->pbits = 2048;

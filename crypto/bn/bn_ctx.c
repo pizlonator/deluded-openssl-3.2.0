@@ -119,7 +119,7 @@ BN_CTX *BN_CTX_new_ex(OSSL_LIB_CTX *ctx)
 {
     BN_CTX *ret;
 
-    if ((ret = OPENSSL_zalloc(sizeof(*ret))) == NULL)
+    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
         return NULL;
     /* Initialise the structure */
     BN_POOL_init(&ret->pool);

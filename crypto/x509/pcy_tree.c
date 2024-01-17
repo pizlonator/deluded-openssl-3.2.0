@@ -171,7 +171,7 @@ static int tree_init(X509_POLICY_TREE **ptree, STACK_OF(X509) *certs,
         return ret;
 
     /* If we get this far initialize the tree */
-    if ((tree = OPENSSL_zalloc(sizeof(*tree))) == NULL)
+    if ((tree = zalloc_zero(typeof(*tree), 1)) == NULL)
         return X509_PCY_TREE_INTERNAL;
 
     /* Limit the growth of the tree to mitigate CVE-2023-0464 */

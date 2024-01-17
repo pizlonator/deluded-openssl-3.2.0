@@ -459,7 +459,7 @@ static void *gen_init(void *provctx, int selection, int rsa_type,
     if ((selection & OSSL_KEYMGMT_SELECT_KEYPAIR) == 0)
         return NULL;
 
-    if ((gctx = OPENSSL_zalloc(sizeof(*gctx))) != NULL) {
+    if ((gctx = zalloc_zero(typeof(*gctx), 1)) != NULL) {
         gctx->libctx = libctx;
         if ((gctx->pub_exp = BN_new()) == NULL
             || !BN_set_word(gctx->pub_exp, RSA_F4)) {

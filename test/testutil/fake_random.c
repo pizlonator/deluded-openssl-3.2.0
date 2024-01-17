@@ -35,7 +35,7 @@ static OSSL_FUNC_rand_enable_locking_fn fake_rand_enable_locking;
 static void *fake_rand_newctx(void *provctx, void *parent,
                               const OSSL_DISPATCH *parent_dispatch)
 {
-    FAKE_RAND *r = OPENSSL_zalloc(sizeof(*r));
+    FAKE_RAND *r = zalloc_zero(typeof(*r), 1);
 
     if (r != NULL)
         r->state = EVP_RAND_STATE_UNINITIALISED;

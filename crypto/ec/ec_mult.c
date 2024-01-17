@@ -54,7 +54,7 @@ static EC_PRE_COMP *ec_pre_comp_new(const EC_GROUP *group)
     if (!group)
         return NULL;
 
-    ret = OPENSSL_zalloc(sizeof(*ret));
+    ret = zalloc_zero(typeof(*ret), 1);
     if (ret == NULL)
         return ret;
 

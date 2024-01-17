@@ -1194,7 +1194,7 @@ DECLARE_ASN1_ENCODE_FUNCTIONS_name(ECDSA_SIG, ECDSA_SIG)
 
 ECDSA_SIG *ECDSA_SIG_new(void)
 {
-    ECDSA_SIG *sig = OPENSSL_zalloc(sizeof(*sig));
+    ECDSA_SIG *sig = zalloc_zero(typeof(*sig), 1);
 
     return sig;
 }

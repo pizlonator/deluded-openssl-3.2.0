@@ -379,7 +379,7 @@ SSL *ossl_quic_new(SSL_CTX *ctx)
     SSL *ssl_base = NULL;
     SSL_CONNECTION *sc = NULL;
 
-    qc = OPENSSL_zalloc(sizeof(*qc));
+    qc = zalloc_zero(typeof(*qc), 1);
     if (qc == NULL) {
         QUIC_RAISE_NON_NORMAL_ERROR(NULL, ERR_R_CRYPTO_LIB, NULL);
         return NULL;
@@ -1913,7 +1913,7 @@ static QUIC_XSO *create_xso_from_stream(QUIC_CONNECTION *qc, QUIC_STREAM *qs)
 {
     QUIC_XSO *xso = NULL;
 
-    if ((xso = OPENSSL_zalloc(sizeof(*xso))) == NULL) {
+    if ((xso = zalloc_zero(typeof(*xso), 1)) == NULL) {
         QUIC_RAISE_NON_NORMAL_ERROR(NULL, ERR_R_CRYPTO_LIB, NULL);
         goto err;
     }

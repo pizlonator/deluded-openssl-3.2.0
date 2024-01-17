@@ -1846,7 +1846,7 @@ const EC_METHOD *EC_GFp_nistp256_method(void)
 
 static NISTP256_PRE_COMP *nistp256_pre_comp_new(void)
 {
-    NISTP256_PRE_COMP *ret = OPENSSL_zalloc(sizeof(*ret));
+    NISTP256_PRE_COMP *ret = zalloc_zero(typeof(*ret), 1);
 
     if (ret == NULL)
         return ret;

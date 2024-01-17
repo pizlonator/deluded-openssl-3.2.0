@@ -149,7 +149,7 @@ QUIC_STREAM *ossl_quic_stream_map_alloc(QUIC_STREAM_MAP *qsm,
     if (s != NULL)
         return NULL;
 
-    s = OPENSSL_zalloc(sizeof(*s));
+    s = zalloc_zero(typeof(*s), 1);
     if (s == NULL)
         return NULL;
 

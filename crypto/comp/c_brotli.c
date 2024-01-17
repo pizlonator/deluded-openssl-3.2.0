@@ -112,7 +112,7 @@ struct brotli_state {
 
 static int brotli_stateful_init(COMP_CTX *ctx)
 {
-    struct brotli_state *state = OPENSSL_zalloc(sizeof(*state));
+    struct brotli_state *state = zalloc_zero(typeof(*state), 1);
 
     if (state == NULL)
         return 0;
@@ -449,7 +449,7 @@ static int bio_brotli_new(BIO *bi)
         return 0;
     }
 # endif
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc_zero(typeof(*ctx), 1);
     if (ctx == NULL) {
         ERR_raise(ERR_LIB_COMP, ERR_R_MALLOC_FAILURE);
         return 0;

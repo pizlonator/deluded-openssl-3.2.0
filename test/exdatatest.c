@@ -71,7 +71,7 @@ typedef struct myobj_ex_data_st {
 static void exnew2(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
           int idx, long argl, void *argp)
 {
-    MYOBJ_EX_DATA *ex_data = OPENSSL_zalloc(sizeof(*ex_data));
+    MYOBJ_EX_DATA *ex_data = zalloc_zero(typeof(*ex_data), 1);
 
     if (!TEST_true(idx == saved_idx2 || idx == saved_idx3)
         || !TEST_long_eq(argl, saved_argl)

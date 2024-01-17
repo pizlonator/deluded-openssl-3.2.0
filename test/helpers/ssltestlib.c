@@ -305,7 +305,7 @@ static int mempacket_test_new(BIO *bio)
 {
     MEMPACKET_TEST_CTX *ctx;
 
-    if (!TEST_ptr(ctx = OPENSSL_zalloc(sizeof(*ctx))))
+    if (!TEST_ptr(ctx = zalloc_zero(typeof(*ctx), 1)))
         return 0;
     if (!TEST_ptr(ctx->pkts = sk_MEMPACKET_new_null())) {
         OPENSSL_free(ctx);
@@ -840,7 +840,7 @@ void bio_s_maybe_retry_free(void)
 
 static int maybe_retry_new(BIO *bio)
 {
-    struct maybe_retry_data_st *data = OPENSSL_zalloc(sizeof(*data));
+    struct maybe_retry_data_st *data = zalloc_zero(typeof(*data), 1);
 
     if (data == NULL)
         return 0;

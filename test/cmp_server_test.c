@@ -32,7 +32,7 @@ static CMP_SRV_TEST_FIXTURE *set_up(const char *const test_case_name)
 {
     CMP_SRV_TEST_FIXTURE *fixture;
 
-    if (!TEST_ptr(fixture = OPENSSL_zalloc(sizeof(*fixture))))
+    if (!TEST_ptr(fixture = zalloc_zero(typeof(*fixture), 1)))
         return NULL;
     fixture->test_case_name = test_case_name;
     if (!TEST_ptr(fixture->srv_ctx = OSSL_CMP_SRV_CTX_new(libctx, NULL)))

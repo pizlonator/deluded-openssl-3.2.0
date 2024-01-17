@@ -37,7 +37,7 @@ void *ossl_self_test_set_callback_new(OSSL_LIB_CTX *ctx)
 {
     SELF_TEST_CB *stcb;
 
-    stcb = OPENSSL_zalloc(sizeof(*stcb));
+    stcb = zalloc_zero(typeof(*stcb), 1);
     return stcb;
 }
 
@@ -94,7 +94,7 @@ static void self_test_setparams(OSSL_SELF_TEST *st)
 
 OSSL_SELF_TEST *OSSL_SELF_TEST_new(OSSL_CALLBACK *cb, void *cbarg)
 {
-    OSSL_SELF_TEST *ret = OPENSSL_zalloc(sizeof(*ret));
+    OSSL_SELF_TEST *ret = zalloc_zero(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

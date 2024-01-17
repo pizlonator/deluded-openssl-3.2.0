@@ -32,7 +32,7 @@ BUF_MEM *BUF_MEM_new(void)
 {
     BUF_MEM *ret;
 
-    ret = OPENSSL_zalloc(sizeof(*ret));
+    ret = zalloc_zero(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     return ret;

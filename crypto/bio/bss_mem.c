@@ -108,7 +108,7 @@ BIO *BIO_new_mem_buf(const void *buf, int len)
 
 static int mem_init(BIO *bi, unsigned long flags)
 {
-    BIO_BUF_MEM *bb = OPENSSL_zalloc(sizeof(*bb));
+    BIO_BUF_MEM *bb = zalloc_zero(typeof(*bb), 1);
 
     if (bb == NULL)
         return 0;

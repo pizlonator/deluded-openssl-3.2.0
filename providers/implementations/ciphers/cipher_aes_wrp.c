@@ -56,7 +56,7 @@ static void *aes_wrap_newctx(size_t kbits, size_t blkbits,
     if (!ossl_prov_is_running())
         return NULL;
 
-    wctx = OPENSSL_zalloc(sizeof(*wctx));
+    wctx = zalloc_zero(typeof(*wctx), 1);
     ctx = (PROV_CIPHER_CTX *)wctx;
     if (ctx != NULL) {
         ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits, mode, flags,

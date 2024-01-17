@@ -95,7 +95,7 @@ TS_RESP_CTX *TS_RESP_CTX_new_ex(OSSL_LIB_CTX *libctx, const char *propq)
 {
     TS_RESP_CTX *ctx;
 
-    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL)
+    if ((ctx = zalloc_zero(typeof(*ctx), 1)) == NULL)
         return NULL;
 
     if (propq != NULL) {

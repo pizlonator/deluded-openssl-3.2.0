@@ -190,7 +190,7 @@ static OSSL_STORE_INFO *new_EMBEDDED(const char *new_pem_name,
     OSSL_STORE_INFO *info = NULL;
     struct embedded_st *data = NULL;
 
-    if ((data = OPENSSL_zalloc(sizeof(*data))) == NULL)
+    if ((data = zalloc_zero(typeof(*data), 1)) == NULL)
         return NULL;
     if ((info = OSSL_STORE_INFO_new(STORE_INFO_EMBEDDED, data)) == NULL) {
         ATTICerr(0, ERR_R_OSSL_STORE_LIB);
@@ -1021,7 +1021,7 @@ static OSSL_STORE_LOADER_CTX *file_open_ex
 
     /* Successfully found a working path */
 
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc_zero(typeof(*ctx), 1);
     if (ctx == NULL)
         return NULL;
     ctx->uri = OPENSSL_strdup(uri);
@@ -1071,7 +1071,7 @@ static OSSL_STORE_LOADER_CTX *file_attach
 {
     OSSL_STORE_LOADER_CTX *ctx = NULL;
 
-    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL
+    if ((ctx = zalloc_zero(typeof(*ctx), 1)) == NULL
         || (propq != NULL && (ctx->propq = OPENSSL_strdup(propq)) == NULL)) {
         OSSL_STORE_LOADER_CTX_free(ctx);
         return NULL;

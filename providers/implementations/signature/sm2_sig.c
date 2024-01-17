@@ -338,7 +338,7 @@ static void *sm2sig_dupctx(void *vpsm2ctx)
     PROV_SM2_CTX *srcctx = (PROV_SM2_CTX *)vpsm2ctx;
     PROV_SM2_CTX *dstctx;
 
-    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
+    dstctx = zalloc_zero(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

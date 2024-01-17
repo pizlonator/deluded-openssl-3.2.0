@@ -102,7 +102,7 @@ quic_new_record_layer(OSSL_LIB_CTX *libctx, const char *propq, int vers,
                       const OSSL_DISPATCH *fns, void *cbarg, void *rlarg,
                       OSSL_RECORD_LAYER **retrl)
 {
-    OSSL_RECORD_LAYER *rl = OPENSSL_zalloc(sizeof(*rl));
+    OSSL_RECORD_LAYER *rl = zalloc_zero(typeof(*rl), 1);
     uint32_t enc_level;
     int qdir;
     uint32_t suite_id = 0;
@@ -639,7 +639,7 @@ QUIC_TLS *ossl_quic_tls_new(const QUIC_TLS_ARGS *args)
         return NULL;
     }
 
-    qtls = OPENSSL_zalloc(sizeof(*qtls));
+    qtls = zalloc_zero(typeof(*qtls), 1);
     if (qtls == NULL)
         return NULL;
 

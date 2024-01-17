@@ -187,7 +187,7 @@ OSSL_STORE_open_ex(const char *uri, OSSL_LIB_CTX *libctx, const char *propq,
     OSSL_TRACE2(STORE, "Opened %s => %p\n", uri, (void *)loader_ctx);
 
     if ((propq != NULL && (propq_copy = OPENSSL_strdup(propq)) == NULL)
-        || (ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL)
+        || (ctx = zalloc_zero(typeof(*ctx), 1)) == NULL)
         goto err;
 
     ctx->properties = propq_copy;
@@ -606,7 +606,7 @@ int OSSL_STORE_close(OSSL_STORE_CTX *ctx)
  */
 OSSL_STORE_INFO *OSSL_STORE_INFO_new(int type, void *data)
 {
-    OSSL_STORE_INFO *info = OPENSSL_zalloc(sizeof(*info));
+    OSSL_STORE_INFO *info = zalloc_zero(typeof(*info), 1);
 
     if (info == NULL)
         return NULL;
@@ -904,7 +904,7 @@ int OSSL_STORE_supports_search(OSSL_STORE_CTX *ctx, int search_type)
 /* Search term constructors */
 OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_name(X509_NAME *name)
 {
-    OSSL_STORE_SEARCH *search = OPENSSL_zalloc(sizeof(*search));
+    OSSL_STORE_SEARCH *search = zalloc_zero(typeof(*search), 1);
 
     if (search == NULL)
         return NULL;
@@ -917,7 +917,7 @@ OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_name(X509_NAME *name)
 OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_issuer_serial(X509_NAME *name,
                                                       const ASN1_INTEGER *serial)
 {
-    OSSL_STORE_SEARCH *search = OPENSSL_zalloc(sizeof(*search));
+    OSSL_STORE_SEARCH *search = zalloc_zero(typeof(*search), 1);
 
     if (search == NULL)
         return NULL;
@@ -932,7 +932,7 @@ OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_key_fingerprint(const EVP_MD *digest,
                                                         const unsigned char
                                                         *bytes, size_t len)
 {
-    OSSL_STORE_SEARCH *search = OPENSSL_zalloc(sizeof(*search));
+    OSSL_STORE_SEARCH *search = zalloc_zero(typeof(*search), 1);
 
     if (search == NULL)
         return NULL;
@@ -955,7 +955,7 @@ OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_key_fingerprint(const EVP_MD *digest,
 
 OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_alias(const char *alias)
 {
-    OSSL_STORE_SEARCH *search = OPENSSL_zalloc(sizeof(*search));
+    OSSL_STORE_SEARCH *search = zalloc_zero(typeof(*search), 1);
 
     if (search == NULL)
         return NULL;
@@ -1055,7 +1055,7 @@ OSSL_STORE_CTX *OSSL_STORE_attach(BIO *bp, const char *scheme,
         return NULL;
     }
 
-    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL) {
+    if ((ctx = zalloc_zero(typeof(*ctx), 1)) == NULL) {
         ERR_clear_last_mark();
         return NULL;
     }

@@ -44,7 +44,7 @@ const BIO_METHOD *BIO_f_buffer(void)
 
 static int buffer_new(BIO *bi)
 {
-    BIO_F_BUFFER_CTX *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    BIO_F_BUFFER_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
 
     if (ctx == NULL)
         return 0;

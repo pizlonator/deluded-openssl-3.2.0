@@ -86,7 +86,7 @@ int ossl_rsa_acvp_test_set_params(RSA *r, const OSSL_PARAM params[])
         r->acvp_test = NULL;
     }
 
-    t = OPENSSL_zalloc(sizeof(*t));
+    t = zalloc_zero(typeof(*t), 1);
     if (t == NULL)
         return 0;
 

@@ -908,7 +908,7 @@ int EVP_MD_CTX_ctrl(EVP_MD_CTX *ctx, int cmd, int p1, void *p2)
 
 EVP_MD *evp_md_new(void)
 {
-    EVP_MD *md = OPENSSL_zalloc(sizeof(*md));
+    EVP_MD *md = zalloc_zero(typeof(*md), 1);
 
     if (md != NULL && !CRYPTO_NEW_REF(&md->refcnt, 1)) {
         OPENSSL_free(md);

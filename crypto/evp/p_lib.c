@@ -1452,7 +1452,7 @@ size_t EVP_PKEY_get1_encoded_public_key(EVP_PKEY *pkey, unsigned char **ppub)
 
 EVP_PKEY *EVP_PKEY_new(void)
 {
-    EVP_PKEY *ret = OPENSSL_zalloc(sizeof(*ret));
+    EVP_PKEY *ret = zalloc_zero(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

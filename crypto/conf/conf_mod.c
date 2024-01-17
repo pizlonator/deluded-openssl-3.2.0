@@ -338,7 +338,7 @@ static CONF_MODULE *module_add(DSO *dso, const char *name,
         supported_modules = sk_CONF_MODULE_new_null();
     if (supported_modules == NULL)
         goto err;
-    if ((tmod = OPENSSL_zalloc(sizeof(*tmod))) == NULL)
+    if ((tmod = zalloc_zero(typeof(*tmod), 1)) == NULL)
         goto err;
 
     tmod->dso = dso;

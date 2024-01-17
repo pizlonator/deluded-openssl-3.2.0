@@ -29,7 +29,7 @@ static OSSL_ENCODER *ossl_encoder_new(void)
 {
     OSSL_ENCODER *encoder = NULL;
 
-    if ((encoder = OPENSSL_zalloc(sizeof(*encoder))) == NULL)
+    if ((encoder = zalloc_zero(typeof(*encoder), 1)) == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&encoder->base.refcnt, 1)) {
         OSSL_ENCODER_free(encoder);
@@ -607,7 +607,7 @@ OSSL_ENCODER_CTX *OSSL_ENCODER_CTX_new(void)
 {
     OSSL_ENCODER_CTX *ctx;
 
-    ctx = OPENSSL_zalloc(sizeof(*ctx));
+    ctx = zalloc_zero(typeof(*ctx), 1);
     return ctx;
 }
 

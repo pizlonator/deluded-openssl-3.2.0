@@ -28,7 +28,7 @@ void *ossl_tdes_newctx(void *provctx, int mode, size_t kbits, size_t blkbits,
     if (!ossl_prov_is_running())
         return NULL;
 
-    tctx = OPENSSL_zalloc(sizeof(*tctx));
+    tctx = zalloc_zero(typeof(*tctx), 1);
     if (tctx != NULL)
         ossl_cipher_generic_initkey(tctx, kbits, blkbits, ivbits, mode, flags,
                                     hw, provctx);

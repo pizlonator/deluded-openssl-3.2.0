@@ -336,7 +336,7 @@ ASN1_OBJECT *ASN1_OBJECT_new(void)
 {
     ASN1_OBJECT *ret;
 
-    ret = OPENSSL_zalloc(sizeof(*ret));
+    ret = zalloc_zero(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     ret->flags = ASN1_OBJECT_FLAG_DYNAMIC;

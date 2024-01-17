@@ -231,7 +231,7 @@ static void *alg##_##kbits##_##lcmode##_newctx(void *provctx)                  \
      PROV_##UCALG##_CTX *ctx;                                                  \
      if (!ossl_prov_is_running())                                              \
         return NULL;                                                           \
-     ctx = OPENSSL_zalloc(sizeof(*ctx));                                       \
+     ctx = zalloc_zero(typeof(*ctx), 1);                                       \
      if (ctx != NULL) {                                                        \
          ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits,              \
                                 EVP_CIPH_##UCMODE##_MODE, flags,               \

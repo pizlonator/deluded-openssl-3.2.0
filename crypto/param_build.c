@@ -52,7 +52,7 @@ static OSSL_PARAM_BLD_DEF *param_push(OSSL_PARAM_BLD *bld, const char *key,
                                       int size, size_t alloc, int type,
                                       int secure)
 {
-    OSSL_PARAM_BLD_DEF *pd = OPENSSL_zalloc(sizeof(*pd));
+    OSSL_PARAM_BLD_DEF *pd = zalloc_zero(typeof(*pd), 1);
 
     if (pd == NULL)
         return NULL;

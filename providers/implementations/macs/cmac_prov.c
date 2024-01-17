@@ -57,7 +57,7 @@ static void *cmac_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((macctx = OPENSSL_zalloc(sizeof(*macctx))) == NULL
+    if ((macctx = zalloc_zero(typeof(*macctx), 1)) == NULL
         || (macctx->ctx = CMAC_CTX_new()) == NULL) {
         OPENSSL_free(macctx);
         macctx = NULL;

@@ -33,7 +33,7 @@ KDF_DATA *ossl_kdf_data_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    kdfdata = OPENSSL_zalloc(sizeof(*kdfdata));
+    kdfdata = zalloc_zero(typeof(*kdfdata), 1);
     if (kdfdata == NULL)
         return NULL;
 

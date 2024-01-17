@@ -108,7 +108,7 @@ int ossl_ecx_key_fromdata(ECX_KEY *ecx, const OSSL_PARAM params[],
 
 ECX_KEY *ossl_ecx_key_dup(const ECX_KEY *key, int selection)
 {
-    ECX_KEY *ret = OPENSSL_zalloc(sizeof(*ret));
+    ECX_KEY *ret = zalloc_zero(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

@@ -19,7 +19,7 @@
 
 DH_METHOD *DH_meth_new(const char *name, int flags)
 {
-    DH_METHOD *dhm = OPENSSL_zalloc(sizeof(*dhm));
+    DH_METHOD *dhm = zalloc_zero(typeof(*dhm), 1);
 
     if (dhm != NULL) {
         dhm->flags = flags;

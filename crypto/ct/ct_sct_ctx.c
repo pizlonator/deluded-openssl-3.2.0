@@ -22,7 +22,7 @@
 
 SCT_CTX *SCT_CTX_new(OSSL_LIB_CTX *libctx, const char *propq)
 {
-    SCT_CTX *sctx = OPENSSL_zalloc(sizeof(*sctx));
+    SCT_CTX *sctx = zalloc_zero(typeof(*sctx), 1);
 
     if (sctx == NULL)
         return NULL;

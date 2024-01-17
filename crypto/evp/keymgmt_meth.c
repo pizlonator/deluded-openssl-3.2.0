@@ -21,7 +21,7 @@ static void *keymgmt_new(void)
 {
     EVP_KEYMGMT *keymgmt = NULL;
 
-    if ((keymgmt = OPENSSL_zalloc(sizeof(*keymgmt))) == NULL)
+    if ((keymgmt = zalloc_zero(typeof(*keymgmt), 1)) == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&keymgmt->refcnt, 1)) {
         EVP_KEYMGMT_free(keymgmt);

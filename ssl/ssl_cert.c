@@ -66,7 +66,7 @@ CERT *ssl_cert_new(size_t ssl_pkey_num)
     if (!ossl_assert(ssl_pkey_num >= SSL_PKEY_NUM))
         return NULL;
 
-    ret = OPENSSL_zalloc(sizeof(*ret));
+    ret = zalloc_zero(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
 
@@ -92,7 +92,7 @@ CERT *ssl_cert_new(size_t ssl_pkey_num)
 
 CERT *ssl_cert_dup(CERT *cert)
 {
-    CERT *ret = OPENSSL_zalloc(sizeof(*ret));
+    CERT *ret = zalloc_zero(typeof(*ret), 1);
     size_t i;
 #ifndef OPENSSL_NO_COMP_ALG
     int j;

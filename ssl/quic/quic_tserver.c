@@ -81,7 +81,7 @@ QUIC_TSERVER *ossl_quic_tserver_new(const QUIC_TSERVER_ARGS *args,
     if (args->net_rbio == NULL || args->net_wbio == NULL)
         goto err;
 
-    if ((srv = OPENSSL_zalloc(sizeof(*srv))) == NULL)
+    if ((srv = zalloc_zero(typeof(*srv), 1)) == NULL)
         goto err;
 
     srv->args = *args;
@@ -128,7 +128,7 @@ QUIC_TSERVER *ossl_quic_tserver_new(const QUIC_TSERVER_ARGS *args,
         || !ossl_quic_channel_set_net_wbio(srv->ch, srv->args.net_wbio))
         goto err;
 
-    qc = OPENSSL_zalloc(sizeof(*qc));
+    qc = zalloc_zero(typeof(*qc), 1);
     if (qc == NULL)
         goto err;
     srv->ssl = (SSL *)qc;

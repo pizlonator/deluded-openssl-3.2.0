@@ -521,7 +521,7 @@ static void *xor_dupctx(void *vpxorctx)
     PROV_XORKEMKEX_CTX *srcctx = (PROV_XORKEMKEX_CTX *)vpxorctx;
     PROV_XORKEMKEX_CTX *dstctx;
 
-    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
+    dstctx = zalloc_zero(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 
@@ -924,7 +924,7 @@ static void *xor_gen_init(void *provctx, int selection,
                       | OSSL_KEYMGMT_SELECT_DOMAIN_PARAMETERS)) == 0)
         return NULL;
 
-    if ((gctx = OPENSSL_zalloc(sizeof(*gctx))) != NULL)
+    if ((gctx = zalloc_zero(typeof(*gctx), 1)) != NULL)
         gctx->selection = selection;
 
     gctx->libctx = PROV_XOR_LIBCTX_OF(provctx);
@@ -1723,7 +1723,7 @@ static OSSL_FUNC_decoder_freectx_fn key2any_freectx;
 
 static void *key2any_newctx(void *provctx)
 {
-    struct key2any_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    struct key2any_ctx_st *ctx = zalloc_zero(typeof(*ctx), 1);
 
     if (ctx != NULL) {
         ctx->provctx = provctx;
@@ -2174,7 +2174,7 @@ ASN1_SEQUENCE(X509_PUBKEY_INTERNAL) = {
 static X509_PUBKEY *xorx_d2i_X509_PUBKEY_INTERNAL(const unsigned char **pp,
                                            long len, OSSL_LIB_CTX *libctx)
 {
-    X509_PUBKEY *xpub = OPENSSL_zalloc(sizeof(*xpub));
+    X509_PUBKEY *xpub = zalloc_zero(typeof(*xpub), 1);
 
     if (xpub == NULL)
         return NULL;
@@ -2264,7 +2264,7 @@ static OSSL_FUNC_decoder_export_object_fn der2key_export_object;
 static struct der2key_ctx_st *
 der2key_newctx(void *provctx, struct keytype_desc_st *desc, const char* tls_name)
 {
-    struct der2key_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    struct der2key_ctx_st *ctx = zalloc_zero(typeof(*ctx), 1);
 
     if (ctx != NULL) {
         ctx->provctx = provctx;
@@ -2924,7 +2924,7 @@ static void *xor_sig_dupctx(void *vpxor_sigctx)
     PROV_XORSIG_CTX *srcctx = (PROV_XORSIG_CTX *)vpxor_sigctx;
     PROV_XORSIG_CTX *dstctx;
 
-    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
+    dstctx = zalloc_zero(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

@@ -52,7 +52,7 @@ static void *seed_src_new(void *provctx, void *parent,
         return NULL;
     }
 
-    s = OPENSSL_zalloc(sizeof(*s));
+    s = zalloc_zero(typeof(*s), 1);
     if (s == NULL)
         return NULL;
 

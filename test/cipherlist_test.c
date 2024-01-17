@@ -42,7 +42,7 @@ static CIPHERLIST_TEST_FIXTURE *set_up(const char *const test_case_name)
 {
     CIPHERLIST_TEST_FIXTURE *fixture;
 
-    if (!TEST_ptr(fixture = OPENSSL_zalloc(sizeof(*fixture))))
+    if (!TEST_ptr(fixture = zalloc_zero(typeof(*fixture), 1)))
         return NULL;
     fixture->test_case_name = test_case_name;
     if (!TEST_ptr(fixture->server = SSL_CTX_new(TLS_server_method()))

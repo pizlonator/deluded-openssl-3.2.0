@@ -3890,7 +3890,7 @@ uint8_t SSL_SESSION_get_max_fragment_length(const SSL_SESSION *session)
  */
 SSL_HMAC *ssl_hmac_new(const SSL_CTX *ctx)
 {
-    SSL_HMAC *ret = OPENSSL_zalloc(sizeof(*ret));
+    SSL_HMAC *ret = zalloc_zero(typeof(*ret), 1);
     EVP_MAC *mac = NULL;
 
     if (ret == NULL)

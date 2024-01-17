@@ -49,7 +49,7 @@ static OSSL_CC_DATA *newreno_new(OSSL_TIME (*now_cb)(void *arg),
 {
     OSSL_CC_NEWRENO *nr;
 
-    if ((nr = OPENSSL_zalloc(sizeof(*nr))) == NULL)
+    if ((nr = zalloc_zero(typeof(*nr), 1)) == NULL)
         return NULL;
 
     nr->now_cb          = now_cb;

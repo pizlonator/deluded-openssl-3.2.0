@@ -469,7 +469,7 @@ OSSL_QUIC_TX_PACKETISER *ossl_quic_tx_packetiser_new(const OSSL_QUIC_TX_PACKETIS
         return NULL;
     }
 
-    txp = OPENSSL_zalloc(sizeof(*txp));
+    txp = zalloc_zero(typeof(*txp), 1);
     if (txp == NULL)
         return NULL;
 

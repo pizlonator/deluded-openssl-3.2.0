@@ -211,7 +211,7 @@ static struct file_st *win32_splitter(DSO *dso, const char *filename,
         return NULL;
     }
 
-    result = OPENSSL_zalloc(sizeof(*result));
+    result = zalloc_zero(typeof(*result), 1);
     if (result == NULL)
         return NULL;
 

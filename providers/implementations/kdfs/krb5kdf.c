@@ -64,7 +64,7 @@ static void *krb5kdf_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL)
+    if ((ctx = zalloc_zero(typeof(*ctx), 1)) == NULL)
         return NULL;
     ctx->provctx = provctx;
     return ctx;

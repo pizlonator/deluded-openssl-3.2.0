@@ -12,6 +12,7 @@
 # include <openssl/configuration.h>
 # include <openssl/e_os2.h>
 # include "internal/time.h"
+#include <stdfil.h>
 
 # if defined(_WIN32)
 #  include <windows.h>

@@ -39,7 +39,7 @@ struct epki2pki_ctx_st {
 
 static void *epki2pki_newctx(void *provctx)
 {
-    struct epki2pki_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
+    struct epki2pki_ctx_st *ctx = zalloc_zero(typeof(*ctx), 1);
 
     if (ctx != NULL)
         ctx->provctx = provctx;

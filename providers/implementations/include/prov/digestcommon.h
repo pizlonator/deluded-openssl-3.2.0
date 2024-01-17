@@ -14,6 +14,7 @@
 # include <openssl/core_names.h>
 # include <openssl/params.h>
 # include "prov/providercommon.h"
+#include <stdfil.h>
 
 /* Internal flags that can be queried */
 #define PROV_DIGEST_FLAG_XOF             0x0001
@@ -54,7 +55,7 @@ static OSSL_FUNC_digest_freectx_fn name##_freectx;                             \
 static OSSL_FUNC_digest_dupctx_fn name##_dupctx;                               \
 static void *name##_newctx(void *prov_ctx)                                     \
 {                                                                              \
-    CTX *ctx = ossl_prov_is_running() ? OPENSSL_zalloc(sizeof(*ctx)) : NULL;   \
+    CTX *ctx = ossl_prov_is_running() ? zalloc_zero(typeof(*ctx), 1) : NULL;   \
     return ctx;                                                                \
 }                                                                              \
 static void name##_freectx(void *vctx)                                         \
