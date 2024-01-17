@@ -76,8 +76,7 @@ __owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
  */
 # define OSSL_UNION_ALIGN       \
     double align;               \
-    ossl_uintmax_t align_int;   \
-    void *align_ptr
+    ossl_uintmax_t align_int;
 
 # define OPENSSL_CONF             "openssl.cnf"
 
