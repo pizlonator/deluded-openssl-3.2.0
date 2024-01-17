@@ -246,13 +246,10 @@ static int add_provider_groups(const OSSL_PARAM params[], void *data)
         TLS_GROUP_INFO *tmp = NULL;
 
         if (ctx->group_list_max_len == 0)
-            tmp = OPENSSL_malloc(sizeof(TLS_GROUP_INFO)
-                                 * TLS_GROUP_LIST_MALLOC_BLOCK_SIZE);
+            tmp = zalloc(TLS_GROUP_INFO, TLS_GROUP_LIST_MALLOC_BLOCK_SIZE);
         else
-            tmp = OPENSSL_realloc(ctx->group_list,
-                                  (ctx->group_list_max_len
-                                   + TLS_GROUP_LIST_MALLOC_BLOCK_SIZE)
-                                  * sizeof(TLS_GROUP_INFO));
+            tmp = zrealloc(ctx->group_list, TLS_GROUP_INFO,
+                           ctx->group_list_max_len + TLS_GROUP_LIST_MALLOC_BLOCK_SIZE);
         if (tmp == NULL)
             return 0;
         ctx->group_list = tmp;
@@ -436,13 +433,10 @@ static int add_provider_sigalgs(const OSSL_PARAM params[], void *data)
         TLS_SIGALG_INFO *tmp = NULL;
 
         if (ctx->sigalg_list_max_len == 0)
-            tmp = OPENSSL_malloc(sizeof(TLS_SIGALG_INFO)
-                                 * TLS_SIGALG_LIST_MALLOC_BLOCK_SIZE);
+            tmp = zalloc(TLS_SIGALG_INFO, TLS_SIGALG_LIST_MALLOC_BLOCK_SIZE);
         else
-            tmp = OPENSSL_realloc(ctx->sigalg_list,
-                                  (ctx->sigalg_list_max_len
-                                   + TLS_SIGALG_LIST_MALLOC_BLOCK_SIZE)
-                                  * sizeof(TLS_SIGALG_INFO));
+            tmp = zrealloc(ctx->sigalg_list, TLS_SIGALG_INFO,
+                           ctx->sigalg_list_max_len + TLS_SIGALG_LIST_MALLOC_BLOCK_SIZE);
         if (tmp == NULL)
             return 0;
         ctx->sigalg_list = tmp;
@@ -714,7 +708,7 @@ int ssl_load_sigalgs(SSL_CTX *ctx)
 
     /* now populate ctx->ssl_cert_info */
     if (ctx->sigalg_list_len > 0) {
-        ctx->ssl_cert_info = OPENSSL_zalloc(sizeof(lu) * ctx->sigalg_list_len);
+        ctx->ssl_cert_info = zalloc_zero(typeof(lu), ctx->sigalg_list_len);
         if (ctx->ssl_cert_info == NULL)
             return 0;
         for(i = 0; i < ctx->sigalg_list_len; i++) {
@@ -1512,7 +1506,7 @@ int ssl_setup_sigalgs(SSL_CTX *ctx)
 
     sigalgs_len = OSSL_NELEM(sigalg_lookup_tbl) + ctx->sigalg_list_len;
 
-    cache = OPENSSL_malloc(sizeof(const SIGALG_LOOKUP) * sigalgs_len);
+    cache = zalloc(SIGALG_LOOKUP, sigalgs_len);
     if (cache == NULL || tmpkey == NULL)
         goto err;
 
@@ -2689,7 +2683,7 @@ static int tls1_set_shared_sigalgs(SSL_CONNECTION *s)
     }
     nmatch = tls12_shared_sigalgs(s, NULL, pref, preflen, allow, allowlen);
     if (nmatch) {
-        if ((salgs = OPENSSL_malloc(nmatch * sizeof(*salgs))) == NULL)
+        if ((salgs = zalloc(typeof(*salgs), nmatch)) == NULL)
             return 0;
         nmatch = tls12_shared_sigalgs(s, salgs, pref, preflen, allow, allowlen);
     } else {
