@@ -71,7 +71,7 @@ CERT *ssl_cert_new(size_t ssl_pkey_num)
         return NULL;
 
     ret->ssl_pkey_num = ssl_pkey_num;
-    ret->pkeys = OPENSSL_zalloc(ret->ssl_pkey_num * sizeof(CERT_PKEY));
+    ret->pkeys = zalloc_zero(CERT_PKEY, ret->ssl_pkey_num);
     if (ret->pkeys == NULL) {
         OPENSSL_free(ret);
         return NULL;
@@ -102,7 +102,7 @@ CERT *ssl_cert_dup(CERT *cert)
         return NULL;
 
     ret->ssl_pkey_num = cert->ssl_pkey_num;
-    ret->pkeys = OPENSSL_zalloc(ret->ssl_pkey_num * sizeof(CERT_PKEY));
+    ret->pkeys = zalloc_zero(CERT_PKEY, ret->ssl_pkey_num);
     if (ret->pkeys == NULL) {
         OPENSSL_free(ret);
         return NULL;
@@ -164,8 +164,7 @@ CERT *ssl_cert_dup(CERT *cert)
 
     /* Configured sigalgs copied across */
     if (cert->conf_sigalgs) {
-        ret->conf_sigalgs = OPENSSL_malloc(cert->conf_sigalgslen
-                                           * sizeof(*cert->conf_sigalgs));
+        ret->conf_sigalgs = zalloc(typeof(*cert->conf_sigalgs), cert->conf_sigalgslen);
         if (ret->conf_sigalgs == NULL)
             goto err;
         memcpy(ret->conf_sigalgs, cert->conf_sigalgs,
@@ -175,8 +174,7 @@ CERT *ssl_cert_dup(CERT *cert)
         ret->conf_sigalgs = NULL;
 
     if (cert->client_sigalgs) {
-        ret->client_sigalgs = OPENSSL_malloc(cert->client_sigalgslen
-                                             * sizeof(*cert->client_sigalgs));
+        ret->client_sigalgs = zalloc(typeof(*cert->client_sigalgs), cert->client_sigalgslen);
         if (ret->client_sigalgs == NULL)
             goto err;
         memcpy(ret->client_sigalgs, cert->client_sigalgs,
