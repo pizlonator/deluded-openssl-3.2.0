@@ -116,7 +116,7 @@ static int mem_init(BIO *bi, unsigned long flags)
         OPENSSL_free(bb);
         return 0;
     }
-    if ((bb->readp = OPENSSL_zalloc(sizeof(*bb->readp))) == NULL) {
+    if ((bb->readp = zalloc_zero(typeof(*bb->readp), 1)) == NULL) {
         BUF_MEM_free(bb->buf);
         OPENSSL_free(bb);
         return 0;

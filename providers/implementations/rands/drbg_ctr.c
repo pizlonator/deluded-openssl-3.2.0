@@ -230,8 +230,9 @@ __owur static int ctr_df(PROV_DRBG_CTR *ctr,
         || !ctr_BCC_update(ctr, in2, in2len)
         || !ctr_BCC_update(ctr, in3, in3len)
         || !ctr_BCC_update(ctr, &c80, 1)
-        || !ctr_BCC_final(ctr))
+        || !ctr_BCC_final(ctr)) {
         return 0;
+    }
     /* Set up key K */
     if (!EVP_CipherInit_ex(ctr->ctx_ecb, NULL, NULL, ctr->KX, NULL, -1))
         return 0;

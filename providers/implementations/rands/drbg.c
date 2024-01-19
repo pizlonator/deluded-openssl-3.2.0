@@ -172,9 +172,10 @@ size_t ossl_drbg_get_seed(void *vdrbg, unsigned char **pout,
      *       a warning in some static code analyzers, but it's
      *       intentional and correct here.
      */
+    uintptr_t drbg_ptr = (uintptr_t)drbg;
     if (!ossl_prov_drbg_generate(drbg, buffer, bytes_needed,
                                  drbg->strength, prediction_resistance,
-                                 (unsigned char *)&drbg, sizeof(drbg))) {
+                                 (unsigned char *)&drbg_ptr, sizeof(drbg_ptr))) {
         OPENSSL_secure_clear_free(buffer, bytes_needed);
         ERR_raise(ERR_LIB_PROV, PROV_R_GENERATE_ERROR);
         return 0;
@@ -237,9 +238,10 @@ static size_t get_entropy(PROV_DRBG *drbg, unsigned char **pout, int entropy,
      *       a warning in some static code analyzers, but it's
      *       intentional and correct here.
      */
+    uintptr_t drbg_ptr = (uintptr_t)drbg;
     bytes = drbg->parent_get_seed(drbg->parent, pout, drbg->strength,
                                   min_len, max_len, prediction_resistance,
-                                  (unsigned char *)&drbg, sizeof(drbg));
+                                  (unsigned char *)&drbg_ptr, sizeof(drbg_ptr));
     ossl_drbg_unlock_parent(drbg);
     return bytes;
 }
