@@ -91,7 +91,7 @@ static int policy_cache_new(X509 *x)
 
     if (x->policy_cache != NULL)
         return 1;
-    cache = OPENSSL_malloc(sizeof(*cache));
+    cache = zalloc(typeof(*cache), 1);
     if (cache == NULL)
         return 0;
     cache->anyPolicy = NULL;

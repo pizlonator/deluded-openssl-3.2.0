@@ -36,6 +36,7 @@
 #include <openssl/crypto.h>
 #include <openssl/ssl.h>
 #include <openssl/modes.h>
+#include <stdfil.h>
 
 #if defined(OPENSSL_SYS_UNIX) && defined(OPENSSL_THREADS)
 # undef ASYNC_POSIX
@@ -550,7 +551,7 @@ static void dummy_pause_job(void) {
                               (void **)&writefd)) {
         pipefds[1] = *writefd;
     } else {
-        writefd = OPENSSL_malloc(sizeof(*writefd));
+        writefd = zalloc(typeof(*writefd), 1);
         if (writefd == NULL)
             return;
 #if defined(ASYNC_WIN)

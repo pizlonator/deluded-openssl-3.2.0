@@ -39,7 +39,7 @@ static void *aes_dupctx(void *ctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ret = OPENSSL_malloc(sizeof(*ret));
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     in->base.hw->copyctx(&ret->base, &in->base);

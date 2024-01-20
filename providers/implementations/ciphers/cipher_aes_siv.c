@@ -64,7 +64,7 @@ static void *siv_dupctx(void *vctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ret = OPENSSL_malloc(sizeof(*ret));
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     if (!in->hw->dupctx(in, ret)) {

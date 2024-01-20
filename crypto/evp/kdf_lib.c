@@ -59,7 +59,7 @@ EVP_KDF_CTX *EVP_KDF_CTX_dup(const EVP_KDF_CTX *src)
     if (src == NULL || src->algctx == NULL || src->meth->dupctx == NULL)
         return NULL;
 
-    dst = OPENSSL_malloc(sizeof(*dst));
+    dst = zalloc(typeof(*dst), 1);
     if (dst == NULL)
         return NULL;
 

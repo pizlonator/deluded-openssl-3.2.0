@@ -66,7 +66,7 @@ static void name##_freectx(void *vctx)                                         \
 static void *name##_dupctx(void *ctx)                                          \
 {                                                                              \
     CTX *in = (CTX *)ctx;                                                      \
-    CTX *ret = ossl_prov_is_running() ? OPENSSL_malloc(sizeof(*ret)) : NULL;   \
+    CTX *ret = ossl_prov_is_running() ? zalloc(typeof(*ret), 1) : NULL;   \
     if (ret != NULL)                                                           \
         *ret = *in;                                                            \
     return ret;                                                                \

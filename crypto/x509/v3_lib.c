@@ -95,7 +95,7 @@ int X509V3_EXT_add_alias(int nid_to, int nid_from)
         ERR_raise(ERR_LIB_X509V3, X509V3_R_EXTENSION_NOT_FOUND);
         return 0;
     }
-    if ((tmpext = OPENSSL_malloc(sizeof(*tmpext))) == NULL)
+    if ((tmpext = zalloc(typeof(*tmpext), 1)) == NULL)
         return 0;
     *tmpext = *ext;
     tmpext->ext_nid = nid_to;

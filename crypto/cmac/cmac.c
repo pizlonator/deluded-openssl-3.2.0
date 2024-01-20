@@ -54,7 +54,7 @@ CMAC_CTX *CMAC_CTX_new(void)
 {
     CMAC_CTX *ctx;
 
-    if ((ctx = OPENSSL_malloc(sizeof(*ctx))) == NULL)
+    if ((ctx = zalloc(typeof(*ctx), 1)) == NULL)
         return NULL;
     ctx->cctx = EVP_CIPHER_CTX_new();
     if (ctx->cctx == NULL) {

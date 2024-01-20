@@ -65,7 +65,7 @@ static void *poly1305_dup(void *vsrc)
 
     if (!ossl_prov_is_running())
         return NULL;
-    dst = OPENSSL_malloc(sizeof(*dst));
+    dst = zalloc(typeof(*dst), 1);
     if (dst == NULL)
         return NULL;
 

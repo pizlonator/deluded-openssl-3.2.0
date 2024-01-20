@@ -145,7 +145,7 @@ static void *aes_xts_dupctx(void *vctx)
         if (in->xts.key2 != &in->ks2)
             return NULL;
     }
-    ret = OPENSSL_malloc(sizeof(*ret));
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     in->base.hw->copyctx(&ret->base, &in->base);

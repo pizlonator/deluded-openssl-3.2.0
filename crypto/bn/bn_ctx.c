@@ -318,7 +318,7 @@ static BIGNUM *BN_POOL_get(BN_POOL *p, int flag)
     if (p->used == p->size) {
         BN_POOL_ITEM *item;
 
-        if ((item = OPENSSL_malloc(sizeof(*item))) == NULL)
+        if ((item = zalloc(typeof(*item), 1)) == NULL)
             return NULL;
         for (loop = 0, bn = item->vals; loop++ < BN_CTX_POOL_SIZE; bn++) {
             bn_init(bn);

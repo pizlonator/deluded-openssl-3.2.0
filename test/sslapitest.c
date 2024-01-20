@@ -5743,7 +5743,7 @@ static int old_add_cb(SSL *s, unsigned int ext_type, const unsigned char **out,
         clntaddoldcb++;
 
     if (*server != SSL_is_server(s)
-            || (data = OPENSSL_malloc(sizeof(*data))) == NULL)
+            || (data = zalloc(typeof(*data), 1)) == NULL)
         return -1;
 
     *data = 1;
@@ -5789,7 +5789,7 @@ static int new_add_cb(SSL *s, unsigned int ext_type, unsigned int context,
         clntaddnewcb++;
 
     if (*server != SSL_is_server(s)
-            || (data = OPENSSL_malloc(sizeof(*data))) == NULL)
+            || (data = zalloc(typeof(*data), 1)) == NULL)
         return -1;
 
     *data = 1;

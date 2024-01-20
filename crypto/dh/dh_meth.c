@@ -44,7 +44,7 @@ void DH_meth_free(DH_METHOD *dhm)
 
 DH_METHOD *DH_meth_dup(const DH_METHOD *dhm)
 {
-    DH_METHOD *ret = OPENSSL_malloc(sizeof(*ret));
+    DH_METHOD *ret = zalloc(typeof(*ret), 1);
 
     if (ret != NULL) {
         memcpy(ret, dhm, sizeof(*dhm));

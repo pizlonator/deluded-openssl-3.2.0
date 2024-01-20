@@ -32,7 +32,7 @@ static int event_compare_priority(const OSSL_EVENT *a, const OSSL_EVENT *b)
 
 OSSL_EVENT_QUEUE *ossl_event_queue_new(void)
 {
-    OSSL_EVENT_QUEUE *r = OPENSSL_malloc(sizeof(*r));
+    OSSL_EVENT_QUEUE *r = zalloc(typeof(*r), 1);
 
     if (r != NULL) {
         r->timed_events = ossl_pqueue_OSSL_EVENT_new(&event_compare_times);
@@ -108,7 +108,7 @@ OSSL_EVENT *ossl_event_queue_add_new(OSSL_EVENT_QUEUE *queue,
                                      OSSL_TIME when, void *ctx,
                                      void *payload, size_t payload_size)
 {
-    OSSL_EVENT *e = OPENSSL_malloc(sizeof(*e));
+    OSSL_EVENT *e = zalloc(typeof(*e), 1);
 
     if (e == NULL || queue == NULL) {
         OPENSSL_free(e);

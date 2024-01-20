@@ -327,7 +327,7 @@ OSSL_PROPERTY_LIST *ossl_parse_property(OSSL_LIB_CTX *ctx, const char *defn)
     while (!done) {
         const char *start = s;
 
-        prop = OPENSSL_malloc(sizeof(*prop));
+        prop = zalloc(typeof(*prop), 1);
         if (prop == NULL)
             goto err;
         memset(&prop->v, 0, sizeof(prop->v));
@@ -384,7 +384,7 @@ OSSL_PROPERTY_LIST *ossl_parse_query(OSSL_LIB_CTX *ctx, const char *s,
     s = skip_space(s);
     done = *s == '\0';
     while (!done) {
-        prop = OPENSSL_malloc(sizeof(*prop));
+        prop = zalloc(typeof(*prop), 1);
         if (prop == NULL)
             goto err;
         memset(&prop->v, 0, sizeof(prop->v));

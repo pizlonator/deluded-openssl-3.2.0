@@ -13,6 +13,7 @@
 #include "internal/priority_queue.h"
 #include "internal/safe_math.h"
 #include "internal/numbers.h"
+#include <stdfil.h>
 
 OSSL_SAFE_MATH_UNSIGNED(size_t, size_t)
 
@@ -333,7 +334,7 @@ OSSL_PQUEUE *ossl_pqueue_new(int (*compare)(const void *, const void *))
     if (compare == NULL)
         return NULL;
 
-    pq = OPENSSL_malloc(sizeof(*pq));
+    pq = zalloc(typeof(*pq), 1);
     if (pq == NULL)
         return NULL;
     pq->compare = compare;

@@ -290,7 +290,7 @@ static int dtls_rlayer_buffer_record(OSSL_RECORD_LAYER *rl, record_pqueue *queue
     if (pqueue_size(queue->q) >= 100)
         return 0;
 
-    rdata = OPENSSL_malloc(sizeof(*rdata));
+    rdata = zalloc(typeof(*rdata), 1);
     item = pitem_new(priority, rdata);
     if (rdata == NULL || item == NULL) {
         OPENSSL_free(rdata);

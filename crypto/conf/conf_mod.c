@@ -408,7 +408,7 @@ static int module_init(CONF_MODULE *pmod, const char *name, const char *value,
     CONF_IMODULE *imod = NULL;
 
     /* Otherwise add initialized module to list */
-    imod = OPENSSL_malloc(sizeof(*imod));
+    imod = zalloc(typeof(*imod), 1);
     if (imod == NULL)
         goto err;
 

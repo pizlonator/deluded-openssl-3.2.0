@@ -109,7 +109,7 @@ static int win32_load(DSO *dso)
                        "filename(%s)", filename);
         goto err;
     }
-    p = OPENSSL_malloc(sizeof(*p));
+    p = zalloc(typeof(*p), 1);
     if (p == NULL)
         goto err;
     *p = h;

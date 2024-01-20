@@ -168,7 +168,7 @@ static int chan_add_reset_token(QUIC_CHANNEL *ch, const unsigned char *new,
     int err;
 
     /* Add to list by sequence number (always the tail) */
-    if ((srte = OPENSSL_malloc(sizeof(*srte))) == NULL)
+    if ((srte = zalloc(typeof(*srte), 1)) == NULL)
         return 0;
 
     ossl_list_stateless_reset_tokens_init_elem(srte);

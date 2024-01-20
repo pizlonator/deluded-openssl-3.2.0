@@ -12,6 +12,7 @@
 #include "internal/nelem.h"
 #include "internal/thread_once.h"
 #include <openssl/err.h>
+#include <stdfil.h>
 
 static STACK_OF(nid_triple) *sig_app, *sigx_app;
 static CRYPTO_RWLOCK *sig_lock;
@@ -155,7 +156,7 @@ int OBJ_add_sigid(int signid, int dig_id, int pkey_id)
     if (!obj_sig_init())
         return 0;
 
-    if ((ntr = OPENSSL_malloc(sizeof(*ntr))) == NULL)
+    if ((ntr = zalloc(typeof(*ntr), 1)) == NULL)
         return 0;
     ntr->sign_id = signid;
     ntr->hash_id = dig_id;

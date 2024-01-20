@@ -260,7 +260,7 @@ int evp_keymgmt_util_cache_keydata(EVP_PKEY *pk, EVP_KEYMGMT *keymgmt,
                 return 0;
         }
 
-        p = OPENSSL_malloc(sizeof(*p));
+        p = zalloc(typeof(*p), 1);
         if (p == NULL)
             return 0;
         p->keydata = keydata;

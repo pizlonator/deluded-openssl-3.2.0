@@ -466,7 +466,7 @@ int mempacket_swap_epoch(BIO *bio)
              * Create a new packet for the earlier record that we took out and
              * add it to the end of the packet list.
              */
-            thispkt = OPENSSL_malloc(sizeof(*thispkt));
+            thispkt = zalloc(typeof(*thispkt), 1);
             if (thispkt == NULL) {
                 OPENSSL_free(tmp);
                 return 0;
@@ -561,7 +561,7 @@ int mempacket_test_inject(BIO *bio, const char *in, int inl, int pktnum,
     }
 
     for (i = 0; i < (duprec ? 3 : 1); i++) {
-        if (!TEST_ptr(allpkts[i] = OPENSSL_malloc(sizeof(*thispkt))))
+        if (!TEST_ptr(allpkts[i] = zalloc(typeof(*thispkt), 1)))
             goto err;
         thispkt = allpkts[i];
 

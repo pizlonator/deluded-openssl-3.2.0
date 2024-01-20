@@ -153,7 +153,7 @@ static int evp_test_buffer_append(const char *value,
 {
     EVP_TEST_BUFFER *db = NULL;
 
-    if (!TEST_ptr(db = OPENSSL_malloc(sizeof(*db))))
+    if (!TEST_ptr(db = zalloc(typeof(*db), 1)))
         goto err;
 
     if (!parse_bin(value, &db->buf, &db->buflen))
@@ -3138,7 +3138,7 @@ static int keypair_test_init(EVP_TEST *t, const char *pair)
         goto end;
     }
 
-    if (!TEST_ptr(data = OPENSSL_malloc(sizeof(*data))))
+    if (!TEST_ptr(data = zalloc(typeof(*data), 1)))
         goto end;
     data->privk = pk;
     data->pubk = pubk;
@@ -3245,7 +3245,7 @@ static int keygen_test_init(EVP_TEST *t, const char *alg)
         goto err;
     }
 
-    if (!TEST_ptr(data = OPENSSL_malloc(sizeof(*data))))
+    if (!TEST_ptr(data = zalloc(typeof(*data), 1)))
         goto err;
     data->genctx = genctx;
     data->keyname = NULL;
@@ -3304,7 +3304,7 @@ static int keygen_test_run(EVP_TEST *t)
             goto err;
         }
 
-        if (!TEST_ptr(key = OPENSSL_malloc(sizeof(*key))))
+        if (!TEST_ptr(key = zalloc(typeof(*key), 1)))
             goto err;
         key->name = keygen->keyname;
         keygen->keyname = NULL;
@@ -4009,7 +4009,7 @@ start:
             TEST_info("Duplicate key %s", pp->value);
             return 0;
         }
-        if (!TEST_ptr(key = OPENSSL_malloc(sizeof(*key))))
+        if (!TEST_ptr(key = zalloc(typeof(*key), 1)))
             return 0;
         key->name = take_value(pp);
         key->key = pkey;

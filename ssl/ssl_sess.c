@@ -140,7 +140,7 @@ SSL_SESSION *ssl_session_dup(const SSL_SESSION *src, int ticket)
 {
     SSL_SESSION *dest;
 
-    dest = OPENSSL_malloc(sizeof(*dest));
+    dest = zalloc(typeof(*dest), 1);
     if (dest == NULL)
         return NULL;
     memcpy(dest, src, sizeof(*dest));

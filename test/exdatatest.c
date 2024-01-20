@@ -133,7 +133,7 @@ typedef struct myobj_st {
 static MYOBJ *MYOBJ_new(void)
 {
     static int count = 0;
-    MYOBJ *obj = OPENSSL_malloc(sizeof(*obj));
+    MYOBJ *obj = zalloc(typeof(*obj), 1);
 
     if (obj != NULL) {
         obj->id = ++count;

@@ -39,7 +39,7 @@ static async_ctx *async_ctx_new(void)
     if (!ossl_init_thread_start(NULL, NULL, async_delete_thread_state))
         return NULL;
 
-    nctx = OPENSSL_malloc(sizeof(*nctx));
+    nctx = zalloc(typeof(*nctx), 1);
     if (nctx == NULL)
         goto err;
 

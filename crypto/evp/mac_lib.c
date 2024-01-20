@@ -54,7 +54,7 @@ EVP_MAC_CTX *EVP_MAC_CTX_dup(const EVP_MAC_CTX *src)
     if (src->algctx == NULL)
         return NULL;
 
-    dst = OPENSSL_malloc(sizeof(*dst));
+    dst = zalloc(typeof(*dst), 1);
     if (dst == NULL)
         return NULL;
 

@@ -77,7 +77,7 @@ static void *siphash_dup(void *vsrc)
 
     if (!ossl_prov_is_running())
         return NULL;
-    sdst = OPENSSL_malloc(sizeof(*sdst));
+    sdst = zalloc(typeof(*sdst), 1);
     if (sdst == NULL)
         return NULL;
 

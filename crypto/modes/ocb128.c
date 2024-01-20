@@ -11,6 +11,7 @@
 #include <openssl/crypto.h>
 #include <openssl/err.h>
 #include "crypto/modes.h"
+#include <stdfil.h>
 
 #ifndef OPENSSL_NO_OCB
 
@@ -134,7 +135,7 @@ OCB128_CONTEXT *CRYPTO_ocb128_new(void *keyenc, void *keydec,
     OCB128_CONTEXT *octx;
     int ret;
 
-    if ((octx = OPENSSL_malloc(sizeof(*octx))) != NULL) {
+    if ((octx = zalloc(typeof(*octx), 1)) != NULL) {
         ret = CRYPTO_ocb128_init(octx, keyenc, keydec, encrypt, decrypt,
                                  stream);
         if (ret)

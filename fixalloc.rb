@@ -11,5 +11,9 @@ Dir.glob("**/*.[ch]") {
     #    | match |
     #    "zalloc_zero(#{$1}, 1)"
     #}
+    contents.gsub!(/OPENSSL_malloc\(sizeof\(\*([a-zA-Z0-9_]+)\)\)/) {
+        | match |
+        "zalloc(typeof(*#{$1}), 1)"
+    }
     IO::write(filename, contents)
 }
