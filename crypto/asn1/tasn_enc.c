@@ -578,9 +578,9 @@ static int asn1_ex_i2c(const ASN1_VALUE **pval, unsigned char *cout, int *putype
             /*
              * Default handling if value == size field then omit
              */
-            if (*tbool && (it->size > 0))
+            if (*tbool && (it->sizeish > 0))
                 return -1;
-            if (!*tbool && !it->size)
+            if (!*tbool && !it->sizeish)
                 return -1;
         }
         c = (unsigned char)*tbool;
@@ -619,7 +619,7 @@ static int asn1_ex_i2c(const ASN1_VALUE **pval, unsigned char *cout, int *putype
         /* All based on ASN1_STRING and handled the same */
         strtmp = (ASN1_STRING *)*pval;
         /* Special handling for NDEF */
-        if ((it->size == ASN1_TFLG_NDEF)
+        if ((it->sizeish == ASN1_TFLG_NDEF)
             && (strtmp->flags & ASN1_STRING_FLAG_NDEF)) {
             if (cout) {
                 strtmp->data = cout;

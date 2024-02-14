@@ -12,6 +12,7 @@
 #include <openssl/asn1t.h>
 
 /* Declarations for string types */
+const ASN1_STRING asn1_string_prototype;
 
 #define IMPLEMENT_ASN1_STRING_FUNCTIONS(sname) \
     IMPLEMENT_ASN1_TYPE(sname) \

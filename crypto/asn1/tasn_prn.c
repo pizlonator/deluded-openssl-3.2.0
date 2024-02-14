@@ -487,7 +487,7 @@ static int asn1_primitive_print(BIO *out, const ASN1_VALUE **fld,
         {
             int boolval = *(int *)fld;
             if (boolval == -1)
-                boolval = it->size;
+                boolval = it->sizeish;
             ret = asn1_print_boolean(out, boolval);
         }
         break;

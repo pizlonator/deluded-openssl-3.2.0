@@ -107,7 +107,7 @@ static int wpacket_intern_init_len(WPACKET *pkt, size_t lenbytes)
     pkt->curr = 0;
     pkt->written = 0;
 
-    if ((pkt->subs = OPENSSL_zalloc(sizeof(*pkt->subs))) == NULL)
+    if ((pkt->subs = zalloc_zero(typeof(*pkt->subs), 1)) == NULL)
         return 0;
 
     if (lenbytes == 0)

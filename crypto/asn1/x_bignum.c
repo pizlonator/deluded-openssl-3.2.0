@@ -55,11 +55,11 @@ static ASN1_PRIMITIVE_FUNCS cbignum_pf = {
 };
 
 ASN1_ITEM_start(BIGNUM)
-        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &bignum_pf, 0, "BIGNUM"
+        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &bignum_pf, NULL, 0, "BIGNUM"
 ASN1_ITEM_end(BIGNUM)
 
 ASN1_ITEM_start(CBIGNUM)
-        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &cbignum_pf, BN_SENSITIVE, "CBIGNUM"
+        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &cbignum_pf, NULL, BN_SENSITIVE, "CBIGNUM"
 ASN1_ITEM_end(CBIGNUM)
 
 static int bn_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
@@ -84,7 +84,7 @@ static void bn_free(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
     if (*pval == NULL)
         return;
-    if (it->size & BN_SENSITIVE)
+    if (it->sizeish & BN_SENSITIVE)
         BN_clear_free((BIGNUM *)*pval);
     else
         BN_free((BIGNUM *)*pval);
