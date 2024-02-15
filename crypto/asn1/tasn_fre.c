@@ -25,22 +25,24 @@ void ASN1_item_ex_free(ASN1_VALUE **pval, const ASN1_ITEM *it)
     ossl_asn1_item_embed_free(pval, it, 0);
 }
 
+static ASN1_aux_cb *get_asn1_cb(const ASN1_AUX *aux)
+{
+    if (aux && aux->asn1_cb)
+        return aux->asn1_cb;
+    return 0;
+}
+
 void ossl_asn1_item_embed_free(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed)
 {
     const ASN1_TEMPLATE *tt = NULL, *seqtt;
     const ASN1_EXTERN_FUNCS *ef;
     const ASN1_AUX *aux = it->funcs;
-    ASN1_aux_cb *asn1_cb;
     int i;
 
     if (pval == NULL)
         return;
     if ((it->itype != ASN1_ITYPE_PRIMITIVE) && *pval == NULL)
         return;
-    if (aux && aux->asn1_cb)
-        asn1_cb = aux->asn1_cb;
-    else
-        asn1_cb = 0;
 
     switch (it->itype) {
 
@@ -56,8 +58,8 @@ void ossl_asn1_item_embed_free(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed
         break;
 
     case ASN1_ITYPE_CHOICE:
-        if (asn1_cb) {
-            i = asn1_cb(ASN1_OP_FREE_PRE, pval, it, NULL);
+        if (get_asn1_cb(aux)) {
+            i = get_asn1_cb(aux)(ASN1_OP_FREE_PRE, pval, it, NULL);
             if (i == 2)
                 return;
         }
@@ -69,8 +71,8 @@ void ossl_asn1_item_embed_free(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed
             pchval = ossl_asn1_get_field_ptr(pval, tt);
             ossl_asn1_template_free(pchval, tt);
         }
-        if (asn1_cb)
-            asn1_cb(ASN1_OP_FREE_POST, pval, it, NULL);
+        if (get_asn1_cb(aux))
+            get_asn1_cb(aux)(ASN1_OP_FREE_POST, pval, it, NULL);
         if (embed == 0) {
             OPENSSL_free(*pval);
             *pval = NULL;
@@ -87,8 +89,8 @@ void ossl_asn1_item_embed_free(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed
     case ASN1_ITYPE_SEQUENCE:
         if (ossl_asn1_do_lock(pval, -1, it) != 0) /* if error or ref-counter > 0 */
             return;
-        if (asn1_cb) {
-            i = asn1_cb(ASN1_OP_FREE_PRE, pval, it, NULL);
+        if (get_asn1_cb(aux)) {
+            i = get_asn1_cb(aux)(ASN1_OP_FREE_PRE, pval, it, NULL);
             if (i == 2)
                 return;
         }
@@ -109,8 +111,8 @@ void ossl_asn1_item_embed_free(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed
             pseqval = ossl_asn1_get_field_ptr(pval, seqtt);
             ossl_asn1_template_free(pseqval, seqtt);
         }
-        if (asn1_cb)
-            asn1_cb(ASN1_OP_FREE_POST, pval, it, NULL);
+        if (get_asn1_cb(aux))
+            get_asn1_cb(aux)(ASN1_OP_FREE_POST, pval, it, NULL);
         if (embed == 0) {
             OPENSSL_free(*pval);
             *pval = NULL;
