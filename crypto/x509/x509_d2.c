@@ -45,13 +45,26 @@ int X509_STORE_set_default_paths(X509_STORE *ctx)
 int X509_STORE_load_file_ex(X509_STORE *ctx, const char *file,
                             OSSL_LIB_CTX *libctx, const char *propq)
 {
+    static const int verbose = 1;
+    
     X509_LOOKUP *lookup;
 
-    if (file == NULL
-        || (lookup = X509_STORE_add_lookup(ctx, X509_LOOKUP_file())) == NULL
-        || X509_LOOKUP_load_file_ex(lookup, file, X509_FILETYPE_PEM, libctx,
-                                    propq) <= 0)
+    if (file == NULL) {
+        if (verbose)
+            zprintf("X509_STORE_load_file_ex: file is NULL!\n");
         return 0;
+    }
+    if ((lookup = X509_STORE_add_lookup(ctx, X509_LOOKUP_file())) == NULL) {
+        if (verbose)
+            zprintf("X509_STORE_load_file_ex: X509_STORE_add_lookup returned NULL!\n");
+        return 0;
+    }
+    if (X509_LOOKUP_load_file_ex(lookup, file, X509_FILETYPE_PEM, libctx,
+                                 propq) <= 0) {
+        if (verbose)
+            zprintf("X509_STORE_load_file_ex: X509_LOOKUP_load_file_ex returned nonpositive result!\n");
+        return 0;
+    }
 
     return 1;
 }
