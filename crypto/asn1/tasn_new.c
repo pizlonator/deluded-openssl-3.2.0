@@ -114,7 +114,7 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
             zrestrict(*pval, char, it->sizeish);
             memset(*pval, 0, it->sizeish);
         } else {
-            *pval = zalloc_clone(it->prototype);
+            *pval = zalloc_like(it->prototype);
             if (*pval == NULL)
                 return 0;
         }
@@ -136,7 +136,7 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
         if (embed) {
             memset(*pval, 0, it->sizeish);
         } else {
-            *pval = zalloc_clone(it->prototype);
+            *pval = zalloc_like(it->prototype);
             if (*pval == NULL)
                 return 0;
         }
