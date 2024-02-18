@@ -381,7 +381,7 @@ static int bio_zlib_new(BIO *bi)
         return 0;
     }
 # endif
-    ctx = zalloc(BIO_ZLIB_CTX, 1);
+    ctx = zalloc_zero(BIO_ZLIB_CTX, 1);
     if (ctx == NULL)
         return 0;
     ctx->ibufsize = ZLIB_DEFAULT_BUFSIZE;

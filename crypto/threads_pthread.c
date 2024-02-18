@@ -47,7 +47,7 @@ CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void)
 # ifdef USE_RWLOCK
     CRYPTO_RWLOCK *lock;
 
-    if ((lock = zalloc(pthread_rwlock_t, 1)) == NULL)
+    if ((lock = zalloc_zero(pthread_rwlock_t, 1)) == NULL)
         /* Don't set error, to avoid recursion blowup. */
         return NULL;
 
@@ -59,7 +59,7 @@ CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void)
     pthread_mutexattr_t attr;
     CRYPTO_RWLOCK *lock;
 
-    if ((lock = zalloc(pthread_mutex_t, 1)) == NULL)
+    if ((lock = zalloc_zero(pthread_mutex_t, 1)) == NULL)
         /* Don't set error, to avoid recursion blowup. */
         return NULL;
 
