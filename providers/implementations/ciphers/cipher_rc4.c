@@ -81,7 +81,7 @@ static void *alg##_##kbits##_newctx(void *provctx)                             \
      PROV_##UCALG##_CTX *ctx;                                                  \
      if (!ossl_prov_is_running())                                              \
         return NULL;                                                           \
-     ctx = zalloc_zero(typeof(*ctx), 1);                                       \
+     ctx = zalloc(typeof(*ctx), 1);                                       \
      if (ctx != NULL) {                                                        \
          ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits, 0, flags,    \
                                      ossl_prov_cipher_hw_##alg(kbits), NULL);  \

@@ -37,7 +37,7 @@ struct child_prov_globals {
 
 void *ossl_child_prov_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    return zalloc_zero(struct child_prov_globals, 1);
+    return zalloc(struct child_prov_globals, 1);
 }
 
 void ossl_child_prov_ctx_free(void *vgbl)

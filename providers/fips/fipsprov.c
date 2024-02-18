@@ -99,7 +99,7 @@ static void init_fips_option(FIPS_OPTION *opt, int enabled)
 
 void *ossl_fips_prov_ossl_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    FIPS_GLOBAL *fgbl = zalloc_zero(typeof(*fgbl), 1);
+    FIPS_GLOBAL *fgbl = zalloc(typeof(*fgbl), 1);
 
     if (fgbl == NULL)
         return NULL;

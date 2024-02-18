@@ -52,7 +52,7 @@ static void *seed_src_new(void *provctx, void *parent,
         return NULL;
     }
 
-    s = zalloc_zero(typeof(*s), 1);
+    s = zalloc(typeof(*s), 1);
     if (s == NULL)
         return NULL;
 

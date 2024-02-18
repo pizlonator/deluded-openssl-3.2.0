@@ -79,7 +79,7 @@ static ASYNC_JOB *async_job_new(void)
 {
     ASYNC_JOB *job = NULL;
 
-    job = zalloc_zero(typeof(*job), 1);
+    job = zalloc(typeof(*job), 1);
     if (job == NULL)
         return NULL;
 
@@ -361,7 +361,7 @@ int ASYNC_init_thread(size_t max_size, size_t init_size)
     if (!ossl_init_thread_start(NULL, NULL, async_delete_thread_state))
         return 0;
 
-    pool = zalloc_zero(typeof(*pool), 1);
+    pool = zalloc(typeof(*pool), 1);
     if (pool == NULL)
         return 0;
 

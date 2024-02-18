@@ -66,12 +66,12 @@ CERT *ssl_cert_new(size_t ssl_pkey_num)
     if (!ossl_assert(ssl_pkey_num >= SSL_PKEY_NUM))
         return NULL;
 
-    ret = zalloc_zero(typeof(*ret), 1);
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
 
     ret->ssl_pkey_num = ssl_pkey_num;
-    ret->pkeys = zalloc_zero(CERT_PKEY, ret->ssl_pkey_num);
+    ret->pkeys = zalloc(CERT_PKEY, ret->ssl_pkey_num);
     if (ret->pkeys == NULL) {
         OPENSSL_free(ret);
         return NULL;
@@ -92,7 +92,7 @@ CERT *ssl_cert_new(size_t ssl_pkey_num)
 
 CERT *ssl_cert_dup(CERT *cert)
 {
-    CERT *ret = zalloc_zero(typeof(*ret), 1);
+    CERT *ret = zalloc(typeof(*ret), 1);
     size_t i;
 #ifndef OPENSSL_NO_COMP_ALG
     int j;
@@ -102,7 +102,7 @@ CERT *ssl_cert_dup(CERT *cert)
         return NULL;
 
     ret->ssl_pkey_num = cert->ssl_pkey_num;
-    ret->pkeys = zalloc_zero(CERT_PKEY, ret->ssl_pkey_num);
+    ret->pkeys = zalloc(CERT_PKEY, ret->ssl_pkey_num);
     if (ret->pkeys == NULL) {
         OPENSSL_free(ret);
         return NULL;

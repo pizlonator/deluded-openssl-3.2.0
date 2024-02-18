@@ -103,7 +103,7 @@ struct zlib_state {
 static int zlib_stateful_init(COMP_CTX *ctx)
 {
     int err;
-    struct zlib_state *state = zalloc_zero(struct zlib_state, 1);
+    struct zlib_state *state = zalloc(struct zlib_state, 1);
 
     if (state == NULL)
         goto err;
@@ -381,7 +381,7 @@ static int bio_zlib_new(BIO *bi)
         return 0;
     }
 # endif
-    ctx = zalloc_zero(BIO_ZLIB_CTX, 1);
+    ctx = zalloc(BIO_ZLIB_CTX, 1);
     if (ctx == NULL)
         return 0;
     ctx->ibufsize = ZLIB_DEFAULT_BUFSIZE;

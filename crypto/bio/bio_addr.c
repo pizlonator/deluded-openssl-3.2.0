@@ -51,7 +51,7 @@ static CRYPTO_ONCE bio_lookup_init = CRYPTO_ONCE_STATIC_INIT;
 
 BIO_ADDR *BIO_ADDR_new(void)
 {
-    BIO_ADDR *ret = zalloc_zero(typeof(*ret), 1);
+    BIO_ADDR *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

@@ -105,7 +105,7 @@ static void *dsa_newctx(void *provctx, const char *propq)
     if (!ossl_prov_is_running())
         return NULL;
 
-    pdsactx = zalloc_zero(PROV_DSA_CTX, 1);
+    pdsactx = zalloc(PROV_DSA_CTX, 1);
     if (pdsactx == NULL)
         return NULL;
 
@@ -408,7 +408,7 @@ static void *dsa_dupctx(void *vpdsactx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = zalloc_zero(typeof(*srcctx), 1);
+    dstctx = zalloc(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

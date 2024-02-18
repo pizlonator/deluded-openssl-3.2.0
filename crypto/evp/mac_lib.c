@@ -21,7 +21,7 @@
 
 EVP_MAC_CTX *EVP_MAC_CTX_new(EVP_MAC *mac)
 {
-    EVP_MAC_CTX *ctx = zalloc_zero(EVP_MAC_CTX, 1);
+    EVP_MAC_CTX *ctx = zalloc(EVP_MAC_CTX, 1);
 
     if (ctx != NULL) {
         ctx->meth = mac;

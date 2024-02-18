@@ -1629,7 +1629,7 @@ void capi_free_key(CAPI_KEY *key)
 
 static CAPI_CTX *capi_ctx_new(void)
 {
-    CAPI_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    CAPI_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx == NULL)
         return NULL;

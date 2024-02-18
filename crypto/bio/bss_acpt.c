@@ -92,7 +92,7 @@ static BIO_ACCEPT *BIO_ACCEPT_new(void)
 {
     BIO_ACCEPT *ret;
 
-    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         return NULL;
     ret->accept_family = BIO_FAMILY_IPANY;
     ret->accept_sock = (int)INVALID_SOCKET;

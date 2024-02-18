@@ -35,7 +35,7 @@ void pitem_free(pitem *item)
 
 pqueue *pqueue_new(void)
 {
-    pqueue *pq = zalloc_zero(typeof(*pq), 1);
+    pqueue *pq = zalloc(typeof(*pq), 1);
 
     return pq;
 }

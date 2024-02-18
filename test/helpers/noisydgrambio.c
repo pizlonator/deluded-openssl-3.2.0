@@ -336,7 +336,7 @@ static void data_free(struct noisy_dgram_st *data)
 
 static int noisy_dgram_new(BIO *bio)
 {
-    struct noisy_dgram_st *data = zalloc_zero(typeof(*data), 1);
+    struct noisy_dgram_st *data = zalloc(typeof(*data), 1);
 
     if (!TEST_ptr(data))
         return 0;

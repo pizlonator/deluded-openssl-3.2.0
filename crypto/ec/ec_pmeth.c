@@ -48,7 +48,7 @@ static int pkey_ec_init(EVP_PKEY_CTX *ctx)
 {
     EC_PKEY_CTX *dctx;
 
-    if ((dctx = zalloc_zero(typeof(*dctx), 1)) == NULL)
+    if ((dctx = zalloc(typeof(*dctx), 1)) == NULL)
         return 0;
 
     dctx->cofactor_mode = -1;

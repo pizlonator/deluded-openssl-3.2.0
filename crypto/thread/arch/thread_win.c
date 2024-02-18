@@ -36,7 +36,7 @@ int ossl_crypto_thread_native_spawn(CRYPTO_THREAD *thread)
 {
     HANDLE *handle;
 
-    handle = zalloc_zero(typeof(*handle), 1);
+    handle = zalloc(typeof(*handle), 1);
     if (handle == NULL)
         goto fail;
 
@@ -98,7 +98,7 @@ CRYPTO_MUTEX *ossl_crypto_mutex_new(void)
 {
     CRITICAL_SECTION *mutex;
 
-    if ((mutex = zalloc_zero(typeof(*mutex), 1)) == NULL)
+    if ((mutex = zalloc(typeof(*mutex), 1)) == NULL)
         return NULL;
     InitializeCriticalSection(mutex);
     return (CRYPTO_MUTEX *)mutex;
@@ -535,7 +535,7 @@ CRYPTO_CONDVAR *ossl_crypto_condvar_new(void)
 {
     CONDITION_VARIABLE *cv_p;
 
-    if ((cv_p = zalloc_zero(typeof(*cv_p), 1)) == NULL)
+    if ((cv_p = zalloc(typeof(*cv_p), 1)) == NULL)
         return NULL;
     InitializeConditionVariable(cv_p);
     return (CRYPTO_CONDVAR *)cv_p;

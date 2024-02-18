@@ -33,7 +33,7 @@ RSA_PRIME_INFO *ossl_rsa_multip_info_new(void)
     RSA_PRIME_INFO *pinfo;
 
     /* create an RSA_PRIME_INFO structure */
-    if ((pinfo = zalloc_zero(RSA_PRIME_INFO, 1)) == NULL)
+    if ((pinfo = zalloc(RSA_PRIME_INFO, 1)) == NULL)
         return NULL;
     if ((pinfo->r = BN_secure_new()) == NULL)
         goto err;

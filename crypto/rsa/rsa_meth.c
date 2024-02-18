@@ -19,7 +19,7 @@
 
 RSA_METHOD *RSA_meth_new(const char *name, int flags)
 {
-    RSA_METHOD *meth = zalloc_zero(typeof(*meth), 1);
+    RSA_METHOD *meth = zalloc(typeof(*meth), 1);
 
     if (meth != NULL) {
         meth->flags = flags;

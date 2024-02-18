@@ -21,7 +21,7 @@
 
 ERR_STATE *OSSL_ERR_STATE_new(void)
 {
-    return zalloc_zero(ERR_STATE, 1);
+    return zalloc(ERR_STATE, 1);
 }
 
 void OSSL_ERR_STATE_save(ERR_STATE *es)

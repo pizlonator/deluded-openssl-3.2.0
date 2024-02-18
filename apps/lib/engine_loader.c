@@ -43,7 +43,7 @@ struct ossl_store_loader_ctx_st {
 
 static OSSL_STORE_LOADER_CTX *OSSL_STORE_LOADER_CTX_new(ENGINE *e, char *keyid)
 {
-    OSSL_STORE_LOADER_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    OSSL_STORE_LOADER_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx != NULL) {
         ctx->e = e;

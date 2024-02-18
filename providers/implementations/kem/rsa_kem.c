@@ -83,7 +83,7 @@ static int rsakem_opname2id(const char *name)
 
 static void *rsakem_newctx(void *provctx)
 {
-    PROV_RSA_CTX *prsactx =  zalloc_zero(PROV_RSA_CTX, 1);
+    PROV_RSA_CTX *prsactx =  zalloc(PROV_RSA_CTX, 1);
 
     if (prsactx == NULL)
         return NULL;
@@ -106,7 +106,7 @@ static void *rsakem_dupctx(void *vprsactx)
     PROV_RSA_CTX *srcctx = (PROV_RSA_CTX *)vprsactx;
     PROV_RSA_CTX *dstctx;
 
-    dstctx = zalloc_zero(typeof(*srcctx), 1);
+    dstctx = zalloc(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

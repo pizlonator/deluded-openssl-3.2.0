@@ -39,7 +39,7 @@ int ossl_crypto_thread_native_spawn(CRYPTO_THREAD *thread)
     pthread_attr_t attr;
     pthread_t *handle;
 
-    handle = zalloc_zero(typeof(*handle), 1);
+    handle = zalloc(typeof(*handle), 1);
     if (handle == NULL)
         goto fail;
 
@@ -98,7 +98,7 @@ CRYPTO_MUTEX *ossl_crypto_mutex_new(void)
 {
     pthread_mutex_t *mutex;
 
-    if ((mutex = zalloc_zero(typeof(*mutex), 1)) == NULL)
+    if ((mutex = zalloc(typeof(*mutex), 1)) == NULL)
         return NULL;
     if (pthread_mutex_init(mutex, NULL) != 0) {
         OPENSSL_free(mutex);
@@ -157,7 +157,7 @@ CRYPTO_CONDVAR *ossl_crypto_condvar_new(void)
 {
     pthread_cond_t *cv_p;
 
-    if ((cv_p = zalloc_zero(typeof(*cv_p), 1)) == NULL)
+    if ((cv_p = zalloc(typeof(*cv_p), 1)) == NULL)
         return NULL;
     if (pthread_cond_init(cv_p, NULL) != 0) {
         OPENSSL_free(cv_p);

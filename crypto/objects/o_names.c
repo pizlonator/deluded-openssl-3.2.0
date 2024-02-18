@@ -88,7 +88,7 @@ int OBJ_NAME_new_index(unsigned long (*hash_func) (const char *),
     ret = names_type_num;
     names_type_num++;
     for (i = sk_NAME_FUNCS_num(name_funcs_stack); i < names_type_num; i++) {
-        name_funcs = zalloc_zero(typeof(*name_funcs), 1);
+        name_funcs = zalloc(typeof(*name_funcs), 1);
         if (name_funcs == NULL) {
             ret = 0;
             goto out;

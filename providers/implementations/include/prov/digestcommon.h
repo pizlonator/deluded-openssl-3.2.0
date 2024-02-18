@@ -55,7 +55,7 @@ static OSSL_FUNC_digest_freectx_fn name##_freectx;                             \
 static OSSL_FUNC_digest_dupctx_fn name##_dupctx;                               \
 static void *name##_newctx(void *prov_ctx)                                     \
 {                                                                              \
-    CTX *ctx = ossl_prov_is_running() ? zalloc_zero(typeof(*ctx), 1) : NULL;   \
+    CTX *ctx = ossl_prov_is_running() ? zalloc(typeof(*ctx), 1) : NULL;   \
     return ctx;                                                                \
 }                                                                              \
 static void name##_freectx(void *vctx)                                         \

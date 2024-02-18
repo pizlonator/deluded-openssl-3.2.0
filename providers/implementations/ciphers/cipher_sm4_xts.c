@@ -77,7 +77,7 @@ static int sm4_xts_dinit(void *vctx, const unsigned char *key, size_t keylen,
 static void *sm4_xts_newctx(void *provctx, unsigned int mode, uint64_t flags,
                             size_t kbits, size_t blkbits, size_t ivbits)
 {
-    PROV_SM4_XTS_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    PROV_SM4_XTS_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx != NULL) {
         ossl_cipher_generic_initkey(&ctx->base, kbits, blkbits, ivbits, mode,

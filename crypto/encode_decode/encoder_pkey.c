@@ -247,7 +247,7 @@ static int ossl_encoder_ctx_setup_for_pkey(OSSL_ENCODER_CTX *ctx,
         struct collected_encoder_st encoder_data;
         struct collected_names_st keymgmt_data;
 
-        if ((data = zalloc_zero(typeof(*data), 1)) == NULL)
+        if ((data = zalloc(typeof(*data), 1)) == NULL)
             goto err;
 
         /*

@@ -108,7 +108,7 @@ BIO *BIO_new_mem_buf(const void *buf, int len)
 
 static int mem_init(BIO *bi, unsigned long flags)
 {
-    BIO_BUF_MEM *bb = zalloc_zero(typeof(*bb), 1);
+    BIO_BUF_MEM *bb = zalloc(typeof(*bb), 1);
 
     if (bb == NULL)
         return 0;
@@ -116,7 +116,7 @@ static int mem_init(BIO *bi, unsigned long flags)
         OPENSSL_free(bb);
         return 0;
     }
-    if ((bb->readp = zalloc_zero(typeof(*bb->readp), 1)) == NULL) {
+    if ((bb->readp = zalloc(typeof(*bb->readp), 1)) == NULL) {
         BUF_MEM_free(bb->buf);
         OPENSSL_free(bb);
         return 0;

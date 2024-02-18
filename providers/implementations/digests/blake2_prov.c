@@ -57,7 +57,7 @@ static void *blake2b512_newctx(void *prov_ctx)
 {
     struct blake2b_md_data_st *ctx;
 
-    ctx = ossl_prov_is_running() ? zalloc_zero(typeof(*ctx), 1) : NULL;
+    ctx = ossl_prov_is_running() ? zalloc(typeof(*ctx), 1) : NULL;
     return ctx;
 }
 

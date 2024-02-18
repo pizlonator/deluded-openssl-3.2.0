@@ -244,7 +244,7 @@ BIGNUM *BN_new(void)
 {
     BIGNUM *ret;
 
-    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         return NULL;
     ret->flags = BN_FLG_MALLOCED;
     bn_check_top(ret);

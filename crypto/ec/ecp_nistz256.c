@@ -1207,7 +1207,7 @@ static NISTZ256_PRE_COMP *ecp_nistz256_pre_comp_new(const EC_GROUP *group)
     if (!group)
         return NULL;
 
-    ret = zalloc_zero(typeof(*ret), 1);
+    ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return ret;

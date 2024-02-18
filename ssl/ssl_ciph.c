@@ -970,7 +970,7 @@ static int ssl_cipher_strength_sort(CIPHER_ORDER **head_p,
         curr = curr->next;
     }
 
-    number_uses = zalloc_zero(int, max_strength_bits + 1);
+    number_uses = zalloc(int, max_strength_bits + 1);
     if (number_uses == NULL)
         return 0;
 

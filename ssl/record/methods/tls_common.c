@@ -1232,7 +1232,7 @@ tls_int_new_record_layer(OSSL_LIB_CTX *libctx, const char *propq, int vers,
                          const OSSL_DISPATCH *fns, void *cbarg,
                          OSSL_RECORD_LAYER **retrl)
 {
-    OSSL_RECORD_LAYER *rl = zalloc_zero(typeof(*rl), 1);
+    OSSL_RECORD_LAYER *rl = zalloc(typeof(*rl), 1);
     const OSSL_PARAM *p;
 
     *retrl = NULL;

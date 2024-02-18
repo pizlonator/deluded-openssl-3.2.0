@@ -324,7 +324,7 @@ static int run_param_file_tests(int i)
     const char *testfile = test_get_argument(i);
     int res = 1;
 
-    if (!TEST_ptr(s = zalloc_zero(typeof(*s), 1)))
+    if (!TEST_ptr(s = zalloc(typeof(*s), 1)))
         return 0;
     if (!test_start_file(s, testfile)) {
         OPENSSL_free(s);

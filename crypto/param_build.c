@@ -52,7 +52,7 @@ static OSSL_PARAM_BLD_DEF *param_push(OSSL_PARAM_BLD *bld, const char *key,
                                       int size, size_t alloc, int type,
                                       int secure)
 {
-    OSSL_PARAM_BLD_DEF *pd = zalloc_zero(typeof(*pd), 1);
+    OSSL_PARAM_BLD_DEF *pd = zalloc(typeof(*pd), 1);
 
     if (pd == NULL)
         return NULL;
@@ -90,7 +90,7 @@ static int param_push_num(OSSL_PARAM_BLD *bld, const char *key,
 
 OSSL_PARAM_BLD *OSSL_PARAM_BLD_new(void)
 {
-    OSSL_PARAM_BLD *r = zalloc_zero(OSSL_PARAM_BLD, 1);
+    OSSL_PARAM_BLD *r = zalloc(OSSL_PARAM_BLD, 1);
 
     if (r != NULL) {
         r->params = sk_OSSL_PARAM_BLD_DEF_new_null();

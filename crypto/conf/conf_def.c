@@ -856,7 +856,7 @@ static BIO *get_next_file(const char *path, OPENSSL_DIR_CTX **dirctx)
             BIO *bio;
 
             newlen = pathlen + namelen + 2;
-            newpath = zalloc_zero(char, newlen);
+            newpath = zalloc(char, newlen);
             if (newpath == NULL)
                 break;
 #ifdef OPENSSL_SYS_VMS

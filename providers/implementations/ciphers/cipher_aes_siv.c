@@ -35,7 +35,7 @@ static void *aes_siv_newctx(void *provctx, size_t keybits, unsigned int mode,
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc_zero(typeof(*ctx), 1);
+    ctx = zalloc(typeof(*ctx), 1);
     if (ctx != NULL) {
         ctx->taglen = SIV_LEN;
         ctx->mode = mode;

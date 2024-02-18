@@ -55,7 +55,7 @@ static void *mac_newctx(void *provctx, const char *propq, const char *macname)
     if (!ossl_prov_is_running())
         return NULL;
 
-    pmacctx = zalloc_zero(PROV_MAC_CTX, 1);
+    pmacctx = zalloc(PROV_MAC_CTX, 1);
     if (pmacctx == NULL)
         return NULL;
 
@@ -177,7 +177,7 @@ static void *mac_dupctx(void *vpmacctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = zalloc_zero(typeof(*srcctx), 1);
+    dstctx = zalloc(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

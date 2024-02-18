@@ -62,7 +62,7 @@ static void *gmac_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((macctx = zalloc_zero(typeof(*macctx), 1)) == NULL
+    if ((macctx = zalloc(typeof(*macctx), 1)) == NULL
         || (macctx->ctx = EVP_CIPHER_CTX_new()) == NULL) {
         gmac_free(macctx);
         return NULL;

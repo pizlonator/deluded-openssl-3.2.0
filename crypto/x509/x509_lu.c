@@ -17,7 +17,7 @@
 
 X509_LOOKUP *X509_LOOKUP_new(X509_LOOKUP_METHOD *method)
 {
-    X509_LOOKUP *ret = zalloc_zero(typeof(*ret), 1);
+    X509_LOOKUP *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;
@@ -181,7 +181,7 @@ static int x509_object_cmp(const X509_OBJECT *const *a,
 
 X509_STORE *X509_STORE_new(void)
 {
-    X509_STORE *ret = zalloc_zero(typeof(*ret), 1);
+    X509_STORE *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;
@@ -479,7 +479,7 @@ X509_LOOKUP_TYPE X509_OBJECT_get_type(const X509_OBJECT *a)
 
 X509_OBJECT *X509_OBJECT_new(void)
 {
-    X509_OBJECT *ret = zalloc_zero(typeof(*ret), 1);
+    X509_OBJECT *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

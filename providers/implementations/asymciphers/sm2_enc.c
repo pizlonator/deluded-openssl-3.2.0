@@ -47,7 +47,7 @@ typedef struct {
 
 static void *sm2_newctx(void *provctx)
 {
-    PROV_SM2_CTX *psm2ctx =  zalloc_zero(PROV_SM2_CTX, 1);
+    PROV_SM2_CTX *psm2ctx =  zalloc(PROV_SM2_CTX, 1);
 
     if (psm2ctx == NULL)
         return NULL;
@@ -133,7 +133,7 @@ static void *sm2_dupctx(void *vpsm2ctx)
     PROV_SM2_CTX *srcctx = (PROV_SM2_CTX *)vpsm2ctx;
     PROV_SM2_CTX *dstctx;
 
-    dstctx = zalloc_zero(typeof(*srcctx), 1);
+    dstctx = zalloc(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

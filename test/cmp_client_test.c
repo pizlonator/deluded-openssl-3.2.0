@@ -57,7 +57,7 @@ static CMP_SES_TEST_FIXTURE *set_up(const char *const test_case_name)
     OSSL_CMP_CTX *srv_cmp_ctx = NULL;
     OSSL_CMP_CTX *ctx = NULL; /* for client */
 
-    if (!TEST_ptr(fixture = zalloc_zero(typeof(*fixture), 1)))
+    if (!TEST_ptr(fixture = zalloc(typeof(*fixture), 1)))
         return NULL;
     fixture->test_case_name = test_case_name;
     if (!TEST_ptr(fixture->srv_ctx = ossl_cmp_mock_srv_new(libctx, NULL))

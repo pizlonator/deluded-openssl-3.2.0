@@ -44,7 +44,7 @@ OSSL_STORE_LOADER *OSSL_STORE_LOADER_new(ENGINE *e, const char *scheme)
         return NULL;
     }
 
-    if ((res = zalloc_zero(typeof(*res), 1)) == NULL)
+    if ((res = zalloc(typeof(*res), 1)) == NULL)
         return NULL;
 
     res->engine = e;

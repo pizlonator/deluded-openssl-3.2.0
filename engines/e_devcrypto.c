@@ -1165,7 +1165,7 @@ static int devcrypto_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f) (void))
         } else if (OPENSSL_strcasecmp((const char*)p, "NONE") == 0) {
             memset(selected_ciphers, 0, sizeof(selected_ciphers));
         } else {
-            new_list=zalloc_zero(selected_ciphers, 1);
+            new_list=zalloc(selected_ciphers, 1);
             if (!CONF_parse_list(p, ',', 1, cryptodev_select_cipher_cb, new_list)) {
                 OPENSSL_free(new_list);
                 return 0;
@@ -1185,7 +1185,7 @@ static int devcrypto_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f) (void))
         } else if (OPENSSL_strcasecmp((const char*)p, "NONE") == 0) {
             memset(selected_digests, 0, sizeof(selected_digests));
         } else {
-            new_list=zalloc_zero(selected_digests, 1);
+            new_list=zalloc(selected_digests, 1);
             if (!CONF_parse_list(p, ',', 1, cryptodev_select_digest_cb, new_list)) {
                 OPENSSL_free(new_list);
                 return 0;

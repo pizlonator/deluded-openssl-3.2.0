@@ -482,7 +482,7 @@ static void *ecx_gen_init(void *provctx, int selection,
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((gctx = zalloc_zero(typeof(*gctx), 1)) != NULL) {
+    if ((gctx = zalloc(typeof(*gctx), 1)) != NULL) {
         gctx->libctx = libctx;
         gctx->type = type;
         gctx->selection = selection;

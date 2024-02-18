@@ -359,7 +359,7 @@ static int test_tx_ack_case_actual(int tidx, int space, int mode)
 
     /* Allocate TX packet structures. */
     for (i = 0; i < c->pn_table_len; ++i) {
-        h.pkts[i].pkt = tx = zalloc_zero(typeof(*tx), 1);
+        h.pkts[i].pkt = tx = zalloc(typeof(*tx), 1);
         if (!TEST_ptr(tx))
             goto err;
 
@@ -533,7 +533,7 @@ static int test_tx_ack_time_script(int tidx)
         goto err;
 
     for (i = 0; i < num_pkts; ++i) {
-        h.pkts[i].pkt = tx = zalloc_zero(typeof(*tx), 1);
+        h.pkts[i].pkt = tx = zalloc(typeof(*tx), 1);
         if (!TEST_ptr(tx))
             goto err;
     }

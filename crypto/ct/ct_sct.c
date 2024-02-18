@@ -21,7 +21,7 @@
 
 SCT *SCT_new(void)
 {
-    SCT *sct = zalloc_zero(typeof(*sct), 1);
+    SCT *sct = zalloc(typeof(*sct), 1);
 
     if (sct == NULL)
         return NULL;

@@ -33,7 +33,7 @@ ENGINE *ENGINE_new(void)
         ERR_raise(ERR_LIB_ENGINE, ERR_R_CRYPTO_LIB);
         return 0;
     }
-    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&ret->struct_ref, 1)) {
         OPENSSL_free(ret);

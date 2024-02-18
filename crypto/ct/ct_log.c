@@ -60,7 +60,7 @@ static void ctlog_store_load_ctx_free(CTLOG_STORE_LOAD_CTX* ctx);
 
 static CTLOG_STORE_LOAD_CTX *ctlog_store_load_ctx_new(void)
 {
-    CTLOG_STORE_LOAD_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    CTLOG_STORE_LOAD_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     return ctx;
 }
@@ -99,7 +99,7 @@ err:
 
 CTLOG_STORE *CTLOG_STORE_new_ex(OSSL_LIB_CTX *libctx, const char *propq)
 {
-    CTLOG_STORE *ret = zalloc_zero(typeof(*ret), 1);
+    CTLOG_STORE *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;
@@ -257,7 +257,7 @@ end:
 CTLOG *CTLOG_new_ex(EVP_PKEY *public_key, const char *name, OSSL_LIB_CTX *libctx,
                     const char *propq)
 {
-    CTLOG *ret = zalloc_zero(typeof(*ret), 1);
+    CTLOG *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;

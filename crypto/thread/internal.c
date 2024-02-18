@@ -126,7 +126,7 @@ int ossl_crypto_thread_clean(void *vhandle)
 
 void *ossl_threads_ctx_new(OSSL_LIB_CTX *ctx)
 {
-    struct openssl_threads_st *t = zalloc_zero(typeof(*t), 1);
+    struct openssl_threads_st *t = zalloc(typeof(*t), 1);
 
     if (t == NULL)
         return NULL;

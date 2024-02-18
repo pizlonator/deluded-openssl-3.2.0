@@ -1531,7 +1531,7 @@ const EC_METHOD *ossl_ec_GFp_nistp384_method(void)
 
 static NISTP384_PRE_COMP *nistp384_pre_comp_new(void)
 {
-    NISTP384_PRE_COMP *ret = zalloc_zero(typeof(*ret), 1);
+    NISTP384_PRE_COMP *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return ret;

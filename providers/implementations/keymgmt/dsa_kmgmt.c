@@ -411,7 +411,7 @@ static void *dsa_gen_init(void *provctx, int selection,
     if (!ossl_prov_is_running() || (selection & DSA_POSSIBLE_SELECTIONS) == 0)
         return NULL;
 
-    if ((gctx = zalloc_zero(typeof(*gctx), 1)) != NULL) {
+    if ((gctx = zalloc(typeof(*gctx), 1)) != NULL) {
         gctx->selection = selection;
         gctx->libctx = libctx;
         gctx->pbits = 2048;

@@ -52,7 +52,7 @@ const BIO_METHOD *BIO_f_readbuffer(void)
 
 static int readbuffer_new(BIO *bi)
 {
-    BIO_F_BUFFER_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    BIO_F_BUFFER_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx == NULL)
         return 0;

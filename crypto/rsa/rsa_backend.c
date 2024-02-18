@@ -389,7 +389,7 @@ RSA *ossl_rsa_dup(const RSA *rsa, int selection)
             const RSA_PRIME_INFO *pinfo = NULL;
             RSA_PRIME_INFO *duppinfo = NULL;
 
-            if ((duppinfo = zalloc_zero(typeof(*duppinfo), 1)) == NULL)
+            if ((duppinfo = zalloc(typeof(*duppinfo), 1)) == NULL)
                 goto err;
             /* push first so cleanup in error case works */
             (void)sk_RSA_PRIME_INFO_push(dupkey->prime_infos, duppinfo);

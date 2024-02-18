@@ -192,7 +192,7 @@ static int ecpubkey_todata(const EC_KEY *ec, unsigned char *out, size_t *outlen,
 
 static void *eckem_newctx(void *provctx)
 {
-    PROV_EC_CTX *ctx =  zalloc_zero(PROV_EC_CTX, 1);
+    PROV_EC_CTX *ctx =  zalloc(PROV_EC_CTX, 1);
 
     if (ctx == NULL)
         return NULL;

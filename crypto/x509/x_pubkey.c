@@ -69,7 +69,7 @@ X509_PUBKEY *ossl_d2i_X509_PUBKEY_INTERNAL(const unsigned char **pp,
                                            long len, OSSL_LIB_CTX *libctx,
                                            const char *propq)
 {
-    X509_PUBKEY *xpub = zalloc_zero(typeof(*xpub), 1);
+    X509_PUBKEY *xpub = zalloc(typeof(*xpub), 1);
 
     if (xpub == NULL)
         return NULL;
@@ -113,7 +113,7 @@ static int x509_pubkey_ex_new_ex(ASN1_VALUE **pval, const ASN1_ITEM *it,
 {
     X509_PUBKEY *ret;
 
-    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         return 0;
     if (!x509_pubkey_ex_populate((ASN1_VALUE **)&ret, NULL)
         || !x509_pubkey_set0_libctx(ret, libctx, propq)) {
@@ -282,7 +282,7 @@ X509_PUBKEY *X509_PUBKEY_new_ex(OSSL_LIB_CTX *libctx, const char *propq)
  */
 X509_PUBKEY *X509_PUBKEY_dup(const X509_PUBKEY *a)
 {
-    X509_PUBKEY *pubkey = zalloc_zero(typeof(*pubkey), 1);
+    X509_PUBKEY *pubkey = zalloc(typeof(*pubkey), 1);
 
     if (pubkey == NULL)
         return NULL;
@@ -504,7 +504,7 @@ static EVP_PKEY *d2i_PUBKEY_int(EVP_PKEY **a,
      * newly created structures.
      */
     if (libctx != NULL || propq != NULL || force_legacy) {
-        xpk2 = zalloc_zero(typeof(*xpk2), 1);
+        xpk2 = zalloc(typeof(*xpk2), 1);
         if (xpk2 == NULL)
             return NULL;
         if (!x509_pubkey_set0_libctx(xpk2, libctx, propq))

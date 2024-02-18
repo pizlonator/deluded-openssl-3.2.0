@@ -61,7 +61,7 @@ static CT_TEST_FIXTURE *set_up(const char *const test_case_name)
 {
     CT_TEST_FIXTURE *fixture = NULL;
 
-    if (!TEST_ptr(fixture = zalloc_zero(typeof(*fixture), 1)))
+    if (!TEST_ptr(fixture = zalloc(typeof(*fixture), 1)))
         goto end;
     fixture->test_case_name = test_case_name;
     fixture->epoch_time_in_ms = 1580335307000ULL; /* Wed 29 Jan 2020 10:01:47 PM UTC */

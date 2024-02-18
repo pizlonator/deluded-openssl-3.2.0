@@ -27,7 +27,7 @@ static void *aes_ccm_newctx(void *provctx, size_t keybits)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc_zero(typeof(*ctx), 1);
+    ctx = zalloc(typeof(*ctx), 1);
     if (ctx != NULL)
         ossl_ccm_initctx(&ctx->base, keybits, ossl_prov_aes_hw_ccm(keybits));
     return ctx;

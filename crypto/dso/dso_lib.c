@@ -14,7 +14,7 @@ static DSO *DSO_new_method(DSO_METHOD *meth)
 {
     DSO *ret;
 
-    ret = zalloc_zero(typeof(*ret), 1);
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
     ret->meth_data = sk_void_new_null();

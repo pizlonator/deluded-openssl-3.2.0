@@ -57,7 +57,7 @@ static CRYPTO_ONCE tevent_register_runonce = CRYPTO_ONCE_STATIC_INIT;
 
 DEFINE_RUN_ONCE_STATIC(create_global_tevent_register)
 {
-    glob_tevent_reg = zalloc_zero(typeof(*glob_tevent_reg), 1);
+    glob_tevent_reg = zalloc(typeof(*glob_tevent_reg), 1);
     if (glob_tevent_reg == NULL)
         return 0;
 
@@ -98,7 +98,7 @@ init_get_thread_local(CRYPTO_THREAD_LOCAL *local, int alloc, int keep)
     if (alloc) {
         if (hands == NULL) {
 
-            if ((hands = zalloc_zero(typeof(*hands), 1)) == NULL)
+            if ((hands = zalloc(typeof(*hands), 1)) == NULL)
                 return NULL;
 
             if (!CRYPTO_THREAD_set_local(local, hands)) {
@@ -261,7 +261,7 @@ int ossl_thread_register_fips(OSSL_LIB_CTX *libctx)
 void *ossl_thread_event_ctx_new(OSSL_LIB_CTX *libctx)
 {
     THREAD_EVENT_HANDLER **hands = NULL;
-    CRYPTO_THREAD_LOCAL *tlocal = zalloc_zero(typeof(*tlocal), 1);
+    CRYPTO_THREAD_LOCAL *tlocal = zalloc(typeof(*tlocal), 1);
 
     if (tlocal == NULL)
         return NULL;
@@ -270,7 +270,7 @@ void *ossl_thread_event_ctx_new(OSSL_LIB_CTX *libctx)
         goto err;
     }
 
-    hands = zalloc_zero(typeof(*hands), 1);
+    hands = zalloc(typeof(*hands), 1);
     if (hands == NULL)
         goto err;
 

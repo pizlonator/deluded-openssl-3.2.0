@@ -29,7 +29,7 @@ void ossl_bio_core_globals_free(void *vbcg)
 
 void *ossl_bio_core_globals_new(OSSL_LIB_CTX *ctx)
 {
-    return zalloc_zero(BIO_CORE_GLOBALS, 1);
+    return zalloc(BIO_CORE_GLOBALS, 1);
 }
 
 static ossl_inline BIO_CORE_GLOBALS *get_globals(OSSL_LIB_CTX *libctx)

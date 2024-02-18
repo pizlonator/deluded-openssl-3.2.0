@@ -70,7 +70,7 @@ static OSSL_FUNC_encoder_does_selection_fn key2ms_does_selection;
 
 static struct key2ms_ctx_st *key2ms_newctx(void *provctx)
 {
-    struct key2ms_ctx_st *ctx = zalloc_zero(typeof(*ctx), 1);
+    struct key2ms_ctx_st *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx != NULL) {
         ctx->provctx = provctx;

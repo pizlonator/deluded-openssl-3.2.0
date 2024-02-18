@@ -107,7 +107,7 @@ static int wpacket_intern_init_len(WPACKET *pkt, size_t lenbytes)
     pkt->curr = 0;
     pkt->written = 0;
 
-    if ((pkt->subs = zalloc_zero(typeof(*pkt->subs), 1)) == NULL)
+    if ((pkt->subs = zalloc(typeof(*pkt->subs), 1)) == NULL)
         return 0;
 
     if (lenbytes == 0)
@@ -376,7 +376,7 @@ int WPACKET_start_sub_packet_len__(WPACKET *pkt, size_t lenbytes)
     if (lenbytes > 0 && pkt->endfirst)
         return 0;
 
-    if ((sub = zalloc_zero(typeof(*sub), 1)) == NULL)
+    if ((sub = zalloc(typeof(*sub), 1)) == NULL)
         return 0;
 
     sub->parent = pkt->subs;

@@ -277,7 +277,7 @@ typedef struct prov_drbg_nonce_global_st {
  */
 void *ossl_prov_drbg_nonce_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    PROV_DRBG_NONCE_GLOBAL *dngbl = zalloc_zero(typeof(*dngbl), 1);
+    PROV_DRBG_NONCE_GLOBAL *dngbl = zalloc(typeof(*dngbl), 1);
 
     if (dngbl == NULL)
         return NULL;
@@ -807,7 +807,7 @@ PROV_DRBG *ossl_rand_drbg_new
     if (!ossl_prov_is_running())
         return NULL;
 
-    drbg = zalloc_zero(typeof(*drbg), 1);
+    drbg = zalloc(typeof(*drbg), 1);
     if (drbg == NULL)
         return NULL;
 

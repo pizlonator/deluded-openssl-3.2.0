@@ -14,7 +14,7 @@
 
 PROV_CTX *ossl_prov_ctx_new(void)
 {
-    return zalloc_zero(PROV_CTX, 1);
+    return zalloc(PROV_CTX, 1);
 }
 
 void ossl_prov_ctx_free(PROV_CTX *ctx)

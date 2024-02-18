@@ -117,7 +117,7 @@ static void *kbkdf_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc_zero(typeof(*ctx), 1);
+    ctx = zalloc(typeof(*ctx), 1);
     if (ctx == NULL)
         return NULL;
 

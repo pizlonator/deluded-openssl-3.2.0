@@ -336,7 +336,7 @@ static void *x942kdf_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((ctx = zalloc_zero(typeof(*ctx), 1)) == NULL)
+    if ((ctx = zalloc(typeof(*ctx), 1)) == NULL)
         return NULL;
     ctx->provctx = provctx;
     ctx->use_keybits = 1;

@@ -7193,7 +7193,7 @@ static int create_new_vbase(char *userid, char *password)
                                              lgN->N, lgN->g, libctx, NULL)))
         goto end;
 
-    user_pwd = zalloc_zero(typeof(*user_pwd), 1);
+    user_pwd = zalloc(typeof(*user_pwd), 1);
     if (!TEST_ptr(user_pwd))
         goto end;
 

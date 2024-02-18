@@ -311,7 +311,7 @@ static void *aes_ocb_newctx(void *provctx, size_t kbits, size_t blkbits,
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc_zero(typeof(*ctx), 1);
+    ctx = zalloc(typeof(*ctx), 1);
     if (ctx != NULL) {
         ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits, mode, flags,
                                     ossl_prov_cipher_hw_aes_ocb(kbits), NULL);

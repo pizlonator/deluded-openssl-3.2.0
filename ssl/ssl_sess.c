@@ -105,7 +105,7 @@ SSL_SESSION *SSL_SESSION_new(void)
     if (!OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS, NULL))
         return NULL;
 
-    ss = zalloc_zero(typeof(*ss), 1);
+    ss = zalloc(typeof(*ss), 1);
     if (ss == NULL)
         return NULL;
 

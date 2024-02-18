@@ -209,7 +209,7 @@ int EVP_PBE_alg_add_type(int pbe_type, int pbe_nid, int cipher_nid,
         }
     }
 
-    if ((pbe_tmp = zalloc_zero(typeof(*pbe_tmp), 1)) == NULL)
+    if ((pbe_tmp = zalloc(typeof(*pbe_tmp), 1)) == NULL)
         goto err;
 
     pbe_tmp->pbe_type = pbe_type;

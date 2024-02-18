@@ -80,7 +80,7 @@ static long bio_call_callback(BIO *b, int oper, const char *argp, size_t len,
 
 BIO *BIO_new_ex(OSSL_LIB_CTX *libctx, const BIO_METHOD *method)
 {
-    BIO *bio = zalloc_zero(typeof(*bio), 1);
+    BIO *bio = zalloc(typeof(*bio), 1);
 
     if (bio == NULL)
         return NULL;

@@ -708,7 +708,7 @@ int ssl_load_sigalgs(SSL_CTX *ctx)
 
     /* now populate ctx->ssl_cert_info */
     if (ctx->sigalg_list_len > 0) {
-        ctx->ssl_cert_info = zalloc_zero(typeof(lu), ctx->sigalg_list_len);
+        ctx->ssl_cert_info = zalloc(typeof(lu), ctx->sigalg_list_len);
         if (ctx->ssl_cert_info == NULL)
             return 0;
         for(i = 0; i < ctx->sigalg_list_len; i++) {
@@ -3884,7 +3884,7 @@ uint8_t SSL_SESSION_get_max_fragment_length(const SSL_SESSION *session)
  */
 SSL_HMAC *ssl_hmac_new(const SSL_CTX *ctx)
 {
-    SSL_HMAC *ret = zalloc_zero(typeof(*ret), 1);
+    SSL_HMAC *ret = zalloc(typeof(*ret), 1);
     EVP_MAC *mac = NULL;
 
     if (ret == NULL)

@@ -173,7 +173,7 @@ static void setup_trace_category(int category)
 
     bio = BIO_new(BIO_f_prefix());
     channel = BIO_push(bio, dup_bio_err(FORMAT_TEXT));
-    trace_data = zalloc_zero(typeof(*trace_data), 1);
+    trace_data = zalloc(typeof(*trace_data), 1);
 
     if (trace_data == NULL
         || bio == NULL

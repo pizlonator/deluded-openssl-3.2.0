@@ -81,7 +81,7 @@ X509_SIG *PKCS8_set0_pbe_ex(const char *pass, int passlen,
         return NULL;
     }
 
-    p8 = zalloc_zero(typeof(*p8), 1);
+    p8 = zalloc(typeof(*p8), 1);
 
     if (p8 == NULL) {
         ASN1_OCTET_STRING_free(enckey);

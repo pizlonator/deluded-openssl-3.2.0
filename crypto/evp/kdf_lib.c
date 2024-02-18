@@ -27,7 +27,7 @@ EVP_KDF_CTX *EVP_KDF_CTX_new(EVP_KDF *kdf)
     if (kdf == NULL)
         return NULL;
 
-    ctx = zalloc_zero(EVP_KDF_CTX, 1);
+    ctx = zalloc(EVP_KDF_CTX, 1);
     if (ctx == NULL
         || (ctx->algctx = kdf->newctx(ossl_provider_ctx(kdf->prov))) == NULL
         || !EVP_KDF_up_ref(kdf)) {

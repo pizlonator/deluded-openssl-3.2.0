@@ -54,7 +54,7 @@ static CMP_VFY_TEST_FIXTURE *set_up(const char *const test_case_name)
     X509_STORE *ts;
     CMP_VFY_TEST_FIXTURE *fixture;
 
-    if (!TEST_ptr(fixture = zalloc_zero(typeof(*fixture), 1)))
+    if (!TEST_ptr(fixture = zalloc(typeof(*fixture), 1)))
         return NULL;
 
     ts = X509_STORE_new();

@@ -33,7 +33,7 @@ BN_BLINDING *BN_BLINDING_new(const BIGNUM *A, const BIGNUM *Ai, BIGNUM *mod)
 
     bn_check_top(mod);
 
-    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         return NULL;
 
     ret->lock = CRYPTO_THREAD_lock_new();

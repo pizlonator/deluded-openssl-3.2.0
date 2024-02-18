@@ -47,7 +47,7 @@ static void *evp_kdf_new(void)
 {
     EVP_KDF *kdf = NULL;
 
-    if ((kdf = zalloc_zero(typeof(*kdf), 1)) == NULL
+    if ((kdf = zalloc(typeof(*kdf), 1)) == NULL
         || !CRYPTO_NEW_REF(&kdf->refcnt, 1)) {
         OPENSSL_free(kdf);
         return NULL;

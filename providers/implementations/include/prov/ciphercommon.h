@@ -197,7 +197,7 @@ static int alg##_##kbits##_##lcmode##_get_params(OSSL_PARAM params[])          \
 static OSSL_FUNC_cipher_newctx_fn alg##_##kbits##_##lcmode##_newctx;           \
 static void * alg##_##kbits##_##lcmode##_newctx(void *provctx)                 \
 {                                                                              \
-     PROV_##UCALG##_CTX *ctx = ossl_prov_is_running() ? zalloc_zero(typeof(*ctx), 1)\
+     PROV_##UCALG##_CTX *ctx = ossl_prov_is_running() ? zalloc(typeof(*ctx), 1)\
                                                      : NULL;                   \
      if (ctx != NULL) {                                                        \
          ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits,              \

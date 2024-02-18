@@ -49,7 +49,7 @@ static CMP_MSG_TEST_FIXTURE *set_up(const char *const test_case_name)
 {
     CMP_MSG_TEST_FIXTURE *fixture;
 
-    if (!TEST_ptr(fixture = zalloc_zero(typeof(*fixture), 1)))
+    if (!TEST_ptr(fixture = zalloc(typeof(*fixture), 1)))
         return NULL;
     fixture->test_case_name = test_case_name;
 

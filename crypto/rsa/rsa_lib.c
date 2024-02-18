@@ -74,7 +74,7 @@ RSA *ossl_rsa_new_with_ctx(OSSL_LIB_CTX *libctx)
 
 static RSA *rsa_new_intern(ENGINE *engine, OSSL_LIB_CTX *libctx)
 {
-    RSA *ret = zalloc_zero(typeof(*ret), 1);
+    RSA *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;
@@ -795,7 +795,7 @@ int ossl_rsa_set0_all_params(RSA *r, const STACK_OF(BIGNUM) *primes,
                 goto err;
 
             /* Using ossl_rsa_multip_info_new() is wasteful, so allocate directly */
-            if ((pinfo = zalloc_zero(typeof(*pinfo), 1)) == NULL)
+            if ((pinfo = zalloc(typeof(*pinfo), 1)) == NULL)
                 goto err;
 
             pinfo->r = prime;

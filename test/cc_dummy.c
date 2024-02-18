@@ -20,7 +20,7 @@ static void dummy_update_diag(OSSL_CC_DUMMY *d);
 static OSSL_CC_DATA *dummy_new(OSSL_TIME (*now_cb)(void *arg),
                                void *now_cb_arg)
 {
-    OSSL_CC_DUMMY *d = zalloc_zero(typeof(*d), 1);
+    OSSL_CC_DUMMY *d = zalloc(typeof(*d), 1);
 
     if (d == NULL)
         return NULL;

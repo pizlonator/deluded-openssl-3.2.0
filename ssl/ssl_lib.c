@@ -114,8 +114,8 @@ static int dane_ctx_enable(struct dane_ctx_st *dctx)
     if (dctx->mdevp != NULL)
         return 1;
 
-    mdevp = zalloc_zero(typeof(*mdevp), n);
-    mdord = zalloc_zero(typeof(*mdord), n);
+    mdevp = zalloc(typeof(*mdevp), n);
+    mdord = zalloc(typeof(*mdord), n);
 
     if (mdord == NULL || mdevp == NULL) {
         OPENSSL_free(mdord);
@@ -303,7 +303,7 @@ static int dane_tlsa_add(SSL_DANE *dane,
         return 0;
     }
 
-    if ((t = zalloc_zero(typeof(*t), 1)) == NULL)
+    if ((t = zalloc(typeof(*t), 1)) == NULL)
         return -1;
 
     t->usage = usage;
@@ -744,7 +744,7 @@ SSL *ossl_ssl_connection_new_int(SSL_CTX *ctx, const SSL_METHOD *method)
     SSL_CONNECTION *s;
     SSL *ssl;
 
-    s = zalloc_zero(typeof(*s), 1);
+    s = zalloc(typeof(*s), 1);
     if (s == NULL)
         return NULL;
 
@@ -3859,7 +3859,7 @@ SSL_CTX *SSL_CTX_new_ex(OSSL_LIB_CTX *libctx, const char *propq,
         goto err;
     }
 
-    ret = zalloc_zero(typeof(*ret), 1);
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL)
         return NULL;
 

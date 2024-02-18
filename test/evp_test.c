@@ -374,7 +374,7 @@ static int digest_test_init(EVP_TEST *t, const char *alg)
     if ((digest = fetched_digest = EVP_MD_fetch(libctx, alg, propquery)) == NULL
         && (digest = EVP_get_digestbyname(alg)) == NULL)
         return 0;
-    if (!TEST_ptr(mdat = zalloc_zero(typeof(*mdat), 1)))
+    if (!TEST_ptr(mdat = zalloc(typeof(*mdat), 1)))
         return 0;
     t->data = mdat;
     mdat->digest = digest;
@@ -627,7 +627,7 @@ static int cipher_test_init(EVP_TEST *t, const char *alg)
     }
     ERR_clear_last_mark();
 
-    if (!TEST_ptr(cdat = zalloc_zero(typeof(*cdat), 1)))
+    if (!TEST_ptr(cdat = zalloc(typeof(*cdat), 1)))
         return 0;
 
     cdat->cipher = cipher;
@@ -1284,7 +1284,7 @@ static int mac_test_init(EVP_TEST *t, const char *alg)
             return 0;
     }
 
-    if (!TEST_ptr(mdat = zalloc_zero(typeof(*mdat), 1)))
+    if (!TEST_ptr(mdat = zalloc(typeof(*mdat), 1)))
         return 0;
 
     mdat->type = type;
@@ -1804,7 +1804,7 @@ static int pkey_test_init(EVP_TEST *t, const char *name,
         return 1;
     }
 
-    if (!TEST_ptr(kdata = zalloc_zero(typeof(*kdata), 1))) {
+    if (!TEST_ptr(kdata = zalloc(typeof(*kdata), 1))) {
         EVP_PKEY_free(pkey);
         return 0;
     }
@@ -2237,7 +2237,7 @@ static int pbe_test_init(EVP_TEST *t, const char *alg)
         TEST_error("Unknown pbe algorithm %s", alg);
         return 0;
     }
-    if (!TEST_ptr(pdat = zalloc_zero(typeof(*pdat), 1)))
+    if (!TEST_ptr(pdat = zalloc(typeof(*pdat), 1)))
         return 0;
     pdat->pbe_type = pbe_type;
     t->data = pdat;
@@ -2366,7 +2366,7 @@ static int encode_test_init(EVP_TEST *t, const char *encoding)
 {
     ENCODE_DATA *edata;
 
-    if (!TEST_ptr(edata = zalloc_zero(typeof(*edata), 1)))
+    if (!TEST_ptr(edata = zalloc(typeof(*edata), 1)))
         return 0;
     if (strcmp(encoding, "canonical") == 0) {
         edata->encoding = BASE64_CANONICAL_ENCODING;
@@ -2532,7 +2532,7 @@ static int rand_test_init(EVP_TEST *t, const char *name)
     OSSL_PARAM params[2] = { OSSL_PARAM_END, OSSL_PARAM_END };
     unsigned int strength = 256;
 
-    if (!TEST_ptr(rdata = zalloc_zero(typeof(*rdata), 1)))
+    if (!TEST_ptr(rdata = zalloc(typeof(*rdata), 1)))
         return 0;
 
     /* TEST-RAND is available in the FIPS provider but not with "fips=yes" */
@@ -2795,7 +2795,7 @@ static int kdf_test_init(EVP_TEST *t, const char *name)
         return 1;
     }
 
-    if (!TEST_ptr(kdata = zalloc_zero(typeof(*kdata), 1)))
+    if (!TEST_ptr(kdata = zalloc(typeof(*kdata), 1)))
         return 0;
     kdata->p = kdata->params;
     *kdata->p = OSSL_PARAM_construct_end();
@@ -3006,7 +3006,7 @@ static int pkey_kdf_test_init(EVP_TEST *t, const char *name)
         return 1;
     }
 
-    if (!TEST_ptr(kdata = zalloc_zero(typeof(*kdata), 1)))
+    if (!TEST_ptr(kdata = zalloc(typeof(*kdata), 1)))
         return 0;
 
     kdata->ctx = EVP_PKEY_CTX_new_from_name(libctx, name, propquery);
@@ -3363,7 +3363,7 @@ static int digestsigver_test_init(EVP_TEST *t, const char *alg, int is_verify,
         if (md == NULL)
             return 0;
     }
-    if (!TEST_ptr(mdat = zalloc_zero(typeof(*mdat), 1)))
+    if (!TEST_ptr(mdat = zalloc(typeof(*mdat), 1)))
         return 0;
     mdat->md = md;
     if (!TEST_ptr(mdat->ctx = EVP_MD_CTX_new())) {
@@ -4097,7 +4097,7 @@ static int run_file_tests(int i)
     const char *testfile = test_get_argument(i);
     int c;
 
-    if (!TEST_ptr(t = zalloc_zero(typeof(*t), 1)))
+    if (!TEST_ptr(t = zalloc(typeof(*t), 1)))
         return 0;
     if (!test_start_file(&t->s, testfile)) {
         OPENSSL_free(t);

@@ -20,7 +20,7 @@
 #ifndef OPENSSL_NO_DEPRECATED_3_0
 DSA_METHOD *DSA_meth_new(const char *name, int flags)
 {
-    DSA_METHOD *dsam = zalloc_zero(typeof(*dsam), 1);
+    DSA_METHOD *dsam = zalloc(typeof(*dsam), 1);
 
     if (dsam != NULL) {
         dsam->flags = flags;

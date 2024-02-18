@@ -22,7 +22,7 @@ UI *UI_new(void)
 
 UI *UI_new_method(const UI_METHOD *method)
 {
-    UI *ret = zalloc_zero(typeof(*ret), 1);
+    UI *ret = zalloc(typeof(*ret), 1);
 
     if (ret == NULL)
         return NULL;
@@ -104,7 +104,7 @@ static UI_STRING *general_allocate_prompt(UI *ui, const char *prompt,
     } else if ((type == UIT_PROMPT || type == UIT_VERIFY
                 || type == UIT_BOOLEAN) && result_buf == NULL) {
         ERR_raise(ERR_LIB_UI, UI_R_NO_RESULT_BUFFER);
-    } else if ((ret = zalloc_zero(typeof(*ret), 1)) != NULL) {
+    } else if ((ret = zalloc(typeof(*ret), 1)) != NULL) {
         ret->out_string = prompt;
         ret->flags = prompt_freeable ? OUT_STRING_FREEABLE : 0;
         ret->input_flags = input_flags;
@@ -579,7 +579,7 @@ UI_METHOD *UI_create_method(const char *name)
 {
     UI_METHOD *ui_method = NULL;
 
-    if ((ui_method = zalloc_zero(typeof(*ui_method), 1)) == NULL
+    if ((ui_method = zalloc(typeof(*ui_method), 1)) == NULL
         || (ui_method->name = OPENSSL_strdup(name)) == NULL
         || !CRYPTO_new_ex_data(CRYPTO_EX_INDEX_UI_METHOD, ui_method,
                                &ui_method->ex_data)) {

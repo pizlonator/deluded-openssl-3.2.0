@@ -47,7 +47,7 @@ static OSSL_STORE_LOADER *new_loader(OSSL_PROVIDER *prov)
 {
     OSSL_STORE_LOADER *loader;
 
-    if ((loader = zalloc_zero(typeof(*loader), 1)) == NULL
+    if ((loader = zalloc(typeof(*loader), 1)) == NULL
         || !CRYPTO_NEW_REF(&loader->refcnt, 1)) {
         OPENSSL_free(loader);
         return NULL;

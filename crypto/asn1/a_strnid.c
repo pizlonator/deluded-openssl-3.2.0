@@ -163,7 +163,7 @@ static ASN1_STRING_TABLE *stable_get(int nid)
     tmp = ASN1_STRING_TABLE_get(nid);
     if (tmp != NULL && tmp->flags & STABLE_FLAGS_MALLOC)
         return tmp;
-    if ((rv = zalloc_zero(typeof(*rv), 1)) == NULL)
+    if ((rv = zalloc(typeof(*rv), 1)) == NULL)
         return NULL;
     if (!sk_ASN1_STRING_TABLE_push(stable, rv)) {
         OPENSSL_free(rv);

@@ -51,7 +51,7 @@ typedef struct prefix_ctx_st {
 
 static int prefix_create(BIO *b)
 {
-    PREFIX_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    PREFIX_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx == NULL)
         return 0;

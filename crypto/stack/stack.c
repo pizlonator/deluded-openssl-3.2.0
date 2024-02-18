@@ -106,7 +106,7 @@ OPENSSL_STACK *OPENSSL_sk_deep_copy(const OPENSSL_STACK *sk,
     }
 
     ret->num_alloc = sk->num > min_nodes ? sk->num : min_nodes;
-    ret->data = zalloc_zero(typeof(*ret->data), ret->num_alloc);
+    ret->data = zalloc(typeof(*ret->data), ret->num_alloc);
     if (ret->data == NULL)
         goto err;
 
@@ -196,7 +196,7 @@ static int sk_reserve(OPENSSL_STACK *st, int n, int exact)
          * At this point, |st->num_alloc| and |st->num| are 0;
          * so |num_alloc| value is |n| or |min_nodes| if greater than |n|.
          */
-        if ((st->data = zalloc_zero(const void *, num_alloc)) == NULL)
+        if ((st->data = zalloc(const void *, num_alloc)) == NULL)
             return 0;
         st->num_alloc = num_alloc;
         return 1;
@@ -225,7 +225,7 @@ static int sk_reserve(OPENSSL_STACK *st, int n, int exact)
 
 OPENSSL_STACK *OPENSSL_sk_new_reserve(OPENSSL_sk_compfunc c, int n)
 {
-    OPENSSL_STACK *st = zalloc_zero(typeof(OPENSSL_STACK), 1);
+    OPENSSL_STACK *st = zalloc(typeof(OPENSSL_STACK), 1);
 
     if (st == NULL)
         return NULL;

@@ -73,7 +73,7 @@ EVP_CIPHER_CTX *EVP_CIPHER_CTX_new(void)
 {
     EVP_CIPHER_CTX *ctx;
 
-    ctx = zalloc_zero(EVP_CIPHER_CTX, 1);
+    ctx = zalloc(EVP_CIPHER_CTX, 1);
     if (ctx == NULL)
         return NULL;
 
@@ -1522,7 +1522,7 @@ int EVP_CIPHER_CTX_copy(EVP_CIPHER_CTX *out, const EVP_CIPHER_CTX *in)
 
 EVP_CIPHER *evp_cipher_new(void)
 {
-    EVP_CIPHER *cipher = zalloc_zero(EVP_CIPHER, 1);
+    EVP_CIPHER *cipher = zalloc(EVP_CIPHER, 1);
 
     if (cipher != NULL && !CRYPTO_NEW_REF(&cipher->refcnt, 1)) {
         OPENSSL_free(cipher);

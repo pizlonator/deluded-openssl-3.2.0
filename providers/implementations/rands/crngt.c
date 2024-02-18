@@ -64,7 +64,7 @@ void ossl_rand_crng_ctx_free(void *vcrngt_glob)
 
 void *ossl_rand_crng_ctx_new(OSSL_LIB_CTX *ctx)
 {
-    CRNG_TEST_GLOBAL *crngt_glob = zalloc_zero(typeof(*crngt_glob), 1);
+    CRNG_TEST_GLOBAL *crngt_glob = zalloc(typeof(*crngt_glob), 1);
 
     if (crngt_glob == NULL)
         return NULL;

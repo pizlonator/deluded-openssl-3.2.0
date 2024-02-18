@@ -326,7 +326,7 @@ static void *aes_cbc_hmac_sha1_newctx(void *provctx, size_t kbits,
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc_zero(typeof(*ctx), 1);
+    ctx = zalloc(typeof(*ctx), 1);
     if (ctx != NULL)
         base_init(provctx, &ctx->base_ctx,
                   ossl_prov_cipher_hw_aes_cbc_hmac_sha1(), kbits, blkbits,
@@ -363,7 +363,7 @@ static void *aes_cbc_hmac_sha256_newctx(void *provctx, size_t kbits,
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc_zero(typeof(*ctx), 1);
+    ctx = zalloc(typeof(*ctx), 1);
     if (ctx != NULL)
         base_init(provctx, &ctx->base_ctx,
                   ossl_prov_cipher_hw_aes_cbc_hmac_sha256(), kbits, blkbits,

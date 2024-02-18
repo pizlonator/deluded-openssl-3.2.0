@@ -19,7 +19,7 @@
 
 X509_LOOKUP_METHOD *X509_LOOKUP_meth_new(const char *name)
 {
-    X509_LOOKUP_METHOD *method = zalloc_zero(X509_LOOKUP_METHOD, 1);
+    X509_LOOKUP_METHOD *method = zalloc(X509_LOOKUP_METHOD, 1);
 
     if (method != NULL) {
         method->name = OPENSSL_strdup(name);

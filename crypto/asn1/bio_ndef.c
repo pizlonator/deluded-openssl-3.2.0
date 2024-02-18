@@ -68,7 +68,7 @@ BIO *BIO_new_NDEF(BIO *out, ASN1_VALUE *val, const ASN1_ITEM *it)
         ERR_raise(ERR_LIB_ASN1, ASN1_R_STREAMING_NOT_SUPPORTED);
         return NULL;
     }
-    ndef_aux = zalloc_zero(typeof(*ndef_aux), 1);
+    ndef_aux = zalloc(typeof(*ndef_aux), 1);
     asn_bio = BIO_new(BIO_f_asn1());
     if (ndef_aux == NULL || asn_bio == NULL)
         goto err;

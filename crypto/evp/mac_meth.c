@@ -46,7 +46,7 @@ static void *evp_mac_new(void)
 {
     EVP_MAC *mac = NULL;
 
-    if ((mac = zalloc_zero(typeof(*mac), 1)) == NULL
+    if ((mac = zalloc(typeof(*mac), 1)) == NULL
         || !CRYPTO_NEW_REF(&mac->refcnt, 1)) {
         evp_mac_free(mac);
         return NULL;

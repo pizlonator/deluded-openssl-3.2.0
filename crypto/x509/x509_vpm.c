@@ -83,7 +83,7 @@ X509_VERIFY_PARAM *X509_VERIFY_PARAM_new(void)
 {
     X509_VERIFY_PARAM *param;
 
-    param = zalloc_zero(typeof(*param), 1);
+    param = zalloc(typeof(*param), 1);
     if (param == NULL)
         return NULL;
     param->trust = X509_TRUST_DEFAULT;

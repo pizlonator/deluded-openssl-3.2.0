@@ -49,7 +49,7 @@ X509_POLICY_DATA *ossl_policy_data_new(POLICYINFO *policy,
             return NULL;
     } else
         id = NULL;
-    ret = zalloc_zero(typeof(*ret), 1);
+    ret = zalloc(typeof(*ret), 1);
     if (ret == NULL) {
         ASN1_OBJECT_free(id);
         return NULL;

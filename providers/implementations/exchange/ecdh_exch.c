@@ -87,7 +87,7 @@ void *ecdh_newctx(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    pectx = zalloc_zero(typeof(*pectx), 1);
+    pectx = zalloc(typeof(*pectx), 1);
     if (pectx == NULL)
         return NULL;
 
@@ -179,7 +179,7 @@ void *ecdh_dupctx(void *vpecdhctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = zalloc_zero(typeof(*srcctx), 1);
+    dstctx = zalloc(typeof(*srcctx), 1);
     if (dstctx == NULL)
         return NULL;
 

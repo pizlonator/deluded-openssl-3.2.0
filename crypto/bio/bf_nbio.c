@@ -55,7 +55,7 @@ static int nbiof_new(BIO *bi)
 {
     NBIO_TEST *nt;
 
-    if ((nt = zalloc_zero(typeof(*nt), 1)) == NULL)
+    if ((nt = zalloc(typeof(*nt), 1)) == NULL)
         return 0;
     nt->lrn = -1;
     nt->lwn = -1;

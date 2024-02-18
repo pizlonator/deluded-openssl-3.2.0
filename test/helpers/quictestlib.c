@@ -368,7 +368,7 @@ QTEST_FAULT *qtest_create_injector(QUIC_TSERVER *ts)
 {
     QTEST_FAULT *f;
 
-    f = zalloc_zero(typeof(*f), 1);
+    f = zalloc(typeof(*f), 1);
     if (f == NULL)
         return NULL;
 

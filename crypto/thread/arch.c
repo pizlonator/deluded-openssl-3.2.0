@@ -18,7 +18,7 @@ CRYPTO_THREAD *ossl_crypto_thread_native_start(CRYPTO_THREAD_ROUTINE routine,
     if (routine == NULL)
         return NULL;
 
-    handle = zalloc_zero(typeof(*handle), 1);
+    handle = zalloc(typeof(*handle), 1);
     if (handle == NULL)
         return NULL;
 

@@ -545,7 +545,7 @@ QUIC_CHANNEL *ossl_quic_channel_new(const QUIC_CHANNEL_ARGS *args)
 {
     QUIC_CHANNEL *ch = NULL;
 
-    if ((ch = zalloc_zero(typeof(*ch), 1)) == NULL)
+    if ((ch = zalloc(typeof(*ch), 1)) == NULL)
         return NULL;
 
     ch->libctx      = args->libctx;

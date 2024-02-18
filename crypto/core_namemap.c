@@ -254,7 +254,7 @@ static int namemap_add_name(OSSL_NAMEMAP *namemap, int number,
     if ((tmp_number = namemap_name2num(namemap, name)) != 0)
         return tmp_number;
 
-    if ((namenum = zalloc_zero(typeof(*namenum), 1)) == NULL)
+    if ((namenum = zalloc(typeof(*namenum), 1)) == NULL)
         return 0;
 
     if ((namenum->name = OPENSSL_strdup(name)) == NULL)
@@ -512,7 +512,7 @@ OSSL_NAMEMAP *ossl_namemap_new(void)
 {
     OSSL_NAMEMAP *namemap;
 
-    if ((namemap = zalloc_zero(typeof(*namemap), 1)) != NULL
+    if ((namemap = zalloc(typeof(*namemap), 1)) != NULL
         && (namemap->lock = CRYPTO_THREAD_lock_new()) != NULL
         && (namemap->namenum =
             lh_NAMENUM_ENTRY_new(namenum_hash, namenum_cmp)) != NULL)

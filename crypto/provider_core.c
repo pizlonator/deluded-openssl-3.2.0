@@ -254,7 +254,7 @@ static void infopair_free(INFOPAIR *pair)
 
 static INFOPAIR *infopair_copy(const INFOPAIR *src)
 {
-    INFOPAIR *dest = zalloc_zero(typeof(*dest), 1);
+    INFOPAIR *dest = zalloc(typeof(*dest), 1);
 
     if (dest == NULL)
         return NULL;
@@ -306,7 +306,7 @@ void ossl_provider_store_free(void *vstore)
 
 void *ossl_provider_store_new(OSSL_LIB_CTX *ctx)
 {
-    struct provider_store_st *store = zalloc_zero(typeof(*store), 1);
+    struct provider_store_st *store = zalloc(typeof(*store), 1);
 
     if (store == NULL
         || (store->providers = sk_OSSL_PROVIDER_new(ossl_provider_cmp)) == NULL
@@ -369,7 +369,7 @@ int ossl_provider_info_add_to_store(OSSL_LIB_CTX *libctx,
     if (!CRYPTO_THREAD_write_lock(store->lock))
         return 0;
     if (store->provinfosz == 0) {
-        store->provinfo = zalloc_zero(typeof(*store->provinfo), BUILTINS_BLOCK_SIZE);
+        store->provinfo = zalloc(typeof(*store->provinfo), BUILTINS_BLOCK_SIZE);
         if (store->provinfo == NULL)
             goto err;
         store->provinfosz = BUILTINS_BLOCK_SIZE;
@@ -439,7 +439,7 @@ static OSSL_PROVIDER *provider_new(const char *name,
 {
     OSSL_PROVIDER *prov = NULL;
 
-    if ((prov = zalloc_zero(typeof(*prov), 1)) == NULL)
+    if ((prov = zalloc(typeof(*prov), 1)) == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&prov->refcnt, 1)) {
         OPENSSL_free(prov);
@@ -772,7 +772,7 @@ static int infopair_add(STACK_OF(INFOPAIR) **infopairsk, const char *name,
 {
     INFOPAIR *pair = NULL;
 
-    if ((pair = zalloc_zero(typeof(*pair), 1)) == NULL
+    if ((pair = zalloc(typeof(*pair), 1)) == NULL
         || (pair->name = OPENSSL_strdup(name)) == NULL
         || (pair->value = OPENSSL_strdup(value)) == NULL)
         goto err;
@@ -1033,7 +1033,7 @@ static int provider_init(OSSL_PROVIDER *prov)
 
         /* Allocate one extra item for the "library" name */
         prov->error_strings =
-            zalloc_zero(typeof(ERR_STRING_DATA), (cnt + 1));
+            zalloc(typeof(ERR_STRING_DATA), (cnt + 1));
         if (prov->error_strings == NULL)
             goto end;
 

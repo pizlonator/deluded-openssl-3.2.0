@@ -55,7 +55,7 @@ static void *test_rng_new(void *provctx, void *parent,
 {
     PROV_TEST_RNG *t;
 
-    t = zalloc_zero(typeof(*t), 1);
+    t = zalloc(typeof(*t), 1);
     if (t == NULL)
         return NULL;
 

@@ -49,9 +49,9 @@ OPENSSL_LHASH *OPENSSL_LH_new(OPENSSL_LH_HASHFUNC h, OPENSSL_LH_COMPFUNC c)
 {
     OPENSSL_LHASH *ret;
 
-    if ((ret = zalloc_zero(typeof(*ret), 1)) == NULL)
+    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
         return NULL;
-    if ((ret->b = zalloc_zero(typeof(*ret->b), MIN_NODES)) == NULL)
+    if ((ret->b = zalloc(typeof(*ret->b), MIN_NODES)) == NULL)
         goto err;
     ret->comp = ((c == NULL) ? (OPENSSL_LH_COMPFUNC)strcmp : c);
     ret->hash = ((h == NULL) ? (OPENSSL_LH_HASHFUNC)OPENSSL_LH_strhash : h);

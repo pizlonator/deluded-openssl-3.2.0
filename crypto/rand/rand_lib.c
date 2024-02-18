@@ -452,7 +452,7 @@ typedef struct rand_global_st {
  */
 void *ossl_rand_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    RAND_GLOBAL *dgbl = zalloc_zero(typeof(*dgbl), 1);
+    RAND_GLOBAL *dgbl = zalloc(typeof(*dgbl), 1);
 
     if (dgbl == NULL)
         return NULL;

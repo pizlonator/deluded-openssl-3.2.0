@@ -177,7 +177,7 @@ OSSL_QRX *ossl_qrx_new(const OSSL_QRX_ARGS *args)
     if (args->demux == NULL || args->max_deferred == 0)
         return 0;
 
-    qrx = zalloc_zero(OSSL_QRX, 1);
+    qrx = zalloc(OSSL_QRX, 1);
     if (qrx == NULL)
         return 0;
 

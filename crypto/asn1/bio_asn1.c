@@ -98,7 +98,7 @@ const BIO_METHOD *BIO_f_asn1(void)
 
 static int asn1_bio_new(BIO *b)
 {
-    BIO_ASN1_BUF_CTX *ctx = zalloc_zero(typeof(*ctx), 1);
+    BIO_ASN1_BUF_CTX *ctx = zalloc(typeof(*ctx), 1);
 
     if (ctx == NULL)
         return 0;
