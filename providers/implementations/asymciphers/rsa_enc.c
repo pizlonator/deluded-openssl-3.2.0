@@ -85,7 +85,7 @@ static void *rsa_newctx(void *provctx)
 
     if (!ossl_prov_is_running())
         return NULL;
-    prsactx = zalloc(PROV_RSA_CTX, 1);
+    prsactx = OPENSSL_zalloc(sizeof(PROV_RSA_CTX));
     if (prsactx == NULL)
         return NULL;
     prsactx->libctx = PROV_LIBCTX_OF(provctx);
@@ -309,7 +309,7 @@ static void *rsa_dupctx(void *vprsactx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = zalloc(typeof(*srcctx), 1);
+    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
     if (dstctx == NULL)
         return NULL;
 

@@ -47,7 +47,7 @@ static void *poly1305_new(void *provctx)
 
     if (!ossl_prov_is_running())
         return NULL;
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx != NULL)
         ctx->provctx = provctx;
     return ctx;
@@ -65,7 +65,7 @@ static void *poly1305_dup(void *vsrc)
 
     if (!ossl_prov_is_running())
         return NULL;
-    dst = zalloc(typeof(*dst), 1);
+    dst = OPENSSL_malloc(sizeof(*dst));
     if (dst == NULL)
         return NULL;
 

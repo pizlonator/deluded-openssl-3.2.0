@@ -110,7 +110,7 @@ QUIC_DEMUX *ossl_quic_demux_new(BIO *net_bio,
 {
     QUIC_DEMUX *demux;
 
-    demux = zalloc(QUIC_DEMUX, 1);
+    demux = OPENSSL_zalloc(sizeof(QUIC_DEMUX));
     if (demux == NULL)
         return NULL;
 
@@ -223,7 +223,7 @@ int ossl_quic_demux_register(QUIC_DEMUX *demux,
         /* Handler already registered with this connection ID. */
         return 0;
 
-    conn = zalloc(QUIC_DEMUX_CONN, 1);
+    conn = OPENSSL_zalloc(sizeof(QUIC_DEMUX_CONN));
     if (conn == NULL)
         return 0;
 

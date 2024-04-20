@@ -932,7 +932,7 @@ static void *kdf_argon2d_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL) {
         ERR_raise(ERR_LIB_PROV, ERR_R_MALLOC_FAILURE);
         return NULL;
@@ -951,7 +951,7 @@ static void *kdf_argon2i_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL) {
         ERR_raise(ERR_LIB_PROV, ERR_R_MALLOC_FAILURE);
         return NULL;
@@ -970,7 +970,7 @@ static void *kdf_argon2id_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL) {
         ERR_raise(ERR_LIB_PROV, ERR_R_MALLOC_FAILURE);
         return NULL;

@@ -193,7 +193,7 @@ static OSSL_ENCODER_INSTANCE *ossl_encoder_instance_new(OSSL_ENCODER *encoder,
         return 0;
     }
 
-    if ((encoder_inst = zalloc(typeof(*encoder_inst), 1)) == NULL)
+    if ((encoder_inst = OPENSSL_zalloc(sizeof(*encoder_inst))) == NULL)
         return 0;
 
     if (!OSSL_ENCODER_up_ref(encoder)) {

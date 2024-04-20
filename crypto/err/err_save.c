@@ -11,7 +11,6 @@
 
 #include <openssl/err.h>
 #include "err_local.h"
-#include <stdfil.h>
 
 /*
  * Save and restore error state.
@@ -21,7 +20,7 @@
 
 ERR_STATE *OSSL_ERR_STATE_new(void)
 {
-    return zalloc(ERR_STATE, 1);
+    return CRYPTO_zalloc(sizeof(ERR_STATE), NULL, 0);
 }
 
 void OSSL_ERR_STATE_save(ERR_STATE *es)

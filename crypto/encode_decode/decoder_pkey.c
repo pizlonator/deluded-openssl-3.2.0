@@ -401,7 +401,7 @@ static int ossl_decoder_ctx_setup_for_pkey(OSSL_DECODER_CTX *ctx,
     } OSSL_TRACE_END(DECODER);
 
     /* Allocate data. */
-    if ((process_data = zalloc(typeof(*process_data), 1)) == NULL)
+    if ((process_data = OPENSSL_zalloc(sizeof(*process_data))) == NULL)
         goto err;
     if ((propquery != NULL
             && (process_data->propq = OPENSSL_strdup(propquery)) == NULL))
@@ -534,7 +534,7 @@ ossl_decoder_ctx_for_pkey_dup(OSSL_DECODER_CTX *src,
 
     process_data_src = OSSL_DECODER_CTX_get_construct_data(src);
     if (process_data_src != NULL) {
-        process_data_dest = zalloc(typeof(*process_data_dest), 1);
+        process_data_dest = OPENSSL_zalloc(sizeof(*process_data_dest));
         if (process_data_dest == NULL) {
             ERR_raise(ERR_LIB_OSSL_DECODER, ERR_R_CRYPTO_LIB);
             goto err;
@@ -681,7 +681,7 @@ static int decoder_cache_entry_cmp(const DECODER_CACHE_ENTRY *a,
 
 void *ossl_decoder_cache_new(OSSL_LIB_CTX *ctx)
 {
-    DECODER_CACHE *cache = zalloc(typeof(*cache), 1);
+    DECODER_CACHE *cache = OPENSSL_malloc(sizeof(*cache));
 
     if (cache == NULL)
         return NULL;
@@ -815,7 +815,7 @@ OSSL_DECODER_CTX_new_for_pkey(EVP_PKEY **pkey,
             return NULL;
         }
 
-        newcache = zalloc(typeof(*newcache), 1);
+        newcache = OPENSSL_zalloc(sizeof(*newcache));
         if (newcache == NULL) {
             OSSL_DECODER_CTX_free(ctx);
             return NULL;

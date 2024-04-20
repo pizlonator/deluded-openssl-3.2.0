@@ -24,7 +24,7 @@
 
 ASN1_SCTX *ASN1_SCTX_new(int (*scan_cb) (ASN1_SCTX *ctx))
 {
-    ASN1_SCTX *ret = zalloc(typeof(*ret), 1);
+    ASN1_SCTX *ret = OPENSSL_zalloc(sizeof(*ret));
 
     if (ret == NULL)
         return NULL;

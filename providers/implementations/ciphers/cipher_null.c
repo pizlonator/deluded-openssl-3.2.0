@@ -27,7 +27,7 @@ static void *null_newctx(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    return zalloc(PROV_CIPHER_NULL_CTX, 1);
+    return OPENSSL_zalloc(sizeof(PROV_CIPHER_NULL_CTX));
 }
 
 static OSSL_FUNC_cipher_freectx_fn null_freectx;

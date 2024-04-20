@@ -452,7 +452,7 @@ typedef struct rand_global_st {
  */
 void *ossl_rand_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    RAND_GLOBAL *dgbl = zalloc(typeof(*dgbl), 1);
+    RAND_GLOBAL *dgbl = OPENSSL_zalloc(sizeof(*dgbl));
 
     if (dgbl == NULL)
         return NULL;
@@ -578,7 +578,7 @@ static EVP_RAND_CTX *rand_new_seed(OSSL_LIB_CTX *libctx)
                 ERR_raise(ERR_LIB_RAND, ERR_R_INTERNAL_ERROR);
                 goto err;
             } else {
-                props = zalloc(char, props_len);
+                props = OPENSSL_malloc(props_len);
                 if (props == NULL) {
                     ERR_raise(ERR_LIB_RAND, ERR_R_MALLOC_FAILURE);
                     goto err;

@@ -17,7 +17,7 @@ X509_PKEY *X509_PKEY_new(void)
 {
     X509_PKEY *ret = NULL;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_zalloc(sizeof(*ret));
     if (ret == NULL)
         return NULL;
 

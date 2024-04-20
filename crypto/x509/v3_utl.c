@@ -54,7 +54,7 @@ static int x509v3_add_len_value(const char *name, const char *value,
         if (tvalue == NULL)
             goto err;
     }
-    if ((vtmp = zalloc(typeof(*vtmp), 1)) == NULL)
+    if ((vtmp = OPENSSL_malloc(sizeof(*vtmp))) == NULL)
         goto err;
     if (sk_allocated && (*extlist = sk_CONF_VALUE_new_null()) == NULL) {
         ERR_raise(ERR_LIB_X509V3, ERR_R_CRYPTO_LIB);

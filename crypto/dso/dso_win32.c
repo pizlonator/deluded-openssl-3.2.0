@@ -109,7 +109,7 @@ static int win32_load(DSO *dso)
                        "filename(%s)", filename);
         goto err;
     }
-    p = zalloc(typeof(*p), 1);
+    p = OPENSSL_malloc(sizeof(*p));
     if (p == NULL)
         goto err;
     *p = h;
@@ -211,7 +211,7 @@ static struct file_st *win32_splitter(DSO *dso, const char *filename,
         return NULL;
     }
 
-    result = zalloc(typeof(*result), 1);
+    result = OPENSSL_zalloc(sizeof(*result));
     if (result == NULL)
         return NULL;
 

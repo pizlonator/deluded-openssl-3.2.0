@@ -114,7 +114,7 @@ static void *ecdsa_newctx(void *provctx, const char *propq)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(PROV_ECDSA_CTX, 1);
+    ctx = OPENSSL_zalloc(sizeof(PROV_ECDSA_CTX));
     if (ctx == NULL)
         return NULL;
 
@@ -405,7 +405,7 @@ static void *ecdsa_dupctx(void *vctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = zalloc(typeof(*srcctx), 1);
+    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
     if (dstctx == NULL)
         return NULL;
 

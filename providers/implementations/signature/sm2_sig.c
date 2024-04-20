@@ -114,7 +114,7 @@ static int sm2sig_set_mdname(PROV_SM2_CTX *psm2ctx, const char *mdname)
 
 static void *sm2sig_newctx(void *provctx, const char *propq)
 {
-    PROV_SM2_CTX *ctx = zalloc(PROV_SM2_CTX, 1);
+    PROV_SM2_CTX *ctx = OPENSSL_zalloc(sizeof(PROV_SM2_CTX));
 
     if (ctx == NULL)
         return NULL;
@@ -338,7 +338,7 @@ static void *sm2sig_dupctx(void *vpsm2ctx)
     PROV_SM2_CTX *srcctx = (PROV_SM2_CTX *)vpsm2ctx;
     PROV_SM2_CTX *dstctx;
 
-    dstctx = zalloc(typeof(*srcctx), 1);
+    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
     if (dstctx == NULL)
         return NULL;
 

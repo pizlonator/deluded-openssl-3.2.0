@@ -277,7 +277,7 @@ typedef struct prov_drbg_nonce_global_st {
  */
 void *ossl_prov_drbg_nonce_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    PROV_DRBG_NONCE_GLOBAL *dngbl = zalloc(typeof(*dngbl), 1);
+    PROV_DRBG_NONCE_GLOBAL *dngbl = OPENSSL_zalloc(sizeof(*dngbl));
 
     if (dngbl == NULL)
         return NULL;
@@ -323,7 +323,7 @@ static size_t prov_drbg_get_nonce(PROV_DRBG *drbg, unsigned char **pout,
     if (drbg->parent != NULL && drbg->parent_nonce != NULL) {
         n = drbg->parent_nonce(drbg->parent, NULL, 0, drbg->min_noncelen,
                                drbg->max_noncelen);
-        if (n > 0 && (buf = zalloc(unsigned char, n)) != NULL) {
+        if (n > 0 && (buf = OPENSSL_malloc(n)) != NULL) {
             ret = drbg->parent_nonce(drbg->parent, buf, 0,
                                      drbg->min_noncelen, drbg->max_noncelen);
             if (ret == n) {
@@ -397,7 +397,7 @@ int ossl_prov_drbg_instantiate(PROV_DRBG *drbg, unsigned int strength,
                 ERR_raise(ERR_LIB_PROV, PROV_R_ERROR_RETRIEVING_NONCE);
                 goto end;
             }
-            nonce = zalloc(unsigned char, noncelen);
+            nonce = OPENSSL_malloc(noncelen);
             if (nonce == NULL) {
                 ERR_raise(ERR_LIB_PROV, PROV_R_ERROR_RETRIEVING_NONCE);
                 goto end;
@@ -807,7 +807,7 @@ PROV_DRBG *ossl_rand_drbg_new
     if (!ossl_prov_is_running())
         return NULL;
 
-    drbg = zalloc(typeof(*drbg), 1);
+    drbg = OPENSSL_zalloc(sizeof(*drbg));
     if (drbg == NULL)
         return NULL;
 

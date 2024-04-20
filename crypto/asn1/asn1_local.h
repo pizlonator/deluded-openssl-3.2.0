@@ -10,7 +10,6 @@
 /* Internal ASN1 structures and functions: not for application use */
 
 #include "crypto/asn1.h"
-#include <stdfil.h>
 
 typedef const ASN1_VALUE const_ASN1_VALUE;
 SKM_DEFINE_STACK_OF(const_ASN1_VALUE, const ASN1_VALUE, ASN1_VALUE)

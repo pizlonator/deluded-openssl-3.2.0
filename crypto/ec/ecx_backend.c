@@ -18,7 +18,6 @@
 #endif
 #include "crypto/ecx.h"
 #include "ecx_backend.h"
-#include <stdfil.h>
 
 /*
  * The intention with the "backend" source file is to offer backend support
@@ -109,7 +108,7 @@ int ossl_ecx_key_fromdata(ECX_KEY *ecx, const OSSL_PARAM params[],
 
 ECX_KEY *ossl_ecx_key_dup(const ECX_KEY *key, int selection)
 {
-    ECX_KEY *ret = zalloc(typeof(*ret), 1);
+    ECX_KEY *ret = OPENSSL_zalloc(sizeof(*ret));
 
     if (ret == NULL)
         return NULL;

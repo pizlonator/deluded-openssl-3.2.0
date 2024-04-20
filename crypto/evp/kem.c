@@ -273,7 +273,7 @@ int EVP_PKEY_decapsulate(EVP_PKEY_CTX *ctx,
 
 static EVP_KEM *evp_kem_new(OSSL_PROVIDER *prov)
 {
-    EVP_KEM *kem = zalloc(EVP_KEM, 1);
+    EVP_KEM *kem = OPENSSL_zalloc(sizeof(EVP_KEM));
 
     if (kem == NULL)
         return NULL;

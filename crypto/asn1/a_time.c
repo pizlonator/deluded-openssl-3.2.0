@@ -617,7 +617,7 @@ time_t ossl_asn1_string_to_time_t(const char *asn1_string)
         return -1;
     }
 
-    timestamp_tm = zalloc(typeof(*timestamp_tm), 1);
+    timestamp_tm = OPENSSL_malloc(sizeof(*timestamp_tm));
     if (timestamp_tm == NULL) {
         ASN1_TIME_free(timestamp_asn1);
         return -1;

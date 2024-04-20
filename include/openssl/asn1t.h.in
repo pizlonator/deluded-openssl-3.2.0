@@ -117,7 +117,6 @@ extern "C" {
                 &tname##_item_tt,\
                 0,\
                 NULL,\
-                NULL,\
                 0,\
                 #tname \
         ASN1_ITEM_end(tname)
@@ -128,7 +127,6 @@ extern "C" {
                 -1,\
                 &tname##_item_tt,\
                 0,\
-                NULL,\
                 NULL,\
                 0,\
                 #tname \
@@ -166,28 +164,24 @@ extern "C" {
 
 # define ASN1_SEQUENCE_END_name(stname, tname) \
         ;\
-        static const stname tname##_prototype;\
         ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 NULL,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #tname \
         ASN1_ITEM_end(tname)
 
 # define static_ASN1_SEQUENCE_END_name(stname, tname) \
         ;\
-        static const stname tname##_prototype;\
         static_ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 NULL,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #stname \
         ASN1_ITEM_end(tname)
@@ -222,27 +216,23 @@ extern "C" {
 
 # define ASN1_NDEF_SEQUENCE_END(tname) \
         ;\
-        static const tname tname##_prototype;\
         ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_NDEF_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 NULL,\
-                &tname##_prototype,\
                 sizeof(tname),\
                 #tname \
         ASN1_ITEM_end(tname)
 # define static_ASN1_NDEF_SEQUENCE_END(tname) \
         ;\
-        static const tname tname##_prototype;\
         static_ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_NDEF_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 NULL,\
-                &tname##_prototype,\
                 sizeof(tname),\
                 #tname \
         ASN1_ITEM_end(tname)
@@ -255,41 +245,35 @@ extern "C" {
 
 # define ASN1_SEQUENCE_END_ref(stname, tname) \
         ;\
-        static const stname tname##_prototype;\
         ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 &tname##_aux,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #tname \
         ASN1_ITEM_end(tname)
 # define static_ASN1_SEQUENCE_END_ref(stname, tname) \
         ;\
-        static const stname tname##_prototype;\
         static_ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 &tname##_aux,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #stname \
         ASN1_ITEM_end(tname)
 
 # define ASN1_NDEF_SEQUENCE_END_cb(stname, tname) \
         ;\
-        static const stname tname##_prototype;\
         ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_NDEF_SEQUENCE,\
                 V_ASN1_SEQUENCE,\
                 tname##_seq_tt,\
                 sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
                 &tname##_aux,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #stname \
         ASN1_ITEM_end(tname)
@@ -334,42 +318,36 @@ extern "C" {
 
 # define ASN1_CHOICE_END_selector(stname, tname, selname) \
         ;\
-        static const stname tname##_prototype;\
         ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_CHOICE,\
                 offsetof(stname,selname) ,\
                 tname##_ch_tt,\
                 sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
                 NULL,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #stname \
         ASN1_ITEM_end(tname)
 
 # define static_ASN1_CHOICE_END_selector(stname, tname, selname) \
         ;\
-        static const stname tname##_prototype;\
         static_ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_CHOICE,\
                 offsetof(stname,selname) ,\
                 tname##_ch_tt,\
                 sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
                 NULL,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #stname \
         ASN1_ITEM_end(tname)
 
 # define ASN1_CHOICE_END_cb(stname, tname, selname) \
         ;\
-        static const stname tname##_prototype;\
         ASN1_ITEM_start(tname) \
                 ASN1_ITYPE_CHOICE,\
                 offsetof(stname,selname) ,\
                 tname##_ch_tt,\
                 sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
                 &tname##_aux,\
-                &tname##_prototype,\
                 sizeof(stname),\
                 #stname \
         ASN1_ITEM_end(tname)
@@ -630,8 +608,7 @@ struct ASN1_ITEM_st {
     long tcount;                /* Number of templates if SEQUENCE or CHOICE */
     const void *funcs;          /* further data and type-specific functions */
     /* funcs can be ASN1_PRIMITIVE_FUNCS*, ASN1_EXTERN_FUNCS*, or ASN1_AUX* */
-    const void* prototype;      /* Gives the type+size for allocation */
-    long sizeish;               /* Structure size (usually) */
+    long size;                  /* Structure size (usually) */
     const char *sname;          /* Structure name */
 };
 
@@ -786,15 +763,13 @@ typedef struct ASN1_STREAM_ARG_st {
 # define IMPLEMENT_ASN1_TYPE(stname) IMPLEMENT_ASN1_TYPE_ex(stname, stname, 0)
 # define IMPLEMENT_ASN1_TYPE_ex(itname, vname, ex) \
                                 ASN1_ITEM_start(itname) \
-                                        ASN1_ITYPE_PRIMITIVE, V_##vname, NULL, 0, NULL, NULL, ex, #itname \
+                                        ASN1_ITYPE_PRIMITIVE, V_##vname, NULL, 0, NULL, ex, #itname \
                                 ASN1_ITEM_end(itname)
-
-extern const ASN1_STRING asn1_string_prototype;
 
 /* Macro to implement a multi string type */
 # define IMPLEMENT_ASN1_MSTRING(itname, mask) \
                                 ASN1_ITEM_start(itname) \
-                                        ASN1_ITYPE_MSTRING, mask, NULL, 0, NULL, &asn1_string_prototype, sizeof(ASN1_STRING), #itname \
+                                        ASN1_ITYPE_MSTRING, mask, NULL, 0, NULL, sizeof(ASN1_STRING), #itname \
                                 ASN1_ITEM_end(itname)
 
 # define IMPLEMENT_EXTERN_ASN1(sname, tag, fptrs) \
@@ -804,7 +779,6 @@ extern const ASN1_STRING asn1_string_prototype;
                 NULL, \
                 0, \
                 &fptrs, \
-                NULL, \
                 0, \
                 #sname \
         ASN1_ITEM_end(sname)

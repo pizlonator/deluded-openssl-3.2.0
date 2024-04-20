@@ -12,7 +12,6 @@
 #include <openssl/rand.h>
 #include <openssl/provider.h>
 #include "fuzzer.h"
-#include <stdfil.h>
 
 static OSSL_FUNC_rand_newctx_fn fuzz_rand_newctx;
 static OSSL_FUNC_rand_freectx_fn fuzz_rand_freectx;
@@ -26,7 +25,7 @@ static OSSL_FUNC_rand_enable_locking_fn fuzz_rand_enable_locking;
 static void *fuzz_rand_newctx(
          void *provctx, void *parent, const OSSL_DISPATCH *parent_dispatch)
 {
-    int *st = zalloc(typeof(*st), 1);
+    int *st = OPENSSL_malloc(sizeof(*st));
 
     if (st != NULL)
         *st = EVP_RAND_STATE_UNINITIALISED;

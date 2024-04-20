@@ -168,7 +168,7 @@ static int chan_add_reset_token(QUIC_CHANNEL *ch, const unsigned char *new,
     int err;
 
     /* Add to list by sequence number (always the tail) */
-    if ((srte = zalloc(typeof(*srte), 1)) == NULL)
+    if ((srte = OPENSSL_malloc(sizeof(*srte))) == NULL)
         return 0;
 
     ossl_list_stateless_reset_tokens_init_elem(srte);
@@ -545,7 +545,7 @@ QUIC_CHANNEL *ossl_quic_channel_new(const QUIC_CHANNEL_ARGS *args)
 {
     QUIC_CHANNEL *ch = NULL;
 
-    if ((ch = zalloc(typeof(*ch), 1)) == NULL)
+    if ((ch = OPENSSL_zalloc(sizeof(*ch))) == NULL)
         return NULL;
 
     ch->libctx      = args->libctx;

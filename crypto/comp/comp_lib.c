@@ -22,7 +22,7 @@ COMP_CTX *COMP_CTX_new(COMP_METHOD *meth)
     if (meth == NULL)
         return NULL;
 
-    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
+    if ((ret = OPENSSL_zalloc(sizeof(*ret))) == NULL)
         return NULL;
     ret->meth = meth;
     if ((ret->meth->init != NULL) && !ret->meth->init(ret)) {

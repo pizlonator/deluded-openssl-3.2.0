@@ -1511,7 +1511,7 @@ static CAPI_KEY *capi_get_key(CAPI_CTX *ctx, const WCHAR *contname,
                               DWORD keyspec)
 {
     DWORD dwFlags = 0;
-    CAPI_KEY *key = zalloc(typeof(*key), 1);
+    CAPI_KEY *key = OPENSSL_malloc(sizeof(*key));
 
     if (key == NULL)
         return NULL;
@@ -1629,7 +1629,7 @@ void capi_free_key(CAPI_KEY *key)
 
 static CAPI_CTX *capi_ctx_new(void)
 {
-    CAPI_CTX *ctx = zalloc(typeof(*ctx), 1);
+    CAPI_CTX *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx == NULL)
         return NULL;

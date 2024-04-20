@@ -19,7 +19,7 @@
 
 RSA_METHOD *RSA_meth_new(const char *name, int flags)
 {
-    RSA_METHOD *meth = zalloc(typeof(*meth), 1);
+    RSA_METHOD *meth = OPENSSL_zalloc(sizeof(*meth));
 
     if (meth != NULL) {
         meth->flags = flags;
@@ -44,7 +44,7 @@ void RSA_meth_free(RSA_METHOD *meth)
 
 RSA_METHOD *RSA_meth_dup(const RSA_METHOD *meth)
 {
-    RSA_METHOD *ret = zalloc(typeof(*ret), 1);
+    RSA_METHOD *ret = OPENSSL_malloc(sizeof(*ret));
 
     if (ret != NULL) {
         memcpy(ret, meth, sizeof(*meth));

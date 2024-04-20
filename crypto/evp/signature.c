@@ -20,7 +20,7 @@
 
 static EVP_SIGNATURE *evp_signature_new(OSSL_PROVIDER *prov)
 {
-    EVP_SIGNATURE *signature = zalloc(EVP_SIGNATURE, 1);
+    EVP_SIGNATURE *signature = OPENSSL_zalloc(sizeof(EVP_SIGNATURE));
 
     if (signature == NULL)
         return NULL;

@@ -244,7 +244,7 @@ BIGNUM *BN_new(void)
 {
     BIGNUM *ret;
 
-    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
+    if ((ret = OPENSSL_zalloc(sizeof(*ret))) == NULL)
         return NULL;
     ret->flags = BN_FLG_MALLOCED;
     bn_check_top(ret);
@@ -1053,7 +1053,7 @@ BN_GENCB *BN_GENCB_new(void)
 {
     BN_GENCB *ret;
 
-    if ((ret = zalloc(typeof(*ret), 1)) == NULL)
+    if ((ret = OPENSSL_malloc(sizeof(*ret))) == NULL)
         return NULL;
 
     return ret;

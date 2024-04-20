@@ -39,7 +39,7 @@ static async_ctx *async_ctx_new(void)
     if (!ossl_init_thread_start(NULL, NULL, async_delete_thread_state))
         return NULL;
 
-    nctx = zalloc(typeof(*nctx), 1);
+    nctx = OPENSSL_malloc(sizeof(*nctx));
     if (nctx == NULL)
         goto err;
 
@@ -79,7 +79,7 @@ static ASYNC_JOB *async_job_new(void)
 {
     ASYNC_JOB *job = NULL;
 
-    job = zalloc(typeof(*job), 1);
+    job = OPENSSL_zalloc(sizeof(*job));
     if (job == NULL)
         return NULL;
 
@@ -361,7 +361,7 @@ int ASYNC_init_thread(size_t max_size, size_t init_size)
     if (!ossl_init_thread_start(NULL, NULL, async_delete_thread_state))
         return 0;
 
-    pool = zalloc(typeof(*pool), 1);
+    pool = OPENSSL_zalloc(sizeof(*pool));
     if (pool == NULL)
         return 0;
 

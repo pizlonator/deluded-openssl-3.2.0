@@ -224,7 +224,7 @@ OSSL_DECODER_INSTANCE *ossl_decoder_instance_new(OSSL_DECODER *decoder,
         return 0;
     }
 
-    if ((decoder_inst = zalloc(typeof(*decoder_inst), 1)) == NULL)
+    if ((decoder_inst = OPENSSL_zalloc(sizeof(*decoder_inst))) == NULL)
         return 0;
 
     prov = OSSL_DECODER_get0_provider(decoder);
@@ -287,7 +287,7 @@ OSSL_DECODER_INSTANCE *ossl_decoder_instance_dup(const OSSL_DECODER_INSTANCE *sr
     const OSSL_PROVIDER *prov;
     void *provctx;
 
-    if ((dest = zalloc(typeof(*dest), 1)) == NULL)
+    if ((dest = OPENSSL_zalloc(sizeof(*dest))) == NULL)
         return NULL;
 
     *dest = *src;

@@ -864,7 +864,7 @@ static STREAM_INFO *get_stream_info(LHASH_OF(STREAM_INFO) *lh,
     key.name = stream_name;
     info = lh_STREAM_INFO_retrieve(lh, &key);
     if (info == NULL) {
-        info = zalloc(typeof(*info), 1);
+        info = OPENSSL_zalloc(sizeof(*info));
         if (info == NULL)
             return NULL;
 

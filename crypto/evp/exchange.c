@@ -20,7 +20,7 @@
 
 static EVP_KEYEXCH *evp_keyexch_new(OSSL_PROVIDER *prov)
 {
-    EVP_KEYEXCH *exchange = zalloc(EVP_KEYEXCH, 1);
+    EVP_KEYEXCH *exchange = OPENSSL_zalloc(sizeof(EVP_KEYEXCH));
 
     if (exchange == NULL)
         return NULL;

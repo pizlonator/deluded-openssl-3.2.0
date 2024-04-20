@@ -531,14 +531,12 @@ static int get_random_device(size_t n)
     struct random_device *rd = &random_devices[n];
 
     /* reuse existing file descriptor if it is (still) valid */
-    if (check_random_device(rd)) {
+    if (check_random_device(rd))
         return rd->fd;
-    }
 
     /* open the random device ... */
-    if ((rd->fd = open(random_device_paths[n], O_RDONLY)) == -1) {
+    if ((rd->fd = open(random_device_paths[n], O_RDONLY)) == -1)
         return rd->fd;
-    }
 
     /* ... and cache its relevant stat(2) data */
     if (fstat(rd->fd, &st) != -1) {

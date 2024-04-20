@@ -14,7 +14,7 @@ static DSO *DSO_new_method(DSO_METHOD *meth)
 {
     DSO *ret;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_zalloc(sizeof(*ret));
     if (ret == NULL)
         return NULL;
     ret->meth_data = sk_void_new_null();

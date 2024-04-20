@@ -2046,7 +2046,7 @@ static int setup_client_ctx(OSSL_CMP_CTX *ctx, ENGINE *engine)
             }
         }
 
-        if ((info = zalloc(typeof(*info), 1)) == NULL)
+        if ((info = OPENSSL_zalloc(sizeof(*info))) == NULL)
             goto err;
         APP_HTTP_TLS_INFO_free(OSSL_CMP_CTX_get_http_cb_arg(ctx));
         (void)OSSL_CMP_CTX_set_http_cb_arg(ctx, info);

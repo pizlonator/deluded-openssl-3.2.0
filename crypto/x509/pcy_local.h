@@ -7,8 +7,6 @@
  * https://www.openssl.org/source/license.html
  */
 
-#include <stdfil.h>
-
 typedef struct X509_POLICY_DATA_st X509_POLICY_DATA;
 
 DEFINE_STACK_OF(X509_POLICY_DATA)

@@ -59,7 +59,7 @@ static void *siphash_new(void *provctx)
 
     if (!ossl_prov_is_running())
         return NULL;
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx != NULL)
         ctx->provctx = provctx;
     return ctx;
@@ -77,7 +77,7 @@ static void *siphash_dup(void *vsrc)
 
     if (!ossl_prov_is_running())
         return NULL;
-    sdst = zalloc(typeof(*sdst), 1);
+    sdst = OPENSSL_malloc(sizeof(*sdst));
     if (sdst == NULL)
         return NULL;
 

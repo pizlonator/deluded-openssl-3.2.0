@@ -32,7 +32,7 @@ static CMP_HDR_TEST_FIXTURE *set_up(const char *const test_case_name)
 {
     CMP_HDR_TEST_FIXTURE *fixture;
 
-    if (!TEST_ptr(fixture = zalloc(typeof(*fixture), 1)))
+    if (!TEST_ptr(fixture = OPENSSL_zalloc(sizeof(*fixture))))
         return NULL;
     fixture->test_case_name = test_case_name;
     if (!TEST_ptr(fixture->cmp_ctx = OSSL_CMP_CTX_new(NULL, NULL)))

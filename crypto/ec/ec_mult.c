@@ -54,7 +54,7 @@ static EC_PRE_COMP *ec_pre_comp_new(const EC_GROUP *group)
     if (!group)
         return NULL;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_zalloc(sizeof(*ret));
     if (ret == NULL)
         return ret;
 
@@ -504,11 +504,11 @@ int ossl_ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
 
     totalnum = num + numblocks;
 
-    wsize = zalloc(typeof(wsize[0]), totalnum);
-    wNAF_len = zalloc(typeof(wNAF_len[0]), totalnum);
+    wsize = OPENSSL_malloc(totalnum * sizeof(wsize[0]));
+    wNAF_len = OPENSSL_malloc(totalnum * sizeof(wNAF_len[0]));
     /* include space for pivot */
-    wNAF = zalloc(typeof(wNAF[0]), totalnum + 1);
-    val_sub = zalloc(typeof(val_sub[0]), totalnum);
+    wNAF = OPENSSL_malloc((totalnum + 1) * sizeof(wNAF[0]));
+    val_sub = OPENSSL_malloc(totalnum * sizeof(val_sub[0]));
 
     /* Ensure wNAF is initialised in case we end up going to err */
     if (wNAF != NULL)
@@ -651,7 +651,7 @@ int ossl_ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
      * 'val_sub[i]' is a pointer to the subarray for the i-th point, or to a
      * subarray of 'pre_comp->points' if we already have precomputation.
      */
-    val = zalloc(typeof(val[0]), num_val + 1);
+    val = OPENSSL_malloc((num_val + 1) * sizeof(val[0]));
     if (val == NULL)
         goto err;
     val[num_val] = NULL;        /* pivot element */

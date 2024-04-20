@@ -112,7 +112,7 @@ static CONF *def_create(CONF_METHOD *meth)
 {
     CONF *ret;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_malloc(sizeof(*ret));
     if (ret != NULL)
         if (meth->init(ret) == 0) {
             OPENSSL_free(ret);
@@ -469,7 +469,7 @@ static int def_load_bio(CONF *conf, BIO *in, long *line)
                 if (include_dir != NULL && !ossl_is_absolute_path(include)) {
                     size_t newlen = strlen(include_dir) + strlen(include) + 2;
 
-                    include_path = zalloc(char, newlen);
+                    include_path = OPENSSL_malloc(newlen);
                     if (include_path == NULL) {
                         OPENSSL_free(include);
                         goto err;
@@ -531,7 +531,7 @@ static int def_load_bio(CONF *conf, BIO *in, long *line)
             start = eat_ws(conf, p);
             trim_ws(conf, start);
 
-            if ((v = zalloc(typeof(*v), 1)) == NULL)
+            if ((v = OPENSSL_malloc(sizeof(*v))) == NULL)
                 goto err;
             v->name = OPENSSL_strdup(pname);
             v->value = NULL;
@@ -856,7 +856,7 @@ static BIO *get_next_file(const char *path, OPENSSL_DIR_CTX **dirctx)
             BIO *bio;
 
             newlen = pathlen + namelen + 2;
-            newpath = zalloc(char, newlen);
+            newpath = OPENSSL_zalloc(newlen);
             if (newpath == NULL)
                 break;
 #ifdef OPENSSL_SYS_VMS

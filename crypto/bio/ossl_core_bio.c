@@ -22,7 +22,7 @@ struct ossl_core_bio_st {
 
 static OSSL_CORE_BIO *core_bio_new(void)
 {
-    OSSL_CORE_BIO *cb = zalloc(typeof(*cb), 1);
+    OSSL_CORE_BIO *cb = OPENSSL_malloc(sizeof(*cb));
 
     if (cb == NULL || !CRYPTO_NEW_REF(&cb->ref_cnt, 1)) {
         OPENSSL_free(cb);

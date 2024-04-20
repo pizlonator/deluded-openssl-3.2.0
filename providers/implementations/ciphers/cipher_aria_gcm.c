@@ -20,7 +20,7 @@ static void *aria_gcm_newctx(void *provctx, size_t keybits)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx != NULL)
         ossl_gcm_initctx(provctx, &ctx->base, keybits,
                          ossl_prov_aria_hw_gcm(keybits));

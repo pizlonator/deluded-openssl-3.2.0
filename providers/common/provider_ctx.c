@@ -10,11 +10,10 @@
 #include <stdlib.h>
 #include "prov/provider_ctx.h"
 #include "prov/bio.h"
-#include <stdfil.h>
 
 PROV_CTX *ossl_prov_ctx_new(void)
 {
-    return zalloc(PROV_CTX, 1);
+    return OPENSSL_zalloc(sizeof(PROV_CTX));
 }
 
 void ossl_prov_ctx_free(PROV_CTX *ctx)

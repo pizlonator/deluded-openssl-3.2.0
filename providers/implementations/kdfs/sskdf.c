@@ -292,7 +292,7 @@ static void *sskdf_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((ctx = zalloc(typeof(*ctx), 1)) != NULL)
+    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) != NULL)
         ctx->provctx = provctx;
     return ctx;
 }

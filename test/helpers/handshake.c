@@ -28,7 +28,7 @@ HANDSHAKE_RESULT *HANDSHAKE_RESULT_new(void)
 {
     HANDSHAKE_RESULT *ret;
 
-    TEST_ptr(ret = zalloc(typeof(*ret), 1));
+    TEST_ptr(ret = OPENSSL_zalloc(sizeof(*ret)));
     return ret;
 }
 

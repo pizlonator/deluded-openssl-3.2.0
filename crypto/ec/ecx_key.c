@@ -20,7 +20,7 @@
 ECX_KEY *ossl_ecx_key_new(OSSL_LIB_CTX *libctx, ECX_KEY_TYPE type, int haspubkey,
                           const char *propq)
 {
-    ECX_KEY *ret = zalloc(typeof(*ret), 1);
+    ECX_KEY *ret = OPENSSL_zalloc(sizeof(*ret));
 
     if (ret == NULL)
         return NULL;

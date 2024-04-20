@@ -68,7 +68,7 @@ X509_POLICY_NODE *ossl_policy_level_add_node(X509_POLICY_LEVEL *level,
     if (tree->node_maximum > 0 && tree->node_count >= tree->node_maximum)
         return NULL;
 
-    node = zalloc(typeof(*node), 1);
+    node = OPENSSL_zalloc(sizeof(*node));
     if (node == NULL)
         return NULL;
     node->data = data;

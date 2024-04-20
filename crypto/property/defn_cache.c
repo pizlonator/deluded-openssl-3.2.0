@@ -116,7 +116,7 @@ int ossl_prop_defn_set(OSSL_LIB_CTX *ctx, const char *prop,
         goto end;
     }
     len = strlen(prop);
-    p = zalloc_flex(PROPERTY_DEFN_ELEM, body, len + 1);
+    p = OPENSSL_malloc(sizeof(*p) + len);
     if (p != NULL) {
         p->prop = p->body;
         p->defn = *pl;

@@ -68,7 +68,7 @@ MAC_KEY *ossl_mac_key_new(OSSL_LIB_CTX *libctx, int cmac)
     if (!ossl_prov_is_running())
         return NULL;
 
-    mackey = zalloc(typeof(*mackey), 1);
+    mackey = OPENSSL_zalloc(sizeof(*mackey));
     if (mackey == NULL)
         return NULL;
 
@@ -380,7 +380,7 @@ static void *mac_gen_init_common(void *provctx, int selection)
     if (!ossl_prov_is_running())
         return NULL;
 
-    if ((gctx = zalloc(typeof(*gctx), 1)) != NULL) {
+    if ((gctx = OPENSSL_zalloc(sizeof(*gctx))) != NULL) {
         gctx->libctx = libctx;
         gctx->selection = selection;
     }

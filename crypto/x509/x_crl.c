@@ -488,7 +488,7 @@ X509_CRL_METHOD *X509_CRL_METHOD_new(int (*crl_init) (X509_CRL *crl),
                                      int (*crl_verify) (X509_CRL *crl,
                                                         EVP_PKEY *pk))
 {
-    X509_CRL_METHOD *m = zalloc(typeof(*m), 1);
+    X509_CRL_METHOD *m = OPENSSL_malloc(sizeof(*m));
 
     if (m == NULL)
         return NULL;

@@ -156,7 +156,7 @@ static void dynamic_data_ctx_free_func(void *parent, void *ptr,
  */
 static int dynamic_set_data_ctx(ENGINE *e, dynamic_data_ctx **ctx)
 {
-    dynamic_data_ctx *c = zalloc(typeof(*c), 1);
+    dynamic_data_ctx *c = OPENSSL_zalloc(sizeof(*c));
     int ret = 0;
 
     if (c == NULL)

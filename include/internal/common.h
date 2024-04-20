@@ -11,7 +11,6 @@
 # define OSSL_INTERNAL_COMMON_H
 # pragma once
 
-# include <stdfil.h>
 # include <stdlib.h>
 # include <string.h>
 # include "openssl/configuration.h"
@@ -76,7 +75,8 @@ __owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
  */
 # define OSSL_UNION_ALIGN       \
     double align;               \
-    ossl_uintmax_t align_int;
+    ossl_uintmax_t align_int;   \
+    void *align_ptr
 
 # define OPENSSL_CONF             "openssl.cnf"
 

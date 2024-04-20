@@ -62,7 +62,7 @@ static void *kdf_scrypt_new_inner(OSSL_LIB_CTX *libctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL)
         return NULL;
     ctx->libctx = libctx;

@@ -21,7 +21,7 @@
 
 SCT *SCT_new(void)
 {
-    SCT *sct = zalloc(typeof(*sct), 1);
+    SCT *sct = OPENSSL_zalloc(sizeof(*sct));
 
     if (sct == NULL)
         return NULL;

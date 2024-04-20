@@ -254,7 +254,7 @@ BIO *BIO_new_dgram(int fd, int close_flag)
 
 static int dgram_new(BIO *bi)
 {
-    bio_dgram_data *data = zalloc(typeof(*data), 1);
+    bio_dgram_data *data = OPENSSL_zalloc(sizeof(*data));
 
     if (data == NULL)
         return 0;
@@ -1880,7 +1880,7 @@ static int dgram_sctp_new(BIO *bi)
 
     bi->init = 0;
     bi->num = 0;
-    if ((data = zalloc(typeof(*data), 1)) == NULL)
+    if ((data = OPENSSL_zalloc(sizeof(*data))) == NULL)
         return 0;
 #  ifdef SCTP_PR_SCTP_NONE
     data->prinfo.pr_policy = SCTP_PR_SCTP_NONE;

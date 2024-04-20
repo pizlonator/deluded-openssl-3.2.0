@@ -57,7 +57,7 @@ static void *blake2b512_newctx(void *prov_ctx)
 {
     struct blake2b_md_data_st *ctx;
 
-    ctx = ossl_prov_is_running() ? zalloc(typeof(*ctx), 1) : NULL;
+    ctx = ossl_prov_is_running() ? OPENSSL_zalloc(sizeof(*ctx)) : NULL;
     return ctx;
 }
 
@@ -74,7 +74,7 @@ static void *blake2b512_dupctx(void *ctx)
     struct blake2b_md_data_st *in, *ret;
 
     in = (struct blake2b_md_data_st *)ctx;
-    ret = ossl_prov_is_running()? zalloc(typeof(*ret), 1) : NULL;
+    ret = ossl_prov_is_running()? OPENSSL_malloc(sizeof(*ret)) : NULL;
     if (ret != NULL)
         *ret = *in;
     return ret;

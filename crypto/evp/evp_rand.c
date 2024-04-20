@@ -78,7 +78,7 @@ static void evp_rand_free(void *vrand)
 
 static void *evp_rand_new(void)
 {
-    EVP_RAND *rand = zalloc(typeof(*rand), 1);
+    EVP_RAND *rand = OPENSSL_zalloc(sizeof(*rand));
 
     if (rand == NULL)
         return NULL;
@@ -350,7 +350,7 @@ EVP_RAND_CTX *EVP_RAND_CTX_new(EVP_RAND *rand, EVP_RAND_CTX *parent)
         return NULL;
     }
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL)
         return NULL;
     if (!CRYPTO_NEW_REF(&ctx->refcnt, 1)) {

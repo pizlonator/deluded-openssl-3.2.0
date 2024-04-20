@@ -741,7 +741,7 @@ SSL_TEST_CTX *SSL_TEST_CTX_new(OSSL_LIB_CTX *libctx)
     SSL_TEST_CTX *ret;
 
     /* The return code is checked by caller */
-    if ((ret = zalloc(typeof(*ret), 1)) != NULL) {
+    if ((ret = OPENSSL_zalloc(sizeof(*ret))) != NULL) {
         ret->libctx = libctx;
         ret->app_data_size = default_app_data_size;
         ret->max_fragment_size = default_max_fragment_size;

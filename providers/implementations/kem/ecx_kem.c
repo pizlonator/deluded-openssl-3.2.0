@@ -157,7 +157,7 @@ static unsigned char *ecx_pubkey(ECX_KEY *ecx)
 
 static void *ecxkem_newctx(void *provctx)
 {
-    PROV_ECX_CTX *ctx =  zalloc(PROV_ECX_CTX, 1);
+    PROV_ECX_CTX *ctx =  OPENSSL_zalloc(sizeof(PROV_ECX_CTX));
 
     if (ctx == NULL)
         return NULL;

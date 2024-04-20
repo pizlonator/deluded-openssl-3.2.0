@@ -46,7 +46,7 @@ static void *rc5_dupctx(void *ctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_malloc(sizeof(*ret));
     if (ret == NULL)
         return NULL;
     *ret = *in;
@@ -141,7 +141,7 @@ static void *alg##_##kbits##_##lcmode##_newctx(void *provctx)                  \
      PROV_##UCALG##_CTX *ctx;                                                  \
      if (!ossl_prov_is_running())                                              \
         return NULL;                                                           \
-     ctx = zalloc(typeof(*ctx), 1);                                       \
+     ctx = OPENSSL_zalloc(sizeof(*ctx));                                       \
      if (ctx != NULL) {                                                        \
          ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits,              \
                                      EVP_CIPH_##UCMODE##_MODE, flags,          \

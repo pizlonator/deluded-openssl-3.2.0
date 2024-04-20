@@ -934,7 +934,7 @@ static OSSL_FUNC_decoder_freectx_fn key2any_freectx;
 
 static void *key2any_newctx(void *provctx)
 {
-    struct key2any_ctx_st *ctx = zalloc(typeof(*ctx), 1);
+    struct key2any_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx != NULL) {
         ctx->provctx = provctx;

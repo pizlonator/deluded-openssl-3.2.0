@@ -1492,7 +1492,7 @@ MSG_PROCESS_RETURN tls_process_client_hello(SSL_CONNECTION *s, PACKET *pkt)
         s->new_session = 1;
     }
 
-    clienthello = zalloc(typeof(*clienthello), 1);
+    clienthello = OPENSSL_zalloc(sizeof(*clienthello));
     if (clienthello == NULL) {
         SSLfatal(s, SSL_AD_INTERNAL_ERROR, ERR_R_INTERNAL_ERROR);
         goto err;

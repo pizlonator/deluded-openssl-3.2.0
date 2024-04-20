@@ -22,7 +22,7 @@ static void *sm4_ccm_newctx(void *provctx, size_t keybits)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx != NULL)
         ossl_ccm_initctx(&ctx->base, keybits, ossl_prov_sm4_hw_ccm(keybits));
     return ctx;

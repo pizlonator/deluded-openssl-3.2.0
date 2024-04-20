@@ -368,7 +368,7 @@ QTEST_FAULT *qtest_create_injector(QUIC_TSERVER *ts)
 {
     QTEST_FAULT *f;
 
-    f = zalloc(typeof(*f), 1);
+    f = OPENSSL_zalloc(sizeof(*f));
     if (f == NULL)
         return NULL;
 

@@ -16,7 +16,6 @@
 #include "internal/endian.h"
 #include "crypto/modes.h"
 #include "crypto/siv.h"
-#include <stdfil.h>
 
 #ifndef OPENSSL_NO_SIV
 
@@ -148,7 +147,7 @@ SIV128_CONTEXT *ossl_siv128_new(const unsigned char *key, int klen,
     SIV128_CONTEXT *ctx;
     int ret;
 
-    if ((ctx = zalloc(typeof(*ctx), 1)) != NULL) {
+    if ((ctx = OPENSSL_malloc(sizeof(*ctx))) != NULL) {
         ret = ossl_siv128_init(ctx, key, klen, cbc, ctr, libctx, propq);
         if (ret)
             return ctx;

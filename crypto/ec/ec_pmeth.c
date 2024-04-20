@@ -48,7 +48,7 @@ static int pkey_ec_init(EVP_PKEY_CTX *ctx)
 {
     EC_PKEY_CTX *dctx;
 
-    if ((dctx = zalloc(typeof(*dctx), 1)) == NULL)
+    if ((dctx = OPENSSL_zalloc(sizeof(*dctx))) == NULL)
         return 0;
 
     dctx->cofactor_mode = -1;

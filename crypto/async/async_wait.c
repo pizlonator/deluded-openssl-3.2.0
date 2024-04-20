@@ -14,7 +14,7 @@
 
 ASYNC_WAIT_CTX *ASYNC_WAIT_CTX_new(void)
 {
-    return zalloc(ASYNC_WAIT_CTX, 1);
+    return OPENSSL_zalloc(sizeof(ASYNC_WAIT_CTX));
 }
 
 void ASYNC_WAIT_CTX_free(ASYNC_WAIT_CTX *ctx)
@@ -47,7 +47,7 @@ int ASYNC_WAIT_CTX_set_wait_fd(ASYNC_WAIT_CTX *ctx, const void *key,
 {
     struct fd_lookup_st *fdlookup;
 
-    if ((fdlookup = zalloc(typeof(*fdlookup), 1)) == NULL)
+    if ((fdlookup = OPENSSL_zalloc(sizeof(*fdlookup))) == NULL)
         return 0;
 
     fdlookup->key = key;

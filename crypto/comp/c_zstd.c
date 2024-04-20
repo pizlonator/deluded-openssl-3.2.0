@@ -138,7 +138,7 @@ struct zstd_state {
 
 static int zstd_stateful_init(COMP_CTX *ctx)
 {
-    struct zstd_state *state = zalloc(typeof(*state), 1);
+    struct zstd_state *state = OPENSSL_zalloc(sizeof(*state));
 
     if (state == NULL)
         return 0;
@@ -515,7 +515,7 @@ static int bio_zstd_new(BIO *bi)
         return 0;
     }
 # endif
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL) {
         ERR_raise(ERR_LIB_COMP, ERR_R_MALLOC_FAILURE);
         return 0;

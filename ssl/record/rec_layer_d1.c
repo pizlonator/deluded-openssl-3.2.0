@@ -20,7 +20,7 @@ int DTLS_RECORD_LAYER_new(RECORD_LAYER *rl)
 {
     DTLS_RECORD_LAYER *d;
 
-    if ((d = zalloc(typeof(*d), 1)) == NULL)
+    if ((d = OPENSSL_malloc(sizeof(*d))) == NULL)
         return 0;
 
     rl->d = d;
@@ -85,7 +85,7 @@ static int dtls_buffer_record(SSL_CONNECTION *s, TLS_RECORD *rec)
     if (!ossl_assert(rec->off == 0))
         return -1;
 
-    rdata = zalloc(typeof(*rdata), 1);
+    rdata = OPENSSL_malloc(sizeof(*rdata));
     item = pitem_new(rec->seq_num, rdata);
     if (rdata == NULL || item == NULL) {
         OPENSSL_free(rdata);

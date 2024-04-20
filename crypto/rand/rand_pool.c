@@ -22,7 +22,7 @@
 RAND_POOL *ossl_rand_pool_new(int entropy_requested, int secure,
                               size_t min_len, size_t max_len)
 {
-    RAND_POOL *pool = zalloc(typeof(*pool), 1);
+    RAND_POOL *pool = OPENSSL_zalloc(sizeof(*pool));
     size_t min_alloc_size = RAND_POOL_MIN_ALLOCATION(secure);
 
     if (pool == NULL)
@@ -61,7 +61,7 @@ err:
 RAND_POOL *ossl_rand_pool_attach(const unsigned char *buffer, size_t len,
                                  size_t entropy)
 {
-    RAND_POOL *pool = zalloc(typeof(*pool), 1);
+    RAND_POOL *pool = OPENSSL_zalloc(sizeof(*pool));
 
     if (pool == NULL)
         return NULL;

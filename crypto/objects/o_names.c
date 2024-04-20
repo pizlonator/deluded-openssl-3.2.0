@@ -20,7 +20,6 @@
 #include "crypto/lhash.h"
 #include "obj_local.h"
 #include "internal/e_os.h"
-#include <stdfil.h>
 
 /*
  * I use the ex_data stuff to manage the identifiers for the obj_name_types
@@ -88,7 +87,7 @@ int OBJ_NAME_new_index(unsigned long (*hash_func) (const char *),
     ret = names_type_num;
     names_type_num++;
     for (i = sk_NAME_FUNCS_num(name_funcs_stack); i < names_type_num; i++) {
-        name_funcs = zalloc(typeof(*name_funcs), 1);
+        name_funcs = OPENSSL_zalloc(sizeof(*name_funcs));
         if (name_funcs == NULL) {
             ret = 0;
             goto out;
@@ -197,7 +196,7 @@ int OBJ_NAME_add(const char *name, int type, const char *data)
     alias = type & OBJ_NAME_ALIAS;
     type &= ~OBJ_NAME_ALIAS;
 
-    onp = zalloc(typeof(*onp), 1);
+    onp = OPENSSL_malloc(sizeof(*onp));
     if (onp == NULL)
         return 0;
 
@@ -334,7 +333,7 @@ void OBJ_NAME_do_all_sorted(int type,
 
     d.type = type;
     d.names =
-        zalloc(typeof(*d.names), lh_OBJ_NAME_num_items(names_lh));
+        OPENSSL_malloc(sizeof(*d.names) * lh_OBJ_NAME_num_items(names_lh));
     /* Really should return an error if !d.names...but its a void function! */
     if (d.names != NULL) {
         d.n = 0;

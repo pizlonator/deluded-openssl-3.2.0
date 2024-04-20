@@ -440,7 +440,7 @@ static int ASIdentifierChoice_canonize(ASIdentifierChoice *choice)
             ASRange *r;
             switch (a->type) {
             case ASIdOrRange_id:
-                if ((r = zalloc(typeof(*r), 1)) == NULL)
+                if ((r = OPENSSL_malloc(sizeof(*r))) == NULL)
                     goto done;
                 r->min = a_min;
                 r->max = b_max;

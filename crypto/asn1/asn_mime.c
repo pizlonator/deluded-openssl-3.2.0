@@ -869,7 +869,7 @@ static MIME_HEADER *mime_hdr_new(const char *name, const char *value)
         for (p = tmpval; *p; p++)
             *p = ossl_tolower(*p);
     }
-    mhdr = zalloc(typeof(*mhdr), 1);
+    mhdr = OPENSSL_malloc(sizeof(*mhdr));
     if (mhdr == NULL)
         goto err;
     mhdr->name = tmpname;
@@ -903,7 +903,7 @@ static int mime_hdr_addparam(MIME_HEADER *mhdr, const char *name, const char *va
             goto err;
     }
     /* Parameter values are case sensitive so leave as is */
-    mparam = zalloc(typeof(*mparam), 1);
+    mparam = OPENSSL_malloc(sizeof(*mparam));
     if (mparam == NULL)
         goto err;
     mparam->param_name = tmpname;

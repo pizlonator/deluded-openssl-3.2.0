@@ -61,7 +61,7 @@ QUIC_SSTREAM *ossl_quic_sstream_new(size_t init_buf_size)
 {
     QUIC_SSTREAM *qss;
 
-    qss = zalloc(QUIC_SSTREAM, 1);
+    qss = OPENSSL_zalloc(sizeof(QUIC_SSTREAM));
     if (qss == NULL)
         return NULL;
 

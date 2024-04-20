@@ -21,7 +21,7 @@
 
 EVP_MAC_CTX *EVP_MAC_CTX_new(EVP_MAC *mac)
 {
-    EVP_MAC_CTX *ctx = zalloc(EVP_MAC_CTX, 1);
+    EVP_MAC_CTX *ctx = OPENSSL_zalloc(sizeof(EVP_MAC_CTX));
 
     if (ctx != NULL) {
         ctx->meth = mac;
@@ -54,7 +54,7 @@ EVP_MAC_CTX *EVP_MAC_CTX_dup(const EVP_MAC_CTX *src)
     if (src->algctx == NULL)
         return NULL;
 
-    dst = zalloc(typeof(*dst), 1);
+    dst = OPENSSL_malloc(sizeof(*dst));
     if (dst == NULL)
         return NULL;
 

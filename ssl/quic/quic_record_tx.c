@@ -109,7 +109,7 @@ OSSL_QTX *ossl_qtx_new(const OSSL_QTX_ARGS *args)
     if (args->mdpl < QUIC_MIN_INITIAL_DGRAM_LEN)
         return 0;
 
-    qtx = zalloc(OSSL_QTX, 1);
+    qtx = OPENSSL_zalloc(sizeof(OSSL_QTX));
     if (qtx == NULL)
         return 0;
 

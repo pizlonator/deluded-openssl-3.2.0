@@ -65,7 +65,7 @@ static int enc_new(BIO *bi)
 {
     BIO_ENC_CTX *ctx;
 
-    if ((ctx = zalloc(typeof(*ctx), 1)) == NULL)
+    if ((ctx = OPENSSL_zalloc(sizeof(*ctx))) == NULL)
         return 0;
 
     ctx->cipher = EVP_CIPHER_CTX_new();

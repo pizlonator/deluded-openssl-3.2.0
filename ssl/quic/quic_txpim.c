@@ -33,7 +33,7 @@ struct quic_txpim_st {
 
 QUIC_TXPIM *ossl_quic_txpim_new(void)
 {
-    QUIC_TXPIM *txpim = zalloc(typeof(*txpim), 1);
+    QUIC_TXPIM *txpim = OPENSSL_zalloc(sizeof(*txpim));
 
     if (txpim == NULL)
         return NULL;
@@ -96,7 +96,7 @@ static QUIC_TXPIM_PKT_EX *txpim_get_free(QUIC_TXPIM *txpim)
     if (ex != NULL)
         return ex;
 
-    ex = zalloc(typeof(*ex), 1);
+    ex = OPENSSL_zalloc(sizeof(*ex));
     if (ex == NULL)
         return NULL;
 

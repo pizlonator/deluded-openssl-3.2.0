@@ -125,7 +125,7 @@ EVP_PKEY_METHOD *EVP_PKEY_meth_new(int id, int flags)
 {
     EVP_PKEY_METHOD *pmeth;
 
-    pmeth = zalloc(typeof(*pmeth), 1);
+    pmeth = OPENSSL_zalloc(sizeof(*pmeth));
     if (pmeth == NULL)
         return NULL;
 
@@ -312,7 +312,7 @@ static EVP_PKEY_CTX *int_ctx_new(OSSL_LIB_CTX *libctx,
     if (pmeth == NULL && keymgmt == NULL) {
         ERR_raise(ERR_LIB_EVP, EVP_R_UNSUPPORTED_ALGORITHM);
     } else {
-        ret = zalloc(typeof(*ret), 1);
+        ret = OPENSSL_zalloc(sizeof(*ret));
     }
 
 #if !defined(OPENSSL_NO_ENGINE) && !defined(FIPS_MODULE)
@@ -475,7 +475,7 @@ EVP_PKEY_CTX *EVP_PKEY_CTX_dup(const EVP_PKEY_CTX *pctx)
         return 0;
     }
 # endif
-    rctx = zalloc(typeof(*rctx), 1);
+    rctx = OPENSSL_zalloc(sizeof(*rctx));
     if (rctx == NULL)
         return NULL;
 

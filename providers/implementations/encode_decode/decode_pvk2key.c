@@ -67,7 +67,7 @@ struct pvk2key_ctx_st {
 static struct pvk2key_ctx_st *
 pvk2key_newctx(void *provctx, const struct keytype_desc_st *desc)
 {
-    struct pvk2key_ctx_st *ctx = zalloc(typeof(*ctx), 1);
+    struct pvk2key_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx != NULL) {
         ctx->provctx = provctx;

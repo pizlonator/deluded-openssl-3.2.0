@@ -36,7 +36,7 @@ ASN1_PCTX *ASN1_PCTX_new(void)
 {
     ASN1_PCTX *ret;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_zalloc(sizeof(*ret));
     if (ret == NULL)
         return NULL;
     return ret;
@@ -487,7 +487,7 @@ static int asn1_primitive_print(BIO *out, const ASN1_VALUE **fld,
         {
             int boolval = *(int *)fld;
             if (boolval == -1)
-                boolval = it->sizeish;
+                boolval = it->size;
             ret = asn1_print_boolean(out, boolval);
         }
         break;

@@ -77,7 +77,7 @@ static int sm4_xts_dinit(void *vctx, const unsigned char *key, size_t keylen,
 static void *sm4_xts_newctx(void *provctx, unsigned int mode, uint64_t flags,
                             size_t kbits, size_t blkbits, size_t ivbits)
 {
-    PROV_SM4_XTS_CTX *ctx = zalloc(typeof(*ctx), 1);
+    PROV_SM4_XTS_CTX *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx != NULL) {
         ossl_cipher_generic_initkey(&ctx->base, kbits, blkbits, ivbits, mode,
@@ -111,7 +111,7 @@ static void *sm4_xts_dupctx(void *vctx)
         if (in->xts.key2 != &in->ks2)
             return NULL;
     }
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_malloc(sizeof(*ret));
     if (ret == NULL)
         return NULL;
     in->base.hw->copyctx(&ret->base, &in->base);

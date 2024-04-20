@@ -430,9 +430,9 @@ static int add_old_custom_ext(SSL_CTX *ctx, ENDPOINT role,
                               custom_ext_parse_cb parse_cb, void *parse_arg)
 {
     custom_ext_add_cb_wrap *add_cb_wrap
-        = zalloc(typeof(*add_cb_wrap), 1);
+        = OPENSSL_malloc(sizeof(*add_cb_wrap));
     custom_ext_parse_cb_wrap *parse_cb_wrap
-        = zalloc(typeof(*parse_cb_wrap), 1);
+        = OPENSSL_malloc(sizeof(*parse_cb_wrap));
     int ret;
 
     if (add_cb_wrap == NULL || parse_cb_wrap == NULL) {

@@ -52,7 +52,7 @@ static void *rc4_hmac_md5_newctx(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx != NULL)
         ossl_cipher_generic_initkey(ctx, RC4_HMAC_MD5_KEY_BITS,
                                     RC4_HMAC_MD5_BLOCK_BITS,

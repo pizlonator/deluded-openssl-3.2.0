@@ -107,7 +107,7 @@ static int cmp_ctx_set_md(OSSL_CMP_CTX *ctx, EVP_MD **pmd, int nid)
  */
 OSSL_CMP_CTX *OSSL_CMP_CTX_new(OSSL_LIB_CTX *libctx, const char *propq)
 {
-    OSSL_CMP_CTX *ctx = zalloc(typeof(*ctx), 1);
+    OSSL_CMP_CTX *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx == NULL)
         goto err;

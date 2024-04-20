@@ -30,7 +30,7 @@ static void stream_frame_free(SFRAME_LIST *fl, STREAM_FRAME *sf)
 static STREAM_FRAME *stream_frame_new(UINT_RANGE *range, OSSL_QRX_PKT *pkt,
                                       const unsigned char *data)
 {
-    STREAM_FRAME *sf = zalloc(typeof(*sf), 1);
+    STREAM_FRAME *sf = OPENSSL_zalloc(sizeof(*sf));
 
     if (sf == NULL)
         return NULL;

@@ -57,7 +57,7 @@ static CRYPTO_ONCE tevent_register_runonce = CRYPTO_ONCE_STATIC_INIT;
 
 DEFINE_RUN_ONCE_STATIC(create_global_tevent_register)
 {
-    glob_tevent_reg = zalloc(typeof(*glob_tevent_reg), 1);
+    glob_tevent_reg = OPENSSL_zalloc(sizeof(*glob_tevent_reg));
     if (glob_tevent_reg == NULL)
         return 0;
 
@@ -98,7 +98,7 @@ init_get_thread_local(CRYPTO_THREAD_LOCAL *local, int alloc, int keep)
     if (alloc) {
         if (hands == NULL) {
 
-            if ((hands = zalloc(typeof(*hands), 1)) == NULL)
+            if ((hands = OPENSSL_zalloc(sizeof(*hands))) == NULL)
                 return NULL;
 
             if (!CRYPTO_THREAD_set_local(local, hands)) {
@@ -136,7 +136,7 @@ init_get_thread_local(CRYPTO_THREAD_LOCAL *local, int alloc, int keep)
  * key value and pull NULL past initialization in the first thread that
  * intends to use libcrypto.
  */
-static struct {
+static union {
     long sane;
     CRYPTO_THREAD_LOCAL value;
 } destructor_key = { -1 };
@@ -261,7 +261,7 @@ int ossl_thread_register_fips(OSSL_LIB_CTX *libctx)
 void *ossl_thread_event_ctx_new(OSSL_LIB_CTX *libctx)
 {
     THREAD_EVENT_HANDLER **hands = NULL;
-    CRYPTO_THREAD_LOCAL *tlocal = zalloc(typeof(*tlocal), 1);
+    CRYPTO_THREAD_LOCAL *tlocal = OPENSSL_zalloc(sizeof(*tlocal));
 
     if (tlocal == NULL)
         return NULL;
@@ -270,7 +270,7 @@ void *ossl_thread_event_ctx_new(OSSL_LIB_CTX *libctx)
         goto err;
     }
 
-    hands = zalloc(typeof(*hands), 1);
+    hands = OPENSSL_zalloc(sizeof(*hands));
     if (hands == NULL)
         goto err;
 
@@ -403,7 +403,7 @@ int ossl_init_thread_start(const void *index, void *arg,
     }
 #endif
 
-    hand = zalloc(typeof(*hand), 1);
+    hand = OPENSSL_malloc(sizeof(*hand));
     if (hand == NULL)
         return 0;
 

@@ -168,7 +168,7 @@ static void list_insert_sorted(QUIC_CFQ_ITEM_LIST *l, QUIC_CFQ_ITEM_EX *n,
 
 QUIC_CFQ *ossl_quic_cfq_new(void)
 {
-    QUIC_CFQ *cfq = zalloc(typeof(*cfq), 1);
+    QUIC_CFQ *cfq = OPENSSL_zalloc(sizeof(*cfq));
 
     if (cfq == NULL)
         return NULL;
@@ -218,7 +218,7 @@ static QUIC_CFQ_ITEM_EX *cfq_get_free(QUIC_CFQ *cfq)
     if (item != NULL)
         return item;
 
-    item = zalloc(typeof(*item), 1);
+    item = OPENSSL_zalloc(sizeof(*item));
     if (item == NULL)
         return NULL;
 

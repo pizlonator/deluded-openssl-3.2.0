@@ -37,7 +37,7 @@ static void *des_newctx(void *provctx, size_t kbits, size_t blkbits,
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx != NULL)
         ossl_cipher_generic_initkey(ctx, kbits, blkbits, ivbits, mode, flags,
                                     hw, provctx);
@@ -52,7 +52,7 @@ static void *des_dupctx(void *ctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ret = zalloc(typeof(*ret), 1);
+    ret = OPENSSL_malloc(sizeof(*ret));
     if (ret == NULL)
         return NULL;
     in->base.hw->copyctx(&ret->base, &in->base);

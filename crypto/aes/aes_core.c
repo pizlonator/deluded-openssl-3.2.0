@@ -49,7 +49,6 @@
 #include <openssl/crypto.h>
 #include <openssl/aes.h>
 #include "aes_local.h"
-#include <stdfil.h>
 
 #if defined(OPENSSL_AES_CONST_TIME) && !defined(AES_ASM)
 

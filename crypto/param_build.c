@@ -52,7 +52,7 @@ static OSSL_PARAM_BLD_DEF *param_push(OSSL_PARAM_BLD *bld, const char *key,
                                       int size, size_t alloc, int type,
                                       int secure)
 {
-    OSSL_PARAM_BLD_DEF *pd = zalloc(typeof(*pd), 1);
+    OSSL_PARAM_BLD_DEF *pd = OPENSSL_zalloc(sizeof(*pd));
 
     if (pd == NULL)
         return NULL;
@@ -90,7 +90,7 @@ static int param_push_num(OSSL_PARAM_BLD *bld, const char *key,
 
 OSSL_PARAM_BLD *OSSL_PARAM_BLD_new(void)
 {
-    OSSL_PARAM_BLD *r = zalloc(OSSL_PARAM_BLD, 1);
+    OSSL_PARAM_BLD *r = OPENSSL_zalloc(sizeof(OSSL_PARAM_BLD));
 
     if (r != NULL) {
         r->params = sk_OSSL_PARAM_BLD_DEF_new_null();
@@ -272,8 +272,6 @@ int OSSL_PARAM_BLD_push_utf8_string(OSSL_PARAM_BLD *bld, const char *key,
 int OSSL_PARAM_BLD_push_utf8_ptr(OSSL_PARAM_BLD *bld, const char *key,
                                  char *buf, size_t bsize)
 {
-    /* This ain't gonna work in Deluge, because we allocate the data buffer as primitive. */
-    
     OSSL_PARAM_BLD_DEF *pd;
 
     if (bsize == 0) {
@@ -382,12 +380,8 @@ OSSL_PARAM *OSSL_PARAM_BLD_to_param(OSSL_PARAM_BLD *bld)
     OSSL_PARAM *params, *last;
     const int num = sk_OSSL_PARAM_BLD_DEF_num(bld->params);
     const size_t p_blks = ossl_param_bytes_to_blocks((1 + num) * sizeof(*params));
-    const size_t p_size = OSSL_PARAM_ALIGN_SIZE * p_blks;
-    const size_t b_size = OSSL_PARAM_ALIGN_SIZE * bld->total_blocks;
-    const size_t total = p_size + b_size;
+    const size_t total = OSSL_PARAM_ALIGN_SIZE * (p_blks + bld->total_blocks);
     const size_t ss = OSSL_PARAM_ALIGN_SIZE * bld->secure_blocks;
-    ztype* t = zcattype(ztypeof(OSSL_PARAM), p_size,
-                        ztypeof(OSSL_PARAM_ALIGNED_BLOCK), b_size);
 
     if (ss > 0) {
         s = OPENSSL_secure_malloc(ss);
@@ -396,7 +390,7 @@ OSSL_PARAM *OSSL_PARAM_BLD_to_param(OSSL_PARAM_BLD *bld)
             return NULL;
         }
     }
-    params = zalloc_with_type(t, total);
+    params = OPENSSL_malloc(total);
     if (params == NULL) {
         OPENSSL_secure_free(s);
         return NULL;

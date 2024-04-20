@@ -338,7 +338,7 @@ static CONF_MODULE *module_add(DSO *dso, const char *name,
         supported_modules = sk_CONF_MODULE_new_null();
     if (supported_modules == NULL)
         goto err;
-    if ((tmod = zalloc(typeof(*tmod), 1)) == NULL)
+    if ((tmod = OPENSSL_zalloc(sizeof(*tmod))) == NULL)
         goto err;
 
     tmod->dso = dso;
@@ -408,7 +408,7 @@ static int module_init(CONF_MODULE *pmod, const char *name, const char *value,
     CONF_IMODULE *imod = NULL;
 
     /* Otherwise add initialized module to list */
-    imod = zalloc(typeof(*imod), 1);
+    imod = OPENSSL_malloc(sizeof(*imod));
     if (imod == NULL)
         goto err;
 

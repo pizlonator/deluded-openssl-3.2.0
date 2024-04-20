@@ -144,7 +144,7 @@ UI_METHOD *UI_UTIL_wrap_read_pem_callback(pem_password_cb *cb, int rwflag)
     struct pem_password_cb_data *data = NULL;
     UI_METHOD *ui_method = NULL;
 
-    if ((data = zalloc(typeof(*data), 1)) == NULL
+    if ((data = OPENSSL_zalloc(sizeof(*data))) == NULL
         || (ui_method = UI_create_method("PEM password callback wrapper")) == NULL
         || UI_method_set_opener(ui_method, ui_open) < 0
         || UI_method_set_reader(ui_method, ui_read) < 0

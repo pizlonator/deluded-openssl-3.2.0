@@ -111,10 +111,9 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
             }
         }
         if (embed) {
-            zrestrict(*pval, char, it->sizeish);
-            memset(*pval, 0, it->sizeish);
+            memset(*pval, 0, it->size);
         } else {
-            *pval = zalloc_like(it->prototype);
+            *pval = OPENSSL_zalloc(it->size);
             if (*pval == NULL)
                 return 0;
         }
@@ -134,9 +133,9 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
             }
         }
         if (embed) {
-            memset(*pval, 0, it->sizeish);
+            memset(*pval, 0, it->size);
         } else {
-            *pval = zalloc_like(it->prototype);
+            *pval = OPENSSL_zalloc(it->size);
             if (*pval == NULL)
                 return 0;
         }
@@ -293,7 +292,7 @@ static int asn1_primitive_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
         return 1;
 
     case V_ASN1_BOOLEAN:
-        *(ASN1_BOOLEAN *)pval = it->sizeish;
+        *(ASN1_BOOLEAN *)pval = it->size;
         return 1;
 
     case V_ASN1_NULL:
@@ -301,7 +300,7 @@ static int asn1_primitive_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
         return 1;
 
     case V_ASN1_ANY:
-        if ((typ = zalloc(typeof(*typ), 1)) == NULL)
+        if ((typ = OPENSSL_malloc(sizeof(*typ))) == NULL)
             return 0;
         typ->value.ptr = NULL;
         typ->type = -1;
@@ -343,7 +342,7 @@ static void asn1_primitive_clear(ASN1_VALUE **pval, const ASN1_ITEM *it)
     else
         utype = it->utype;
     if (utype == V_ASN1_BOOLEAN)
-        *(ASN1_BOOLEAN *)pval = it->sizeish;
+        *(ASN1_BOOLEAN *)pval = it->size;
     else
         *pval = NULL;
 }

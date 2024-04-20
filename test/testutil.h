@@ -19,7 +19,6 @@
 # include <openssl/bn.h>
 # include <openssl/x509.h>
 # include "opt.h"
-#include <stdfil.h>
 
 /*-
  * Simple unit tests should implement setup_tests().

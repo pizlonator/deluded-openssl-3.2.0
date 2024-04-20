@@ -63,7 +63,7 @@ struct msblob2key_ctx_st {
 static struct msblob2key_ctx_st *
 msblob2key_newctx(void *provctx, const struct keytype_desc_st *desc)
 {
-    struct msblob2key_ctx_st *ctx = zalloc(typeof(*ctx), 1);
+    struct msblob2key_ctx_st *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx != NULL) {
         ctx->provctx = provctx;

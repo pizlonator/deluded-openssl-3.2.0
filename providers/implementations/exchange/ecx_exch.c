@@ -45,7 +45,7 @@ static void *ecx_newctx(void *provctx, size_t keylen)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(PROV_ECX_CTX, 1);
+    ctx = OPENSSL_zalloc(sizeof(PROV_ECX_CTX));
     if (ctx == NULL)
         return NULL;
 
@@ -137,7 +137,7 @@ static void *ecx_dupctx(void *vecxctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dstctx = zalloc(typeof(*srcctx), 1);
+    dstctx = OPENSSL_zalloc(sizeof(*srcctx));
     if (dstctx == NULL)
         return NULL;
 

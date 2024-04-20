@@ -420,7 +420,7 @@ static int set_default_context(OSSL_LIB_CTX *defctx)
 
 OSSL_LIB_CTX *OSSL_LIB_CTX_new(void)
 {
-    OSSL_LIB_CTX *ctx = zalloc(typeof(*ctx), 1);
+    OSSL_LIB_CTX *ctx = OPENSSL_zalloc(sizeof(*ctx));
 
     if (ctx != NULL && !context_init(ctx)) {
         OPENSSL_free(ctx);

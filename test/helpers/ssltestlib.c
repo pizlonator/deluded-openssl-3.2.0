@@ -305,7 +305,7 @@ static int mempacket_test_new(BIO *bio)
 {
     MEMPACKET_TEST_CTX *ctx;
 
-    if (!TEST_ptr(ctx = zalloc(typeof(*ctx), 1)))
+    if (!TEST_ptr(ctx = OPENSSL_zalloc(sizeof(*ctx))))
         return 0;
     if (!TEST_ptr(ctx->pkts = sk_MEMPACKET_new_null())) {
         OPENSSL_free(ctx);
@@ -466,7 +466,7 @@ int mempacket_swap_epoch(BIO *bio)
              * Create a new packet for the earlier record that we took out and
              * add it to the end of the packet list.
              */
-            thispkt = zalloc(typeof(*thispkt), 1);
+            thispkt = OPENSSL_malloc(sizeof(*thispkt));
             if (thispkt == NULL) {
                 OPENSSL_free(tmp);
                 return 0;
@@ -561,7 +561,7 @@ int mempacket_test_inject(BIO *bio, const char *in, int inl, int pktnum,
     }
 
     for (i = 0; i < (duprec ? 3 : 1); i++) {
-        if (!TEST_ptr(allpkts[i] = zalloc(typeof(*thispkt), 1)))
+        if (!TEST_ptr(allpkts[i] = OPENSSL_malloc(sizeof(*thispkt))))
             goto err;
         thispkt = allpkts[i];
 
@@ -840,7 +840,7 @@ void bio_s_maybe_retry_free(void)
 
 static int maybe_retry_new(BIO *bio)
 {
-    struct maybe_retry_data_st *data = zalloc(typeof(*data), 1);
+    struct maybe_retry_data_st *data = OPENSSL_zalloc(sizeof(*data));
 
     if (data == NULL)
         return 0;

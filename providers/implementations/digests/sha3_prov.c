@@ -292,7 +292,7 @@ static PROV_SHA3_METHOD sha3_ARMSHA3_md =
 static OSSL_FUNC_digest_newctx_fn name##_newctx;                               \
 static void *name##_newctx(void *provctx)                                      \
 {                                                                              \
-    KECCAK1600_CTX *ctx = ossl_prov_is_running() ? zalloc(typeof(*ctx), 1) \
+    KECCAK1600_CTX *ctx = ossl_prov_is_running() ? OPENSSL_zalloc(sizeof(*ctx)) \
                                                 : NULL;                        \
                                                                                \
     if (ctx == NULL)                                                           \
@@ -306,7 +306,7 @@ static void *name##_newctx(void *provctx)                                      \
 static OSSL_FUNC_digest_newctx_fn uname##_newctx;                              \
 static void *uname##_newctx(void *provctx)                                     \
 {                                                                              \
-    KECCAK1600_CTX *ctx = ossl_prov_is_running() ? zalloc(typeof(*ctx), 1) \
+    KECCAK1600_CTX *ctx = ossl_prov_is_running() ? OPENSSL_zalloc(sizeof(*ctx)) \
                                                 : NULL;                        \
                                                                                \
     if (ctx == NULL)                                                           \
@@ -349,7 +349,7 @@ static void keccak_freectx(void *vctx)
 static void *keccak_dupctx(void *ctx)
 {
     KECCAK1600_CTX *in = (KECCAK1600_CTX *)ctx;
-    KECCAK1600_CTX *ret = ossl_prov_is_running() ? zalloc(typeof(*ret), 1)
+    KECCAK1600_CTX *ret = ossl_prov_is_running() ? OPENSSL_malloc(sizeof(*ret))
                                                  : NULL;
 
     if (ret != NULL)

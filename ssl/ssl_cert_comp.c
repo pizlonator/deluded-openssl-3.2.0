@@ -63,7 +63,7 @@ static OSSL_COMP_CERT *OSSL_COMP_CERT_new(unsigned char *data, size_t len, size_
 
     if (!ossl_comp_has_alg(alg)
             || data == NULL
-            || (ret = zalloc(typeof(*ret), 1)) == NULL
+            || (ret = OPENSSL_zalloc(sizeof(*ret))) == NULL
             || !CRYPTO_NEW_REF(&ret->references, 1))
         goto err;
 

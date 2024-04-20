@@ -9,7 +9,6 @@
 
 #include <openssl/core.h>
 #include <openssl/types.h>
-#include <stdfil.h>
 
 /* Digests */
 extern const OSSL_DISPATCH ossl_sha1_functions[];

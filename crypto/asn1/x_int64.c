@@ -28,7 +28,7 @@
 
 static int uint64_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
-    if ((*pval = (ASN1_VALUE *)zalloc(uint64_t, 1)) == NULL)
+    if ((*pval = (ASN1_VALUE *)OPENSSL_zalloc(sizeof(uint64_t))) == NULL)
         return 0;
     return 1;
 }
@@ -55,10 +55,10 @@ static int uint64_i2c(const ASN1_VALUE **pval, unsigned char *cont, int *putype,
     /* use memcpy, because we may not be uint64_t aligned */
     memcpy(&utmp, cp, sizeof(utmp));
 
-    if ((it->sizeish & INTxx_FLAG_ZERO_DEFAULT) == INTxx_FLAG_ZERO_DEFAULT
+    if ((it->size & INTxx_FLAG_ZERO_DEFAULT) == INTxx_FLAG_ZERO_DEFAULT
         && utmp == 0)
         return -1;
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED
+    if ((it->size & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED
         && (int64_t)utmp < 0) {
         /* ossl_i2c_uint64_int() assumes positive values */
         utmp = 0 - utmp;
@@ -91,11 +91,11 @@ static int uint64_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
 
     if (!ossl_c2i_uint64_int(&utmp, &neg, &cont, len))
         return 0;
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == 0 && neg) {
+    if ((it->size & INTxx_FLAG_SIGNED) == 0 && neg) {
         ERR_raise(ERR_LIB_ASN1, ASN1_R_ILLEGAL_NEGATIVE_VALUE);
         return 0;
     }
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED
+    if ((it->size & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED
             && !neg && utmp > INT64_MAX) {
         ERR_raise(ERR_LIB_ASN1, ASN1_R_TOO_LARGE);
         return 0;
@@ -112,7 +112,7 @@ static int uint64_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
 static int uint64_print(BIO *out, const ASN1_VALUE **pval, const ASN1_ITEM *it,
                         int indent, const ASN1_PCTX *pctx)
 {
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED)
+    if ((it->size & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED)
         return BIO_printf(out, "%jd\n", **(int64_t **)pval);
     return BIO_printf(out, "%ju\n", **(uint64_t **)pval);
 }
@@ -121,7 +121,7 @@ static int uint64_print(BIO *out, const ASN1_VALUE **pval, const ASN1_ITEM *it,
 
 static int uint32_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
-    if ((*pval = (ASN1_VALUE *)zalloc(uint32_t, 1)) == NULL)
+    if ((*pval = (ASN1_VALUE *)OPENSSL_zalloc(sizeof(uint32_t))) == NULL)
         return 0;
     return 1;
 }
@@ -148,10 +148,10 @@ static int uint32_i2c(const ASN1_VALUE **pval, unsigned char *cont, int *putype,
     /* use memcpy, because we may not be uint32_t aligned */
     memcpy(&utmp, cp, sizeof(utmp));
 
-    if ((it->sizeish & INTxx_FLAG_ZERO_DEFAULT) == INTxx_FLAG_ZERO_DEFAULT
+    if ((it->size & INTxx_FLAG_ZERO_DEFAULT) == INTxx_FLAG_ZERO_DEFAULT
         && utmp == 0)
         return -1;
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED
+    if ((it->size & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED
         && (int32_t)utmp < 0) {
         /* ossl_i2c_uint64_int() assumes positive values */
         utmp = 0 - utmp;
@@ -192,7 +192,7 @@ static int uint32_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
 
     if (!ossl_c2i_uint64_int(&utmp, &neg, &cont, len))
         return 0;
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == 0 && neg) {
+    if ((it->size & INTxx_FLAG_SIGNED) == 0 && neg) {
         ERR_raise(ERR_LIB_ASN1, ASN1_R_ILLEGAL_NEGATIVE_VALUE);
         return 0;
     }
@@ -203,8 +203,8 @@ static int uint32_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
         }
         utmp = 0 - utmp;
     } else {
-        if (((it->sizeish & INTxx_FLAG_SIGNED) != 0 && utmp > INT32_MAX)
-            || ((it->sizeish & INTxx_FLAG_SIGNED) == 0 && utmp > UINT32_MAX)) {
+        if (((it->size & INTxx_FLAG_SIGNED) != 0 && utmp > INT32_MAX)
+            || ((it->size & INTxx_FLAG_SIGNED) == 0 && utmp > UINT32_MAX)) {
             ERR_raise(ERR_LIB_ASN1, ASN1_R_TOO_LARGE);
             return 0;
         }
@@ -219,7 +219,7 @@ static int uint32_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
 static int uint32_print(BIO *out, const ASN1_VALUE **pval, const ASN1_ITEM *it,
                         int indent, const ASN1_PCTX *pctx)
 {
-    if ((it->sizeish & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED)
+    if ((it->size & INTxx_FLAG_SIGNED) == INTxx_FLAG_SIGNED)
         return BIO_printf(out, "%d\n", (int)**(int32_t **)pval);
     return BIO_printf(out, "%u\n", (unsigned int)**(uint32_t **)pval);
 }
@@ -249,39 +249,39 @@ static ASN1_PRIMITIVE_FUNCS uint64_pf = {
 
 ASN1_ITEM_start(INT32)
     ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint32_pf,
-    NULL, INTxx_FLAG_SIGNED, "INT32"
+    INTxx_FLAG_SIGNED, "INT32"
 ASN1_ITEM_end(INT32)
 
 ASN1_ITEM_start(UINT32)
-    ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint32_pf, NULL, 0, "UINT32"
+    ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint32_pf, 0, "UINT32"
 ASN1_ITEM_end(UINT32)
 
 ASN1_ITEM_start(INT64)
     ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint64_pf,
-    NULL, INTxx_FLAG_SIGNED, "INT64"
+    INTxx_FLAG_SIGNED, "INT64"
 ASN1_ITEM_end(INT64)
 
 ASN1_ITEM_start(UINT64)
-    ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint64_pf, NULL, 0, "UINT64"
+    ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint64_pf, 0, "UINT64"
 ASN1_ITEM_end(UINT64)
 
 ASN1_ITEM_start(ZINT32)
     ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint32_pf,
-    NULL, INTxx_FLAG_ZERO_DEFAULT|INTxx_FLAG_SIGNED, "ZINT32"
+    INTxx_FLAG_ZERO_DEFAULT|INTxx_FLAG_SIGNED, "ZINT32"
 ASN1_ITEM_end(ZINT32)
 
 ASN1_ITEM_start(ZUINT32)
     ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint32_pf,
-    NULL, INTxx_FLAG_ZERO_DEFAULT, "ZUINT32"
+    INTxx_FLAG_ZERO_DEFAULT, "ZUINT32"
 ASN1_ITEM_end(ZUINT32)
 
 ASN1_ITEM_start(ZINT64)
     ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint64_pf,
-    NULL, INTxx_FLAG_ZERO_DEFAULT|INTxx_FLAG_SIGNED, "ZINT64"
+    INTxx_FLAG_ZERO_DEFAULT|INTxx_FLAG_SIGNED, "ZINT64"
 ASN1_ITEM_end(ZINT64)
 
 ASN1_ITEM_start(ZUINT64)
     ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &uint64_pf,
-    NULL, INTxx_FLAG_ZERO_DEFAULT, "ZUINT64"
+    INTxx_FLAG_ZERO_DEFAULT, "ZUINT64"
 ASN1_ITEM_end(ZUINT64)
 

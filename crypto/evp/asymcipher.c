@@ -319,7 +319,7 @@ int evp_pkey_decrypt_alloc(EVP_PKEY_CTX *ctx, unsigned char **outp,
 
 static EVP_ASYM_CIPHER *evp_asym_cipher_new(OSSL_PROVIDER *prov)
 {
-    EVP_ASYM_CIPHER *cipher = zalloc(EVP_ASYM_CIPHER, 1);
+    EVP_ASYM_CIPHER *cipher = OPENSSL_zalloc(sizeof(EVP_ASYM_CIPHER));
 
     if (cipher == NULL)
         return NULL;

@@ -105,7 +105,7 @@ SSL_SESSION *SSL_SESSION_new(void)
     if (!OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS, NULL))
         return NULL;
 
-    ss = zalloc(typeof(*ss), 1);
+    ss = OPENSSL_zalloc(sizeof(*ss));
     if (ss == NULL)
         return NULL;
 
@@ -140,7 +140,7 @@ SSL_SESSION *ssl_session_dup(const SSL_SESSION *src, int ticket)
 {
     SSL_SESSION *dest;
 
-    dest = zalloc(typeof(*dest), 1);
+    dest = OPENSSL_malloc(sizeof(*dest));
     if (dest == NULL)
         return NULL;
     memcpy(dest, src, sizeof(*dest));

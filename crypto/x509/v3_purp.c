@@ -171,7 +171,7 @@ int X509_PURPOSE_add(int id, int trust, int flags,
     idx = X509_PURPOSE_get_by_id(id);
     /* Need a new entry */
     if (idx == -1) {
-        if ((ptmp = zalloc(typeof(*ptmp), 1)) == NULL)
+        if ((ptmp = OPENSSL_malloc(sizeof(*ptmp))) == NULL)
             return 0;
         ptmp->flags = X509_PURPOSE_DYNAMIC;
     } else {

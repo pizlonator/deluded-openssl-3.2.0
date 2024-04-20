@@ -274,7 +274,7 @@ struct bio_dgram_pair_st {
 
 static int dgram_pair_init(BIO *bio)
 {
-    struct bio_dgram_pair_st *b = zalloc(typeof(*b), 1);
+    struct bio_dgram_pair_st *b = OPENSSL_zalloc(sizeof(*b));
 
     if (b == NULL)
         return 0;

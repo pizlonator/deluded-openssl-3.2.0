@@ -39,22 +39,22 @@ static ASN1_PRIMITIVE_FUNCS long_pf = {
 };
 
 ASN1_ITEM_start(LONG)
-        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &long_pf, NULL, ASN1_LONG_UNDEF, "LONG"
+        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &long_pf, ASN1_LONG_UNDEF, "LONG"
 ASN1_ITEM_end(LONG)
 
 ASN1_ITEM_start(ZLONG)
-        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &long_pf, NULL, 0, "ZLONG"
+        ASN1_ITYPE_PRIMITIVE, V_ASN1_INTEGER, NULL, 0, &long_pf, 0, "ZLONG"
 ASN1_ITEM_end(ZLONG)
 
 static int long_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
-    *pval = (ASN1_VALUE*)it->sizeish;
+    memcpy(pval, &it->size, COPY_SIZE(*pval, it->size));
     return 1;
 }
 
 static void long_free(ASN1_VALUE **pval, const ASN1_ITEM *it)
 {
-    *pval = (ASN1_VALUE*)it->sizeish;
+    memcpy(pval, &it->size, COPY_SIZE(*pval, it->size));
 }
 
 /*
@@ -89,8 +89,8 @@ static int long_i2c(const ASN1_VALUE **pval, unsigned char *cont, int *putype,
     unsigned long utmp, sign;
     int clen, pad, i;
 
-    ltmp = (long)*pval;
-    if (ltmp == it->sizeish)
+    memcpy(&ltmp, pval, COPY_SIZE(*pval, ltmp));
+    if (ltmp == it->size)
         return -1;
     /*
      * Convert the long to positive: we subtract one if negative so we can
@@ -178,11 +178,11 @@ static int long_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
     }
     if (sign)
         ltmp = -ltmp - 1;
-    if (ltmp == it->sizeish) {
+    if (ltmp == it->size) {
         ERR_raise(ERR_LIB_ASN1, ASN1_R_INTEGER_TOO_LARGE_FOR_LONG);
         return 0;
     }
-    *pval = (ASN1_VALUE*)ltmp;
+    memcpy(pval, &ltmp, COPY_SIZE(*pval, ltmp));
     return 1;
 }
 
@@ -191,6 +191,6 @@ static int long_print(BIO *out, const ASN1_VALUE **pval, const ASN1_ITEM *it,
 {
     long l;
 
-    l = (long)*pval;
+    memcpy(&l, pval, COPY_SIZE(*pval, l));
     return BIO_printf(out, "%ld\n", l);
 }

@@ -3306,7 +3306,7 @@ static int run_file_tests(int i)
     char *testfile = test_get_argument(i);
     int c;
 
-    if (!TEST_ptr(s = zalloc(typeof(*s), 1)))
+    if (!TEST_ptr(s = OPENSSL_zalloc(sizeof(*s))))
         return 0;
     if (!test_start_file(s, testfile)) {
         OPENSSL_free(s);

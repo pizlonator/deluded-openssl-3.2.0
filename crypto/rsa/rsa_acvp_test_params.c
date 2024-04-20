@@ -35,7 +35,7 @@ int ossl_rsa_acvp_test_gen_params_new(OSSL_PARAM **dst, const OSSL_PARAM src[])
         return 1;
 
     /* Zeroing here means the terminator is always set at the end */
-    alloc = zalloc(settable, 1);
+    alloc = OPENSSL_zalloc(sizeof(settable));
     if (alloc == NULL)
         return 0;
 
@@ -86,7 +86,7 @@ int ossl_rsa_acvp_test_set_params(RSA *r, const OSSL_PARAM params[])
         r->acvp_test = NULL;
     }
 
-    t = zalloc(typeof(*t), 1);
+    t = OPENSSL_zalloc(sizeof(*t));
     if (t == NULL)
         return 0;
 

@@ -46,7 +46,7 @@ static void *blake2_mac_new(void *unused_provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    macctx = zalloc(typeof(*macctx), 1);
+    macctx = OPENSSL_zalloc(sizeof(*macctx));
     if (macctx != NULL) {
         BLAKE2_PARAM_INIT(&macctx->params);
         /* ctx initialization is deferred to BLAKE2b_Init() */
@@ -62,7 +62,7 @@ static void *blake2_mac_dup(void *vsrc)
     if (!ossl_prov_is_running())
         return NULL;
 
-    dst = zalloc(typeof(*dst), 1);
+    dst = OPENSSL_zalloc(sizeof(*dst));
     if (dst == NULL)
         return NULL;
 

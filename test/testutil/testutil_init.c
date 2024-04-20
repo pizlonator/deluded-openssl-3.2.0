@@ -79,7 +79,7 @@ static void setup_trace_category(int category)
     bio = BIO_new(BIO_f_prefix());
     channel = BIO_push(bio,
                        BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT));
-    trace_data = zalloc(typeof(*trace_data), 1);
+    trace_data = OPENSSL_zalloc(sizeof(*trace_data));
 
     if (trace_data == NULL
         || bio == NULL

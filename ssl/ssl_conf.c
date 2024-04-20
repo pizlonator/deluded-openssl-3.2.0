@@ -991,7 +991,7 @@ int SSL_CONF_cmd_value_type(SSL_CONF_CTX *cctx, const char *cmd)
 
 SSL_CONF_CTX *SSL_CONF_CTX_new(void)
 {
-    SSL_CONF_CTX *ret = zalloc(typeof(*ret), 1);
+    SSL_CONF_CTX *ret = OPENSSL_zalloc(sizeof(*ret));
 
     return ret;
 }

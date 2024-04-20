@@ -81,7 +81,7 @@ int EC_KEY_set_method(EC_KEY *key, const EC_KEY_METHOD *meth)
 EC_KEY *ossl_ec_key_new_method_int(OSSL_LIB_CTX *libctx, const char *propq,
                                    ENGINE *engine)
 {
-    EC_KEY *ret = zalloc(typeof(*ret), 1);
+    EC_KEY *ret = OPENSSL_zalloc(sizeof(*ret));
 
     if (ret == NULL)
         return NULL;
@@ -176,7 +176,7 @@ int ECDH_compute_key(void *out, size_t outlen, const EC_POINT *pub_key,
 
 EC_KEY_METHOD *EC_KEY_METHOD_new(const EC_KEY_METHOD *meth)
 {
-    EC_KEY_METHOD *ret = zalloc(typeof(*meth), 1);
+    EC_KEY_METHOD *ret = OPENSSL_zalloc(sizeof(*meth));
 
     if (ret == NULL)
         return NULL;

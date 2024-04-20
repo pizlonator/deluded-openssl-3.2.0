@@ -189,7 +189,7 @@ void ossl_asn1_primitive_free(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed)
 
     case V_ASN1_BOOLEAN:
         if (it)
-            *(ASN1_BOOLEAN *)pval = it->sizeish;
+            *(ASN1_BOOLEAN *)pval = it->size;
         else
             *(ASN1_BOOLEAN *)pval = -1;
         return;

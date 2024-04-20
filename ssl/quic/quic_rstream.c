@@ -24,7 +24,7 @@ struct quic_rstream_st {
 QUIC_RSTREAM *ossl_quic_rstream_new(QUIC_RXFC *rxfc,
                                     OSSL_STATM *statm, size_t rbuf_size)
 {
-    QUIC_RSTREAM *ret = zalloc(typeof(*ret), 1);
+    QUIC_RSTREAM *ret = OPENSSL_zalloc(sizeof(*ret));
 
     if (ret == NULL)
         return NULL;

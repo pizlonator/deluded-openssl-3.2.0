@@ -52,7 +52,7 @@ static FIXTURE *set_up(const char *testcase_name)
 {
     FIXTURE *fixture;
 
-    if (!TEST_ptr(fixture = zalloc(typeof(*fixture), 1))
+    if (!TEST_ptr(fixture = OPENSSL_zalloc(sizeof(*fixture)))
         || !TEST_ptr(fixture->ctx1 = OSSL_LIB_CTX_new())
         || !TEST_ptr(fixture->prov1 = OSSL_PROVIDER_load(fixture->ctx1,
                                                          "default"))

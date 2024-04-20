@@ -57,7 +57,7 @@ static int linebuffer_new(BIO *bi)
 {
     BIO_LINEBUFFER_CTX *ctx;
 
-    if ((ctx = zalloc(typeof(*ctx), 1)) == NULL)
+    if ((ctx = OPENSSL_malloc(sizeof(*ctx))) == NULL)
         return 0;
     ctx->obuf = OPENSSL_malloc(DEFAULT_LINEBUFFER_SIZE);
     if (ctx->obuf == NULL) {

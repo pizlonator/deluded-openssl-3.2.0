@@ -95,7 +95,7 @@ static void *kdf_pbkdf1_new(void *provctx)
     if (!ossl_prov_is_running())
         return NULL;
 
-    ctx = zalloc(typeof(*ctx), 1);
+    ctx = OPENSSL_zalloc(sizeof(*ctx));
     if (ctx == NULL)
         return NULL;
     ctx->provctx = provctx;

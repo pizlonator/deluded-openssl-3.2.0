@@ -17,7 +17,7 @@ struct pqueue_st {
 
 pitem *pitem_new(unsigned char *prio64be, void *data)
 {
-    pitem *item = zalloc(typeof(*item), 1);
+    pitem *item = OPENSSL_malloc(sizeof(*item));
 
     if (item == NULL)
         return NULL;
@@ -35,7 +35,7 @@ void pitem_free(pitem *item)
 
 pqueue *pqueue_new(void)
 {
-    pqueue *pq = zalloc(typeof(*pq), 1);
+    pqueue *pq = OPENSSL_zalloc(sizeof(*pq));
 
     return pq;
 }

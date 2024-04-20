@@ -61,7 +61,7 @@ typedef struct {
 
 static int pkey_rsa_init(EVP_PKEY_CTX *ctx)
 {
-    RSA_PKEY_CTX *rctx = zalloc(typeof(*rctx), 1);
+    RSA_PKEY_CTX *rctx = OPENSSL_zalloc(sizeof(*rctx));
 
     if (rctx == NULL)
         return 0;

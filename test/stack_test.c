@@ -257,7 +257,7 @@ end:
 
 static SS *SS_copy(const SS *p)
 {
-    SS *q = zalloc(typeof(*q), 1);
+    SS *q = OPENSSL_malloc(sizeof(*q));
 
     if (q != NULL)
         memcpy(q, p, sizeof(*q));

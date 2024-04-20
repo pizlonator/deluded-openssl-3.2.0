@@ -153,7 +153,7 @@ int ossl_namemap_doall_names(const OSSL_NAMEMAP *namemap, int number,
         CRYPTO_THREAD_unlock(namemap->lock);
         return 0;
     }
-    cbdata.names = zalloc(typeof(*cbdata.names), num_names);
+    cbdata.names = OPENSSL_malloc(sizeof(*cbdata.names) * num_names);
     if (cbdata.names == NULL) {
         CRYPTO_THREAD_unlock(namemap->lock);
         return 0;
@@ -254,7 +254,7 @@ static int namemap_add_name(OSSL_NAMEMAP *namemap, int number,
     if ((tmp_number = namemap_name2num(namemap, name)) != 0)
         return tmp_number;
 
-    if ((namenum = zalloc(typeof(*namenum), 1)) == NULL)
+    if ((namenum = OPENSSL_zalloc(sizeof(*namenum))) == NULL)
         return 0;
 
     if ((namenum->name = OPENSSL_strdup(name)) == NULL)
@@ -512,7 +512,7 @@ OSSL_NAMEMAP *ossl_namemap_new(void)
 {
     OSSL_NAMEMAP *namemap;
 
-    if ((namemap = zalloc(typeof(*namemap), 1)) != NULL
+    if ((namemap = OPENSSL_zalloc(sizeof(*namemap))) != NULL
         && (namemap->lock = CRYPTO_THREAD_lock_new()) != NULL
         && (namemap->namenum =
             lh_NAMENUM_ENTRY_new(namenum_hash, namenum_cmp)) != NULL)

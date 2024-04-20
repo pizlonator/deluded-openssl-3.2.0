@@ -17,7 +17,6 @@
 #include "internal/cryptlib.h"
 #include "crypto/evp.h"
 #include "crypto/context.h"
-#include <stdfil.h>
 
 DEFINE_STACK_OF(OSSL_PROVIDER)
 
@@ -37,7 +36,7 @@ struct child_prov_globals {
 
 void *ossl_child_prov_ctx_new(OSSL_LIB_CTX *libctx)
 {
-    return zalloc(struct child_prov_globals, 1);
+    return OPENSSL_zalloc(sizeof(struct child_prov_globals));
 }
 
 void ossl_child_prov_ctx_free(void *vgbl)

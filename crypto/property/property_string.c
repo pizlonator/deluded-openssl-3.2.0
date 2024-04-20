@@ -94,7 +94,7 @@ void ossl_property_string_data_free(void *vpropdata)
 }
 
 void *ossl_property_string_data_new(OSSL_LIB_CTX *ctx) {
-    PROPERTY_STRING_DATA *propdata = zalloc(typeof(*propdata), 1);
+    PROPERTY_STRING_DATA *propdata = OPENSSL_zalloc(sizeof(*propdata));
 
     if (propdata == NULL)
         return NULL;
@@ -125,7 +125,7 @@ static PROPERTY_STRING *new_property_string(const char *s,
                                             OSSL_PROPERTY_IDX *pidx)
 {
     const size_t l = strlen(s);
-    PROPERTY_STRING *ps = zalloc_flex(PROPERTY_STRING, body, l + 1);
+    PROPERTY_STRING *ps = OPENSSL_malloc(sizeof(*ps) + l);
 
     if (ps != NULL) {
         memcpy(ps->body, s, l + 1);

@@ -10,7 +10,6 @@
 #include <openssl/dsa.h>
 #include "internal/refcount.h"
 #include "internal/ffc.h"
-#include <stdfil.h>
 
 struct dsa_st {
     /*
