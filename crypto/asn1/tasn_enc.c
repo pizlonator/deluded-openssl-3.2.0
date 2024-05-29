@@ -91,8 +91,15 @@ int ASN1_item_ex_i2d(const ASN1_VALUE **pval, unsigned char **out,
         return 0;
 
     if (aux != NULL) {
-        asn1_cb = ((aux->flags & ASN1_AFLG_CONST_CB) != 0) ? aux->asn1_const_cb
-            : (ASN1_aux_const_cb *)aux->asn1_cb; /* backward compatibility */
+        switch (it->itype) {
+        case ASN1_ITYPE_CHOICE:
+        case ASN1_ITYPE_SEQUENCE:
+            asn1_cb = ((aux->flags & ASN1_AFLG_CONST_CB) != 0) ? aux->asn1_const_cb
+                : (ASN1_aux_const_cb *)aux->asn1_cb; /* backward compatibility */
+            break;
+        default:
+            break;
+        }
     }
 
     switch (it->itype) {
