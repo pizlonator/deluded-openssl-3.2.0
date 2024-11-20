@@ -159,13 +159,6 @@ ASN1_VALUE *ASN1_item_d2i(ASN1_VALUE **pval,
  * tag mismatch return -1 to handle OPTIONAL
  */
 
-static ASN1_aux_cb *get_asn1_cb(const ASN1_AUX *aux)
-{
-    if (aux && aux->asn1_cb)
-        return aux->asn1_cb;
-    return 0;
-}
-
 static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
                                long len, const ASN1_ITEM *it,
                                int tag, int aclass, char opt, ASN1_TLC *ctx,
@@ -175,6 +168,7 @@ static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
     const ASN1_TEMPLATE *tt, *errtt = NULL;
     const ASN1_EXTERN_FUNCS *ef;
     const ASN1_AUX *aux;
+    ASN1_aux_cb *asn1_cb;
     const unsigned char *p = NULL, *q;
     unsigned char oclass;
     char seq_eoc, seq_nolen, cst, isopt;
@@ -193,6 +187,10 @@ static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
         return 0;
     }
     aux = it->funcs;
+    if (aux && aux->asn1_cb)
+        asn1_cb = aux->asn1_cb;
+    else
+        asn1_cb = 0;
 
     if (++depth > ASN1_MAX_CONSTRUCTED_NEST) {
         ERR_raise(ERR_LIB_ASN1, ASN1_R_NESTED_TOO_DEEP);
@@ -275,7 +273,7 @@ static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
             goto err;
         }
 
-        if (get_asn1_cb(aux) && !get_asn1_cb(aux)(ASN1_OP_D2I_PRE, pval, it, NULL))
+        if (asn1_cb && !asn1_cb(ASN1_OP_D2I_PRE, pval, it, NULL))
             goto auxerr;
         if (*pval) {
             /* Free up and zero CHOICE value if initialised */
@@ -329,7 +327,7 @@ static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
 
         ossl_asn1_set_choice_selector(pval, i, it);
 
-        if (get_asn1_cb(aux) && !get_asn1_cb(aux)(ASN1_OP_D2I_POST, pval, it, NULL))
+        if (asn1_cb && !asn1_cb(ASN1_OP_D2I_POST, pval, it, NULL))
             goto auxerr;
         *in = p;
         return 1;
@@ -370,7 +368,7 @@ static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
             goto err;
         }
 
-        if (get_asn1_cb(aux) && !get_asn1_cb(aux)(ASN1_OP_D2I_PRE, pval, it, NULL))
+        if (asn1_cb && !asn1_cb(ASN1_OP_D2I_PRE, pval, it, NULL))
             goto auxerr;
 
         /* Free up and zero any ADB found */
@@ -471,7 +469,7 @@ static int asn1_item_embed_d2i(ASN1_VALUE **pval, const unsigned char **in,
         /* Save encoding */
         if (!ossl_asn1_enc_save(pval, *in, p - *in, it))
             goto auxerr;
-        if (get_asn1_cb(aux) && !get_asn1_cb(aux)(ASN1_OP_D2I_POST, pval, it, NULL))
+        if (asn1_cb && !asn1_cb(ASN1_OP_D2I_POST, pval, it, NULL))
             goto auxerr;
         *in = p;
         return 1;

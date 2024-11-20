@@ -57,21 +57,19 @@ int ASN1_item_ex_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
     return asn1_item_embed_new(pval, it, 0, NULL, NULL);
 }
 
-static ASN1_aux_cb *get_asn1_cb(const ASN1_AUX *aux)
-{
-    if (aux && aux->asn1_cb)
-        return aux->asn1_cb;
-    return 0;
-}
-
 int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
                         OSSL_LIB_CTX *libctx, const char *propq)
 {
     const ASN1_TEMPLATE *tt = NULL;
     const ASN1_EXTERN_FUNCS *ef;
     const ASN1_AUX *aux = it->funcs;
+    ASN1_aux_cb *asn1_cb;
     ASN1_VALUE **pseqval;
     int i;
+    if (aux && aux->asn1_cb)
+        asn1_cb = aux->asn1_cb;
+    else
+        asn1_cb = 0;
 
     switch (it->itype) {
 
@@ -102,8 +100,8 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
         break;
 
     case ASN1_ITYPE_CHOICE:
-        if (get_asn1_cb(aux)) {
-            i = get_asn1_cb(aux)(ASN1_OP_NEW_PRE, pval, it, NULL);
+        if (asn1_cb) {
+            i = asn1_cb(ASN1_OP_NEW_PRE, pval, it, NULL);
             if (!i)
                 goto auxerr;
             if (i == 2) {
@@ -118,14 +116,14 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
                 return 0;
         }
         ossl_asn1_set_choice_selector(pval, -1, it);
-        if (get_asn1_cb(aux) && !get_asn1_cb(aux)(ASN1_OP_NEW_POST, pval, it, NULL))
+        if (asn1_cb && !asn1_cb(ASN1_OP_NEW_POST, pval, it, NULL))
             goto auxerr2;
         break;
 
     case ASN1_ITYPE_NDEF_SEQUENCE:
     case ASN1_ITYPE_SEQUENCE:
-        if (get_asn1_cb(aux)) {
-            i = get_asn1_cb(aux)(ASN1_OP_NEW_PRE, pval, it, NULL);
+        if (asn1_cb) {
+            i = asn1_cb(ASN1_OP_NEW_PRE, pval, it, NULL);
             if (!i)
                 goto auxerr;
             if (i == 2) {
@@ -153,7 +151,7 @@ int asn1_item_embed_new(ASN1_VALUE **pval, const ASN1_ITEM *it, int embed,
             if (!asn1_template_new(pseqval, tt, libctx, propq))
                 goto asn1err2;
         }
-        if (get_asn1_cb(aux) && !get_asn1_cb(aux)(ASN1_OP_NEW_POST, pval, it, NULL))
+        if (asn1_cb && !asn1_cb(ASN1_OP_NEW_POST, pval, it, NULL))
             goto auxerr2;
         break;
     }
