@@ -272,7 +272,7 @@ ${currversion_s}{
     global:
 _____
         }
-        print '        pizlonated_', $_->name(), ";\n";
+        print '        ', $_->name(), ";\n";
     }
 
     print <<"_____";
